@@ -212,10 +212,10 @@ export default function HeroSection({ content }: HeroSectionProps) {
             { label: "Years Building", value: "3+" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="font-display text-display-md text-ink-50 mb-1">
+              <div className="font-display text-3xl md:text-4xl font-extrabold text-ink-50 mb-1 tracking-tight">
                 {stat.value}
               </div>
-              <div className="text-label text-ink-500 uppercase tracking-widest">
+              <div className="text-label text-ink-400 uppercase tracking-widest font-semibold">
                 {stat.label}
               </div>
             </div>

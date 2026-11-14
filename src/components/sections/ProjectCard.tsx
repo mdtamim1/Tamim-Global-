@@ -62,20 +62,32 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
           ) : null}
-          {/* Gradient placeholder (always visible, hidden behind real image) */}
+          {/* Luxury placeholder (visible when image is loading or absent) */}
           <div
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex flex-col items-center justify-center p-8 overflow-hidden select-none"
             style={{
-              background: `linear-gradient(135deg, hsl(${260 + index * 30}, 50%, 8%) 0%, hsl(${260 + index * 30}, 60%, 15%) 100%)`,
+              background: `radial-gradient(circle at 50% 40%, rgba(124, 58, 237, 0.18) 0%, rgba(10, 10, 15, 0.95) 75%), linear-gradient(135deg, hsl(${260 + index * 25}, 35%, 10%) 0%, #050507 100%)`,
             }}
             aria-hidden
           >
-            <div className="text-center px-8">
-              <div className="font-display text-display-lg text-violet-300/30 font-bold leading-none" aria-hidden>
+            {/* Tech grid dots */}
+            <div
+              className="absolute inset-0 opacity-[0.08] pointer-events-none"
+              style={{
+                backgroundImage: "radial-gradient(circle, #A78BFA 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+
+            {/* Glowing Monogram watermark */}
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="font-display font-extrabold text-5xl md:text-6xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-violet-200 to-violet-500/30 drop-shadow-md">
                 {project.title.split(" ").map(w => w[0]).join("").slice(0, 3)}
               </div>
+              <div className="mt-3 text-label text-violet-400/90 tracking-widest uppercase">
+                {project.category}
+              </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-radial from-violet-500/10 via-transparent to-transparent" />
           </div>
 
           {/* Hover overlay */}

@@ -72,9 +72,19 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
-        {/* Clash Display via Fontshare — loaded in globals.css */}
+        {/* Fonts: Clash Display + Syne + Plus Jakarta Sans */}
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="dns-prefetch" href="https://api.fontshare.com" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+          rel="stylesheet"
+        />
         {/* Favicon variants */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
