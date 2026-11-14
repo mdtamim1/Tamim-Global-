@@ -1,0 +1,12 @@
+# ============================================================
+# Tamim Global — robots.txt
+# Allow all crawlers; keep /admin private.
+# ============================================================
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# XML Sitemap
+Sitemap: https://tamimglobal.com/sitemap.xml
+

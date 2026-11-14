@@ -1,0 +1,264 @@
+/* ============================================================
+   Tamim Global — Global Styles
+   Design tokens as CSS custom properties.
+   These mirror tailwind.config.ts for use in arbitrary CSS.
+   ============================================================ */
+
+/* --- Clash Display font (via Fontshare CDN) --- */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+
+@import "tailwindcss";
+
+/* ---- CSS Design Tokens ---- */
+:root {
+  /* Surfaces */
+  --color-base-950: #020204;
+  --color-base-900: #050507;
+  --color-base-800: #0A0A0F;
+  --color-base-700: #0F0F18;
+  --color-base-600: #14141F;
+
+  /* Text */
+  --color-ink-50:  #F8F8FC;
+  --color-ink-100: #EDEDF5;
+  --color-ink-400: #9494A8;
+  --color-ink-500: #7474A0;
+
+  /* Accent — Electric Violet */
+  --color-violet-500: #7C3AED;
+  --color-violet-400: #9D61F5;
+  --color-violet-300: #BFA3FA;
+
+  /* Glass */
+  --color-glass:        rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-top:    rgba(255, 255, 255, 0.14);
+
+  /* Easing */
+  --ease-expo-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-expo-in:   cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-expo-inout:cubic-bezier(0.87, 0, 0.13, 1);
+
+  /* Duration */
+  --duration-fast: 300ms;
+  --duration-base: 600ms;
+  --duration-slow: 900ms;
+
+  /* Typography */
+  --font-display: var(--font-clash), system-ui, sans-serif;
+  --font-sans:    var(--font-inter), system-ui, sans-serif;
+}
+
+/* ---- Base Reset & Defaults ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-base-900);
+  color: var(--color-ink-50);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  overflow-x: hidden;
+  /* Subtle noise texture for depth */
+  background-image: url('/textures/noise.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background-color: rgba(124, 58, 237, 0.3);
+  color: #F8F8FC;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-base-900); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-violet-500);
+  border-radius: 2px;
+}
+
+/* ---- Focus styles (accessible) ---- */
+:focus-visible {
+  outline: 2px solid var(--color-violet-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Glass surface utility ---- */
+.glass {
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 2px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--color-glass-top);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ---- Gradient text ---- */
+.text-gradient {
+  background: linear-gradient(135deg, #F8F8FC 0%, var(--color-violet-300) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Violet gradient background (for TG badge) ---- */
+.bg-gradient-violet {
+  background: linear-gradient(135deg, var(--color-violet-500) 0%, var(--color-violet-400) 100%);
+}
+
+/* ---- Violet glow ---- */
+.glow-violet {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.25);
+}
+
+.glow-sm {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+}
+
+/* ---- Clip path for text reveals ---- */
+.clip-reveal {
+  overflow: hidden;
+}
+
+/* ---- Custom cursor: hide default on desktop ---- */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Lenis smooth scroll ---- */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* ---- Skip to content (accessibility) ---- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--color-violet-500);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---- Shadow glow utility (violet) ---- */
+.shadow-glow-violet {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.35);
+}
+
+/* ---- Line clamp utilities ---- */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Mobile: prevent horizontal scroll bleed ---- */
+main { overflow-x: hidden; }
+
+/* ---- Smooth image loading ---- */
+img {
+  display: block;
+  max-width: 100%;
+}
+img[loading="lazy"] {
+  content-visibility: auto;
+}
+
+/* ---- Admin panel: prevent public site cursor override ---- */
+.admin-cursor-restore,
+.admin-cursor-restore * {
+  cursor: auto !important;
+}
+
+/* ---- Animated gradient border (for featured items) ---- */
+@keyframes borderRotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.border-animated {
+  position: relative;
+}
+.border-animated::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #7C3AED, #BFA3FA, #7C3AED);
+  background-size: 200% 200%;
+  animation: borderRotate 4s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.border-animated:hover::before {
+  opacity: 1;
+}
+
+/* ---- Mobile refinements ---- */
+@media (max-width: 768px) {
+  /* Tighter section spacing on mobile */
+  section { padding-top: clamp(4rem, 10vw, 5rem); padding-bottom: clamp(4rem, 10vw, 5rem); }
+
+  /* Prevent text overflow on tiny screens */
+  h1, h2, h3 { word-break: break-word; }
+
+  /* Touch-friendly tap targets */
+  a, button { min-height: 44px; }
+
+  /* Mobile marquee: slightly slower for readability */
+  .marquee-row { animation-duration: 40s; }
+}
+
+/* ---- Tap highlight removal on mobile ---- */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* ---- Print styles ---- */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: black; }
+}

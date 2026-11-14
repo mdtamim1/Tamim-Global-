@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "siteTitle": "Tamim Global — Premium Web Design & Development",
+    "siteDescription": "Full-stack web designer and developer from Dhaka, Bangladesh. Building high-converting marketing sites, SaaS platforms, and e-commerce systems for clients worldwide.",
+    "ogImage": "/og-image.png"
+  },
+  "hero": {
+    "headline": "I build digital products that convert.",
+    "subheadline": "Full-stack design & development — from pixel-perfect marketing sites to scalable SaaS platforms.",
+    "ctaPrimary": "View Work",
+    "ctaSecondary": "Start a Project"
+  },
+  "about": {
+    "headline": "Precision-crafted, beautifully engineered.",
+    "bio": "I'm Tamim — a full-stack web designer and developer based in Dhaka, Bangladesh. Since 2023 I've been building digital products that balance aesthetic precision with engineering depth. I work with founders, brands, and agencies worldwide who refuse to settle for average.",
+    "portrait": "/images/tamim-portrait.jpg",
+    "stats": [
+      { "label": "Years Building", "value": "3+" },
+      { "label": "Projects Shipped", "value": "20+" },
+      { "label": "Countries Served", "value": "5+" },
+      { "label": "Client Satisfaction", "value": "100%" }
+    ]
+  },
+  "services": [
+    {
+      "id": "marketing-sites",
+      "title": "Marketing Sites",
+      "description": "High-converting landing pages and marketing sites engineered to generate leads, build trust, and drive revenue from day one.",
+      "icon": "Globe"
+    },
+    {
+      "id": "saas-platforms",
+      "title": "SaaS Platforms",
+      "description": "Multi-vendor SaaS architectures built for scale — from auth and billing to real-time dashboards and admin systems.",
+      "icon": "Layers"
+    },
+    {
+      "id": "ecommerce",
+      "title": "E-commerce Systems",
+      "description": "Real-time e-commerce platforms with local payment gateways — bKash, Nagad, SSLCommerz — optimised for conversion.",
+      "icon": "ShoppingBag"
+    },
+    {
+      "id": "ai-integrations",
+      "title": "AI Integrations",
+      "description": "Embedding AI into your product — chatbots, content generation, smart recommendations, and automation workflows.",
+      "icon": "Sparkles"
+    },
+    {
+      "id": "payment-gateways",
+      "title": "Payment Gateways",
+      "description": "Seamless integration of local and global payment systems — bKash, Nagad, SSLCommerz, Stripe, and more.",
+      "icon": "CreditCard"
+    },
+    {
+      "id": "full-stack-architecture",
+      "title": "Full-Stack Architecture",
+      "description": "End-to-end system design — database schema, API architecture, caching strategies, and deployment pipelines.",
+      "icon": "Server"
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "title": "Discover",
+      "description": "Deep-dive into your goals, users, and competitive landscape. No assumptions — only clarity."
+    },
+    {
+      "step": 2,
+      "title": "Design",
+      "description": "High-fidelity UI design with real copy and motion intent. You see exactly what gets built."
+    },
+    {
+      "step": 3,
+      "title": "Build",
+      "description": "Clean, documented, production-grade code. Shipped in focused sprints with continuous progress updates."
+    },
+    {
+      "step": 4,
+      "title": "Launch",
+      "description": "Performance-tuned, SEO-optimised, and deployed. Smooth handover with documentation."
+    },
+    {
+      "step": 5,
+      "title": "Support",
+      "description": "Post-launch care, monitoring, and iteration. Your product keeps getting better."
+    }
+  ],
+  "stack": [
+    { "name": "Next.js", "category": "Framework" },
+    { "name": "React", "category": "Framework" },
+    { "name": "TypeScript", "category": "Language" },
+    { "name": "Node.js", "category": "Runtime" },
+    { "name": "Tailwind CSS", "category": "Styling" },
+    { "name": "Framer Motion", "category": "Animation" },
+    { "name": "Three.js", "category": "3D" },
+    { "name": "PostgreSQL", "category": "Database" },
+    { "name": "MongoDB", "category": "Database" },
+    { "name": "Prisma", "category": "ORM" },
+    { "name": "Redis", "category": "Cache" },
+    { "name": "Docker", "category": "DevOps" },
+    { "name": "Vercel", "category": "Deployment" },
+    { "name": "Stripe", "category": "Payments" },
+    { "name": "SSLCommerz", "category": "Payments" },
+    { "name": "bKash API", "category": "Payments" },
+    { "name": "Figma", "category": "Design" },
+    { "name": "Git", "category": "Tools" }
+  ],
+  "testimonials": [],
+  "contact": {
+    "headline": "Let's build something remarkable.",
+    "subtext": "Have a project in mind? Let's talk. I typically respond within 24 hours.",
+    "email": "hello@tamimglobal.com",
+    "whatsapp": "+880 1XXXXXXXXX",
+    "socials": [
+      { "platform": "GitHub", "url": "https://github.com/tamimglobal" },
+      { "platform": "LinkedIn", "url": "https://linkedin.com/in/tamimglobal" },
+      { "platform": "Twitter", "url": "https://twitter.com/tamimglobal" }
+    ]
+  },
+  "projects": [
+    {
+      "id": "tatka-bazar",
+      "title": "Tatka Bazar",
+      "category": "E-commerce Platform",
+      "tags": ["Next.js", "Node.js", "MongoDB", "SSLCommerz", "bKash"],
+      "cover": "/images/projects/tatka-bazar.jpg",
+      "summary": "A real-time multi-vendor e-commerce platform for the Bangladeshi market, integrated with local payment gateways and a live order tracking system.",
+      "caseStudy": {
+        "problem": "Local vendors needed a reliable digital storefront with payment methods Bangladeshi customers actually use — bKash, Nagad, and SSLCommerz — but existing platforms were either too expensive or poorly built.",
+        "approach": "Designed a multi-vendor architecture with separate seller dashboards, real-time inventory management, and a streamlined checkout flow optimised for mobile-first Bangladeshi users.",
+        "solution": "Built a full-stack platform with Next.js and Node.js, integrated three local payment gateways, implemented real-time order tracking via WebSockets, and deployed to a scalable infrastructure.",
+        "outcome": "Launched with 15 vendors in Week 1. Payment success rate of 97%. Mobile conversion 3× above industry average for the region."
+      },
+      "liveUrl": "https://example.com",
+      "liveEnabled": false,
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "saas-dashboard",
+      "title": "CloudMetrics SaaS",
+      "category": "SaaS Platform",
+      "tags": ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Stripe"],
+      "cover": "/images/projects/saas-dashboard.jpg",
+      "summary": "A multi-tenant SaaS analytics dashboard with real-time data visualisation, team management, and usage-based billing via Stripe.",
+      "caseStudy": {
+        "problem": "The client needed a scalable SaaS platform that could handle multiple organisations with isolated data, role-based access, and billing that grew with usage.",
+        "approach": "Designed a clean multi-tenant data model using PostgreSQL row-level security, built a component library from scratch, and integrated Stripe Billing with usage metering.",
+        "solution": "Full-stack SaaS with Next.js App Router, Prisma ORM, role-based access control, real-time charts with Recharts, and an onboarding flow that gets users to their first insight in under 2 minutes.",
+        "outcome": "Zero-to-launch in 8 weeks. First 50 paying customers within 30 days of launch. Churn rate under 5% in the first quarter."
+      },
+      "liveUrl": "https://example.com",
+      "liveEnabled": false,
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "agency-marketing-site",
+      "title": "Apex Creative Agency",
+      "category": "Marketing Site",
+      "tags": ["Next.js", "Framer Motion", "Three.js", "GSAP"],
+      "cover": "/images/projects/agency-site.jpg",
+      "summary": "An award-worthy marketing site for a creative agency, built with cinematic scroll animations, a 3D hero scene, and sub-second load times.",
+      "caseStudy": {
+        "problem": "The agency's old site looked like a template and failed to communicate the premium quality of their work. Bounce rate was above 70%.",
+        "approach": "Full design and development overhaul. Started with a visual direction workshop, then designed a site that felt like an Awwwards winner — with purpose-driven animation and performance as a first-class constraint.",
+        "solution": "Next.js with Three.js hero, GSAP ScrollTrigger reveals, Framer Motion micro-interactions, and a Lighthouse score above 90.",
+        "outcome": "Bounce rate dropped to 32%. Average session time increased by 4×. Inbound enquiry volume up 180% in the first month."
+      },
+      "liveUrl": "https://example.com",
+      "liveEnabled": false,
+      "featured": true,
+      "order": 3
+    }
+  ]
+}
+
