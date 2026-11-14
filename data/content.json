@@ -2,7 +2,7 @@
   "meta": {
     "siteTitle": "Tamim Global — Premium Web Design & Development",
     "siteDescription": "Full-stack web designer and developer from Dhaka, Bangladesh. Building high-converting marketing sites, SaaS platforms, and e-commerce systems for clients worldwide.",
-    "ogImage": "/og-image.png"
+    "ogImage": "/images/tg-mark.jpg"
   },
   "hero": {
     "headline": "Designing & Engineering Digital Systems That Dominate.",
@@ -13,7 +13,7 @@
   "about": {
     "headline": "Precision-crafted, beautifully engineered.",
     "bio": "I'm Tamim — a full-stack web designer and developer based in Dhaka, Bangladesh. Since 2023 I've been building digital products that balance aesthetic precision with engineering depth. I work with founders, brands, and agencies worldwide who refuse to settle for average.",
-    "portrait": "/images/tamim-portrait.jpg",
+    "portrait": "/images/tg-mark.jpg",
     "stats": [
       { "label": "Years Building", "value": "3+" },
       { "label": "Projects Shipped", "value": "20+" },

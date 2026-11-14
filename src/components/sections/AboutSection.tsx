@@ -5,6 +5,7 @@
 // Clean liquid glass studio founder profile matching awmedia
 // ============================================================
 
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import type { AboutContent } from "@/types";
 
@@ -26,11 +27,18 @@ export default function AboutSection({ content }: AboutSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Portrait & Quick Info */}
           <div className="lg:col-span-5 flex flex-col items-center text-center lg:text-left">
-            <div className="w-40 h-40 md:w-48 md:h-48 rounded-full p-1 bg-gradient-to-tr from-white/30 via-white/10 to-transparent border border-white/20 mb-6 relative">
-              <div className="w-full h-full rounded-full bg-neutral-900 overflow-hidden flex items-center justify-center font-bold text-4xl text-white/40">
-                TG
+            <div className="w-40 h-40 md:w-48 md:h-48 rounded-full p-1 bg-gradient-to-tr from-white/30 via-white/10 to-transparent border border-white/20 mb-6 relative shadow-[0_0_35px_rgba(255,255,255,0.15)]">
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-black">
+                <Image
+                  src="/images/tg-mark.jpg"
+                  alt="Md Tamim — Tamim Global"
+                  fill
+                  sizes="(max-width: 768px) 160px, 192px"
+                  className="object-cover"
+                  priority
+                />
               </div>
-              <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-2 border-black" />
+              <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-2 border-black shadow-[0_0_10px_#10b981]" />
             </div>
 
             <h3 className="text-2xl font-bold text-white mb-1">Md Tamim</h3>

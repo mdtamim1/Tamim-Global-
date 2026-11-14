@@ -69,8 +69,9 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {/* Favicon & App Icons */}
+        <link rel="icon" href="/images/tg-mark.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/images/tg-mark.jpg" />
       </head>
       <body className="bg-black text-[#f5f5f7] antialiased overflow-x-hidden">
         {/* Skip to content link */}

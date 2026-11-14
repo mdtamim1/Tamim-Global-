@@ -6,6 +6,7 @@
 // ============================================================
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
@@ -25,6 +26,25 @@ export default function HeroSection({ content }: HeroSectionProps) {
       <div className="aw-glow" />
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+        {/* Hero Brand Crest / Monogram Emblem */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85, y: -10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8"
+        >
+          <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-3xl p-1 bg-gradient-to-b from-white/30 via-white/10 to-transparent border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(255,255,255,0.15)] flex items-center justify-center backdrop-blur-xl group hover:scale-105 transition-transform duration-500">
+            <Image
+              src="/images/tg-mark.jpg"
+              alt="Tamim Global Titanium Monogram"
+              width={104}
+              height={104}
+              className="rounded-2xl object-cover"
+              priority
+            />
+          </div>
+        </motion.div>
+
         {/* Eyebrow Glass Chip */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

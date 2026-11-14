@@ -7,6 +7,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -55,8 +56,15 @@ export default function Navbar() {
             className="flex items-center gap-2.5 group"
             aria-label="Tamim Global Home"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-white/30 to-white/10 border border-white/20 flex items-center justify-center font-bold text-xs tracking-tighter text-white transition-transform group-hover:scale-105">
-              TG
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-transform group-hover:scale-105">
+              <Image
+                src="/images/tg-mark.jpg"
+                alt="Tamim Global Mark"
+                fill
+                sizes="32px"
+                className="object-cover"
+                priority
+              />
             </div>
             <span className="font-semibold text-sm md:text-base tracking-tight text-white group-hover:text-white/80 transition-colors">
               Tamim Global

@@ -4,6 +4,7 @@
 // ============================================================
 
 import Link from "next/link";
+import Image from "next/image";
 import CopyrightYear from "@/components/ui/CopyrightYear";
 
 const WORK_LINKS = [
@@ -37,9 +38,15 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand Info */}
           <div className="col-span-2 lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-xs text-white">
-                TG
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                <Image
+                  src="/images/tg-mark.jpg"
+                  alt="Tamim Global Mark"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
               </div>
               <span className="font-bold text-lg text-white tracking-tight">
                 Tamim Global
