@@ -1,26 +1,17 @@
 // ============================================================
 // Tamim Global — Root Layout
-// Font loading, metadata, providers, Lenis wrapper
+// Matching awmedia.marketing's high-performance layout,
+// typography, smooth scroll, and floating contact bar.
 // ============================================================
 
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { getContent } from "@/lib/content";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingContactBar from "@/components/ui/FloatingContactBar";
 import "./globals.css";
-
-// Inter — body font via next/font (zero layout shift)
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-// Clash Display is loaded via CSS @import from Fontshare CDN
-// We set the CSS variable in globals.css: var(--font-clash)
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getContent();
@@ -29,13 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL("https://tamimglobal.com"),
     title: {
-      default: meta.siteTitle,
+      default: "Tamim Global | Premium Web Design & Software Studio",
       template: `%s — Tamim Global`,
     },
-    description: meta.siteDescription,
+    description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
     openGraph: {
-      title: meta.siteTitle,
-      description: meta.siteDescription,
+      title: "Tamim Global | Premium Web Design & Software Studio",
+      description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
       url: "https://tamimglobal.com",
       siteName: "Tamim Global",
       images: [{ url: meta.ogImage, width: 1200, height: 630 }],
@@ -44,8 +35,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: meta.siteTitle,
-      description: meta.siteDescription,
+      title: "Tamim Global | Premium Web Design & Software Studio",
+      description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed.",
       images: [meta.ogImage],
     },
     robots: {
@@ -53,12 +44,11 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: true,
       googleBot: { index: true, follow: true },
     },
-    // JSON-LD structured data added in page components
   };
 }
 
 export const viewport: Viewport = {
-  themeColor: "#050507",
+  themeColor: "#000000",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -70,37 +60,36 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className="dark antialiased" suppressHydrationWarning>
       <head>
-        {/* Fonts: Clash Display + Syne + Plus Jakarta Sans */}
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link rel="dns-prefetch" href="https://api.fontshare.com" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap"
-        />
+        {/* Rethink Sans & JetBrains Mono Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Favicon variants */}
+        {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="bg-base-900 text-ink-50 font-sans antialiased overflow-x-hidden">
-        {/* Skip-to-content for keyboard / screen-reader users */}
-        <a href="#main-content" className="skip-link">
+      <body className="bg-black text-[#f5f5f7] antialiased overflow-x-hidden">
+        {/* Skip to content link */}
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg">
           Skip to main content
         </a>
         <SmoothScrollProvider>
-          {/* Custom cursor — hidden on touch devices via CSS */}
+          {/* Custom Cursor */}
           <CustomCursor />
+          {/* Floating Island Navigation */}
           <Navbar />
+          {/* Main Viewport */}
           <main id="main-content" tabIndex={-1}>
             {children}
           </main>
+          {/* Studio Footer */}
           <Footer />
+          {/* Floating Quick Action Bar (Bottom-Left) */}
+          <FloatingContactBar />
         </SmoothScrollProvider>
       </body>
     </html>

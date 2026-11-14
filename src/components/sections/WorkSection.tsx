@@ -1,13 +1,11 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Work / Selected Systems Section
-// Cinematic masonry showcase of production digital systems.
+// Tamim Global — Work Section (#work)
+// Exact match to awmedia.marketing's case studies showcase
 // ============================================================
 
-import { useRef } from "react";
-import { motion } from "framer-motion";
-import { staggerContainer, fadeUp } from "@/lib/animations";
+import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import type { Project } from "@/types";
 
@@ -15,67 +13,52 @@ interface WorkSectionProps {
   projects: Project[];
 }
 
+const CATEGORIES = ["All", "E-Commerce", "SaaS Platform", "Marketing Site"];
+
 export default function WorkSection({ projects }: WorkSectionProps) {
-  const ref = useRef<HTMLElement>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredProjects = activeCategory === "All"
+    ? projects
+    : projects.filter((p) => p.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   return (
-    <section
-      id="work"
-      ref={ref}
-      className="relative py-32 lg:py-44 overflow-hidden"
-    >
-      {/* Laser divider line */}
-      <div
-        aria-hidden
-        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent"
-      />
-
-      {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-600/8 blur-[160px] pointer-events-none" aria-hidden />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="mb-16 lg:mb-24"
-          variants={staggerContainer(0, 0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-        >
-          <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
-            <span className="font-mono text-xs text-violet-400 uppercase tracking-widest px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20">
-              [ 01 // PRODUCTION ARCHITECTURE ]
-            </span>
-          </motion.div>
-
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-            <motion.h2
-              variants={fadeUp}
-              className="font-display text-display-xl text-white max-w-2xl leading-none"
-            >
-              Systems that{" "}
-              <span className="text-gradient">dominate &amp; scale.</span>
-            </motion.h2>
-
-            <motion.p
-              variants={fadeUp}
-              className="text-body-md text-ink-400 max-w-md md:text-right font-sans"
-            >
-              High-converting marketing flagships, multi-tenant SaaS dashboards, and robust e-commerce platforms engineered without compromise.
-            </motion.p>
-          </div>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-            />
-          ))}
+    <section id="work" className="py-28 wrap">
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div className="eyebrow">Selected Work</div>
+          <h2 className="display text-white">
+            From idea to live. <span className="chrome">Sites that ship.</span>
+          </h2>
         </div>
+        <p className="text-white/60 text-sm md:text-base max-w-md leading-relaxed">
+          Real products, real business outcomes. Each project is engineered to perform, convert, and built to last.
+        </p>
+      </div>
+
+      {/* Category Filter Pills */}
+      <div className="flex flex-wrap items-center gap-2 mb-12">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`text-xs md:text-sm px-4 py-2 rounded-full border transition-all ${
+              activeCategory === cat
+                ? "bg-white text-black font-semibold border-white shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                : "bg-white/5 text-white/70 border-white/10 hover:border-white/20"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Projects Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {filteredProjects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
       </div>
     </section>
   );
