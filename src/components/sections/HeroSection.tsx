@@ -1,26 +1,26 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Hero Section
-// Bold headline + 3D scene + magnetic CTAs + scroll indicator.
+// Tamim Global — Ultra-Futuristic Luxury Hero Section
+// High-tech 3D cosmos, commanding typography, shimmer CTAs,
+// and floating HUD Telemetry Console Dock.
 // ============================================================
 
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowRight, ExternalLink, Activity } from "lucide-react";
 import { staggerContainer, textReveal } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import type { HeroContent } from "@/types";
 
-// Lazy-load Three.js scene — keeps initial bundle small
 const HeroScene = lazy(() => import("@/components/3d/HeroScene"));
 
 interface HeroSectionProps {
   content: HeroContent;
 }
 
-// Magnetic button wrapper
-function MagneticButton({
+// Magnetic interactive button
+function MagneticCTA({
   children,
   className,
   href,
@@ -37,8 +37,8 @@ function MagneticButton({
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
-    const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
     el.style.transform = `translate(${x}px, ${y}px)`;
   };
 
@@ -46,16 +46,18 @@ function MagneticButton({
     if (ref.current) ref.current.style.transform = "translate(0px, 0px)";
   };
 
-  const props = {
-    ref,
-    href,
-    className: cn("inline-flex items-center gap-2 transition-transform duration-300 ease-expo-out", className),
-    onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave,
-    ...(external ? { target: "_blank", rel: "noopener noreferrer" } : {}),
-  };
-
-  return <a {...props}>{children}</a>;
+  return (
+    <a
+      ref={ref}
+      href={href}
+      className={cn("transition-transform duration-300 ease-expo-out", className)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      {children}
+    </a>
+  );
 }
 
 export default function HeroSection({ content }: HeroSectionProps) {
@@ -72,23 +74,21 @@ export default function HeroSection({ content }: HeroSectionProps) {
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // Small delay before showing 3D scene for smooth load
-    const t = setTimeout(() => setSceneReady(true), 300);
+    const t = setTimeout(() => setSceneReady(true), 200);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       clearTimeout(t);
     };
   }, []);
 
-  // Split headline into words for stagger reveal
   const words = content.headline.split(" ");
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-20 md:pt-36 md:pb-32"
     >
-      {/* ---- 3D Background Scene ---- */}
+      {/* ---- 3D Cosmic Background Canvas ---- */}
       {sceneReady && !reducedMotion && (
         <div className="absolute inset-0 z-0" aria-hidden>
           <Suspense fallback={null}>
@@ -97,38 +97,48 @@ export default function HeroSection({ content }: HeroSectionProps) {
         </div>
       )}
 
-      {/* ---- Radial ambient glows ---- */}
+      {/* ---- Futuristic Cyber Perspective Grid Floor ---- */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 cyber-grid-floor" aria-hidden />
+
+      {/* ---- Ambient Deep Space Nebular Glows ---- */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-violet-500/8 blur-[120px]" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-violet-700/6 blur-[100px]" />
-        {/* Noise overlay for depth */}
-        <div className="absolute inset-0 opacity-[0.03] bg-noise bg-repeat" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[550px] rounded-full bg-violet-600/12 blur-[140px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] rounded-full bg-cyan-500/10 blur-[130px]" />
       </div>
 
-      {/* ---- Hero Content ---- */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24 flex flex-col items-center text-center">
+      {/* ---- Main Hero Content ---- */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col items-center text-center">
 
-        {/* Badge */}
+        {/* Futuristic Status Pill */}
         <motion.div
           className="mb-8"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-glass-border text-label text-violet-400 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse-slow" />
-            Available for new projects
-          </span>
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-[0_0_20px_rgba(124,58,237,0.2)]">
+            <span className="radar-beacon">
+              <span />
+              <span />
+            </span>
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-300">
+              [ SYSTEM // ACTIVE ]
+            </span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="text-xs font-mono text-ink-400">
+              AVAILABLE FOR PRODUCTION
+            </span>
+          </div>
         </motion.div>
 
-        {/* Headline — word by word stagger (skipped on reduced-motion) */}
+        {/* Monumental Hero Headline */}
         <h1
-          className="font-display text-display-2xl text-ink-50 mb-6 max-w-5xl"
+          className="font-display text-display-2xl text-white mb-8 max-w-5xl tracking-tight leading-none drop-shadow-sm"
           aria-label={content.headline}
         >
           <motion.span
-            className="flex flex-wrap justify-center gap-x-[0.3em] gap-y-1"
-            variants={reducedMotion ? undefined : staggerContainer(0.3, 0.1)}
+            className="flex flex-wrap justify-center gap-x-[0.28em] gap-y-1"
+            variants={reducedMotion ? undefined : staggerContainer(0.2, 0.08)}
             initial={reducedMotion ? undefined : "hidden"}
             animate={reducedMotion ? undefined : "visible"}
           >
@@ -138,9 +148,10 @@ export default function HeroSection({ content }: HeroSectionProps) {
                   className="inline-block"
                   variants={reducedMotion ? undefined : textReveal}
                 >
-                  {/* Accent the last word */}
                   {i === words.length - 1 ? (
-                    <span className="text-gradient">{word}</span>
+                    <span className="text-gradient drop-shadow-[0_0_35px_rgba(124,58,237,0.5)]">
+                      {word}
+                    </span>
                   ) : (
                     word
                   )}
@@ -150,96 +161,113 @@ export default function HeroSection({ content }: HeroSectionProps) {
           </motion.span>
         </h1>
 
-        {/* Sub-copy */}
+        {/* Sub-headline with engineering precision */}
         <motion.p
-          className="text-body-lg text-ink-400 max-w-2xl mb-12 leading-relaxed"
-          initial={{ opacity: 0, y: 24 }}
+          className="text-body-lg text-ink-400 max-w-2xl mb-12 leading-relaxed font-sans"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.9 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
         >
           {content.subheadline}
         </motion.p>
 
-        {/* CTAs */}
+        {/* Futuristic CTAs */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 24 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 w-full sm:w-auto"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
         >
-          {/* Primary CTA */}
-          <MagneticButton
+          {/* Primary Shimmer Button */}
+          <MagneticCTA
             href="#work"
-            className={cn(
-              "px-8 py-4 rounded-xl",
-              "bg-violet-500 hover:bg-violet-400",
-              "text-white font-semibold text-body-md",
-              "shadow-glow-sm hover:shadow-glow-violet",
-              "hover:-translate-y-0.5",
-              "group"
-            )}
+            className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-white text-body-md font-semibold tracking-wide group"
           >
-            {content.ctaPrimary}
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </MagneticButton>
+            <span>{content.ctaPrimary}</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </MagneticCTA>
 
-          {/* Secondary CTA */}
-          <MagneticButton
+          {/* Secondary Cyber Glass Button */}
+          <MagneticCTA
             href="#contact"
-            className={cn(
-              "px-8 py-4 rounded-xl",
-              "glass border border-glass-border",
-              "text-ink-50 font-semibold text-body-md",
-              "hover:border-violet-500/40 hover:text-violet-300",
-              "group"
-            )}
+            className="btn-cyber w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-ink-100 text-body-md font-medium group"
           >
-            {content.ctaSecondary}
-            <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity duration-200" />
-          </MagneticButton>
+            <span>{content.ctaSecondary}</span>
+            <ExternalLink className="w-4 h-4 text-ink-500 group-hover:text-cyan-400 transition-colors" />
+          </MagneticCTA>
         </motion.div>
 
-        {/* Stats strip */}
+        {/* ---- Futuristic HUD Telemetry Dock ---- */}
         <motion.div
-          className="mt-20 flex flex-wrap items-center justify-center gap-8 md:gap-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1.4 }}
+          className="w-full max-w-3xl hud-dock rounded-2xl p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-left border border-white/10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 1.0 }}
         >
-          {[
-            { label: "Projects Shipped", value: "20+" },
-            { label: "Countries Served", value: "5+" },
-            { label: "Years Building", value: "3+" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-display text-3xl md:text-4xl font-extrabold text-ink-50 mb-1 tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-label text-ink-400 uppercase tracking-widest font-semibold">
-                {stat.label}
-              </div>
+          {/* Stat 1 */}
+          <div className="flex flex-col border-r border-white/5 pr-4">
+            <span className="font-mono text-[10px] text-violet-400 uppercase tracking-widest mb-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+              DEPLOYMENTS
+            </span>
+            <span className="font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight">
+              20+
+            </span>
+            <span className="text-[11px] text-ink-500 font-mono mt-0.5">Production Shipped</span>
+          </div>
+
+          {/* Stat 2 */}
+          <div className="flex flex-col md:border-r border-white/5 pr-4">
+            <span className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest mb-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              GLOBAL REACH
+            </span>
+            <span className="font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight">
+              5+
+            </span>
+            <span className="text-[11px] text-ink-500 font-mono mt-0.5">Countries Served</span>
+          </div>
+
+          {/* Stat 3 */}
+          <div className="flex flex-col border-r border-white/5 pr-4">
+            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest mb-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              EXPERIENCE
+            </span>
+            <span className="font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight">
+              3+
+            </span>
+            <span className="text-[11px] text-ink-500 font-mono mt-0.5">Years Engineering</span>
+          </div>
+
+          {/* Telemetry metadata */}
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-cyan-300 mb-1">
+              <Activity className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
+              <span>STATUS: NOMINAL</span>
             </div>
-          ))}
+            <div className="text-[11px] font-mono text-ink-400">
+              LOC: DHAKA // BD
+            </div>
+            <div className="text-[10px] font-mono text-violet-400/80 mt-0.5">
+              LATENCY &lt; 30ms
+            </div>
+          </div>
         </motion.div>
+
       </div>
 
-      {/* ---- Scroll indicator ---- */}
+      {/* ---- Minimalist Scroll Down Pill ---- */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.8 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
         aria-hidden
       >
-        <span className="text-label text-ink-500 uppercase tracking-widest">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
-        >
-          <ArrowDown className="w-4 h-4 text-ink-500" />
-        </motion.div>
+        <span className="font-mono text-[10px] uppercase tracking-widest text-ink-500">Explore Releases</span>
+        <ArrowDown className="w-3 h-3 text-violet-400 animate-bounce" />
       </motion.div>
     </section>
   );
 }
-

@@ -1,121 +1,101 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
-   Tamim Global — Global Styles & Design System
-   Awwwards-quality dark luxury tokens & typography.
+   Tamim Global — Futuristic Dark Luxury Design System
+   Awwwards Site of the Year tier aesthetic.
+   Linear / Apple Pro / Stripe Press inspired cyber-luxury.
    ============================================================ */
 
-/* ---- CSS Design Tokens (for standard CSS & Tailwind v4) ---- */
 :root {
   /* Surfaces */
   --color-base-950: #020204;
   --color-base-900: #050507;
   --color-base-800: #0A0A0F;
   --color-base-700: #0F0F18;
-  --color-base-600: #14141F;
+  --color-base-600: #141422;
 
   /* Text */
-  --color-ink-50:  #F8F8FC;
-  --color-ink-100: #EDEDF5;
-  --color-ink-400: #9494A8;
-  --color-ink-500: #7474A0;
-  --color-ink-600: #5A5A8A;
+  --color-ink-50:  #FFFFFF;
+  --color-ink-100: #F1F1F8;
+  --color-ink-400: #9D9DB5;
+  --color-ink-500: #6B6B8A;
+  --color-ink-600: #4B4B68;
 
-  /* Accent — Electric Violet */
+  /* Accent — Cosmic Violet & Cyber Cyan */
   --color-violet-500: #7C3AED;
-  --color-violet-400: #9D61F5;
-  --color-violet-300: #BFA3FA;
+  --color-violet-400: #9333EA;
+  --color-violet-300: #C084FC;
+  --color-cyan-400:   #22D3EE;
 
   /* Glass */
-  --color-glass:        rgba(255, 255, 255, 0.04);
+  --color-glass:        rgba(10, 10, 18, 0.65);
   --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-glass-top:    rgba(255, 255, 255, 0.14);
-
-  /* Easing */
-  --ease-expo-out:   cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-expo-in:    cubic-bezier(0.7, 0, 0.84, 0);
-  --ease-expo-inout: cubic-bezier(0.87, 0, 0.13, 1);
+  --color-glass-top:    rgba(255, 255, 255, 0.16);
 
   /* Typography */
-  --font-display: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans:    var(--font-inter), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Space Grotesk', monospace;
 }
 
-/* ---- Tailwind v4 Theme Configuration ---- */
 @theme {
-  --font-display: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: var(--font-inter), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Grotesk', monospace;
 
   --color-base-950: #020204;
   --color-base-900: #050507;
   --color-base-800: #0A0A0F;
   --color-base-700: #0F0F18;
-  --color-base-600: #14141F;
+  --color-base-600: #141422;
 
-  --color-ink-50:  #F8F8FC;
-  --color-ink-100: #EDEDF5;
-  --color-ink-400: #9494A8;
-  --color-ink-500: #7474A0;
-  --color-ink-600: #5A5A8A;
+  --color-ink-50:  #FFFFFF;
+  --color-ink-100: #F1F1F8;
+  --color-ink-400: #9D9DB5;
+  --color-ink-500: #6B6B8A;
+  --color-ink-600: #4B4B68;
 
-  --color-violet-900: #1E0A3C;
-  --color-violet-800: #2D1157;
-  --color-violet-700: #4A1D8A;
-  --color-violet-600: #6624C4;
   --color-violet-500: #7C3AED;
-  --color-violet-400: #9D61F5;
-  --color-violet-300: #BFA3FA;
-  --color-violet-200: #D8C8FD;
-  --color-violet-100: #EDE8FF;
-
-  --color-glass: rgba(255, 255, 255, 0.04);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-glass-top: rgba(255, 255, 255, 0.14);
-
-  --text-display-2xl: clamp(3rem, 7.5vw, 6.5rem);
-  --text-display-xl:  clamp(2.25rem, 5vw, 4.25rem);
-  --text-display-lg:  clamp(1.75rem, 3.5vw, 2.75rem);
-  --text-display-md:  clamp(1.25rem, 2.2vw, 1.85rem);
-  --text-body-lg:     clamp(1.05rem, 1.3vw, 1.2rem);
-  --text-body-md:     1rem;
-  --text-body-sm:     0.875rem;
-  --text-label:       0.75rem;
+  --color-violet-400: #9333EA;
+  --color-violet-300: #C084FC;
 }
 
 /* ============================================================
-   ROCK-SOLID EXPLICIT UTILITIES
-   Guarantees all tokens render even if Tailwind v4 jit skips them.
+   EXPLICIT TYPOGRAPHY & TOKEN UTILITIES
    ============================================================ */
 
-/* Typography Families */
 .font-display {
-  font-family: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'Clash Display', 'Syne', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 .font-sans {
-  font-family: var(--font-inter), 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-inter), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
 }
 
-/* Typography Fluid Scale */
+.font-mono {
+  font-family: 'JetBrains Mono', 'Space Grotesk', monospace !important;
+}
+
+/* Fluid Typography Scale */
 .text-display-2xl {
-  font-size: clamp(3rem, 7.5vw, 6.25rem) !important;
-  line-height: 1.02 !important;
+  font-size: clamp(3.2rem, 8vw, 7rem) !important;
+  line-height: 0.96 !important;
   letter-spacing: -0.04em !important;
   font-weight: 700 !important;
 }
 
 .text-display-xl {
-  font-size: clamp(2.25rem, 5vw, 4.25rem) !important;
-  line-height: 1.05 !important;
+  font-size: clamp(2.25rem, 5.2vw, 4.5rem) !important;
+  line-height: 1.04 !important;
   letter-spacing: -0.035em !important;
   font-weight: 700 !important;
 }
 
 .text-display-lg {
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem) !important;
-  line-height: 1.15 !important;
+  font-size: clamp(1.75rem, 3.6vw, 3rem) !important;
+  line-height: 1.12 !important;
   letter-spacing: -0.025em !important;
   font-weight: 600 !important;
 }
@@ -128,7 +108,7 @@
 }
 
 .text-body-lg {
-  font-size: clamp(1.05rem, 1.3vw, 1.2rem) !important;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem) !important;
   line-height: 1.65 !important;
 }
 
@@ -143,9 +123,9 @@
 }
 
 .text-label {
-  font-size: 0.75rem !important;
+  font-size: 0.725rem !important;
   line-height: 1 !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.15em !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
 }
@@ -155,32 +135,195 @@
 .bg-base-900 { background-color: #050507 !important; }
 .bg-base-800 { background-color: #0A0A0F !important; }
 .bg-base-700 { background-color: #0F0F18 !important; }
-.bg-base-600 { background-color: #14141F !important; }
+.bg-base-600 { background-color: #141422 !important; }
 
 /* Text Colors */
-.text-ink-50  { color: #F8F8FC !important; }
-.text-ink-100 { color: #EDEDF5 !important; }
-.text-ink-400 { color: #9494A8 !important; }
-.text-ink-500 { color: #7474A0 !important; }
-.text-ink-600 { color: #5A5A8A !important; }
+.text-ink-50  { color: #FFFFFF !important; }
+.text-ink-100 { color: #F1F1F8 !important; }
+.text-ink-400 { color: #9D9DB5 !important; }
+.text-ink-500 { color: #6B6B8A !important; }
+.text-ink-600 { color: #4B4B68 !important; }
 
 /* Border Colors */
 .border-glass-border { border-color: rgba(255, 255, 255, 0.08) !important; }
 .border-base-800     { border-color: #0A0A0F !important; }
 .border-base-700     { border-color: #0F0F18 !important; }
 
-/* Box Shadows */
-.shadow-glow-violet {
-  box-shadow: 0 0 50px rgba(124, 58, 237, 0.3) !important;
+/* ============================================================
+   FUTURISTIC LUXURY UI ELEMENTS & MICRO-EFFECTS
+   ============================================================ */
+
+/* High-spec Cyber Glassmorphism */
+.glass {
+  background: rgba(10, 10, 18, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
-.shadow-card {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+
+.glass-card {
+  background: linear-gradient(145deg, rgba(16, 16, 28, 0.8) 0%, rgba(8, 8, 14, 0.8) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
 }
-.shadow-card-hover {
-  box-shadow: 0 12px 48px rgba(124, 58, 237, 0.2), inset 0 1px 0 rgba(255,255,255,0.12) !important;
+
+/* Floating HUD Dock */
+.hud-dock {
+  background: rgba(6, 6, 12, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(124, 58, 237, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(24px) !important;
 }
-.shadow-glass {
-  box-shadow: 0 2px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+
+/* Iridescent Metallic Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 15%, #DDD6FE 50%, #A78BFA 80%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #FFFFFF 20%, #67E8F9 60%, #38BDF8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block;
+}
+
+/* Shimmering Animated Button */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  box-shadow: 0 0 35px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 45%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.25) 55%,
+    transparent 80%
+  );
+  transform: rotate(35deg) translateY(-100%);
+  animation: buttonShine 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes buttonShine {
+  0%   { transform: rotate(35deg) translateY(-120%); }
+  25%  { transform: rotate(35deg) translateY(120%); }
+  100% { transform: rotate(35deg) translateY(120%); }
+}
+
+.btn-shimmer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 55px rgba(124, 58, 237, 0.65), 0 0 20px rgba(56, 189, 248, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Secondary Cyber Button */
+.btn-cyber {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-cyber:hover {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+/* Perspective Cyber Grid Background */
+.cyber-grid-floor {
+  background-image: 
+    linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 75%);
+}
+
+/* Spotlight Card Effect */
+.spotlight-card {
+  position: relative;
+  background: rgba(10, 10, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+}
+
+.spotlight-card:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Monospaced Technical Tag */
+.tech-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #A78BFA;
+}
+
+/* Pulsing Cyber Radar Beacon */
+.radar-beacon {
+  position: relative;
+  display: inline-flex;
+  height: 8px;
+  width: 8px;
+}
+
+.radar-beacon span:first-child {
+  animation: radarPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  position: absolute;
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  background-color: #22D3EE;
+  opacity: 0.75;
+}
+
+.radar-beacon span:last-child {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+  height: 8px;
+  width: 8px;
+  background-color: #22D3EE;
+  box-shadow: 0 0 12px #22D3EE;
+}
+
+@keyframes radarPing {
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
 /* ---- Base Reset & Defaults ---- */
@@ -195,13 +338,13 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background-color: #050507;
-  color: #F8F8FC;
+  background-color: #030305;
+  color: #FFFFFF;
 }
 
 body {
-  background-color: #050507;
-  color: #F8F8FC;
+  background-color: #030305;
+  color: #FFFFFF;
   font-family: var(--font-sans);
   line-height: 1.65;
   overflow-x: hidden;
@@ -209,74 +352,21 @@ body {
 
 /* ---- Selection ---- */
 ::selection {
-  background-color: rgba(124, 58, 237, 0.4);
+  background-color: rgba(124, 58, 237, 0.5);
   color: #FFFFFF;
 }
 
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #050507; }
+::-webkit-scrollbar-track { background: #030305; }
 ::-webkit-scrollbar-thumb {
   background: #7C3AED;
   border-radius: 3px;
 }
 
-/* ---- Focus styles (accessible) ---- */
-:focus-visible {
-  outline: 2px solid #7C3AED;
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* ---- Glass surface utility ---- */
-.glass {
-  background: rgba(255, 255, 255, 0.035) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-}
-
-/* ---- High-end Violet gradient text ---- */
-.text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 20%, #A78BFA 60%, #C084FC 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  display: inline-block;
-}
-
-/* ---- Violet gradient background (for TG badge) ---- */
-.bg-gradient-violet {
-  background: linear-gradient(135deg, #7C3AED 0%, #9D61F5 100%) !important;
-}
-
-/* ---- Glow effects ---- */
-.glow-violet {
-  box-shadow: 0 0 50px rgba(124, 58, 237, 0.35) !important;
-}
-
-.glow-sm {
-  box-shadow: 0 0 24px rgba(124, 58, 237, 0.22) !important;
-}
-
-/* ---- Clip path for text reveals ---- */
-.clip-reveal {
-  overflow: hidden;
-}
-
 /* ---- Custom cursor: hide default on desktop ---- */
 @media (pointer: fine) {
   * { cursor: none !important; }
-}
-
-/* ---- Reduced motion ---- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
 /* ---- Lenis smooth scroll ---- */
@@ -286,7 +376,7 @@ html.lenis { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-scrolling iframe { pointer-events: none; }
 
-/* ---- Skip to content (accessibility) ---- */
+/* ---- Skip to content ---- */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -305,69 +395,20 @@ html.lenis { height: auto; }
   top: 1rem;
 }
 
-/* ---- Line clamp utilities ---- */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 
-/* ---- Mobile: prevent horizontal scroll bleed ---- */
 main { overflow-x: hidden; }
 
-/* ---- Smooth image loading ---- */
-img {
-  display: block;
-  max-width: 100%;
-}
-img[loading="lazy"] {
-  content-visibility: auto;
-}
-
-/* ---- Admin panel: prevent public site cursor override ---- */
 .admin-cursor-restore,
 .admin-cursor-restore * {
   cursor: auto !important;
 }
 
-/* ---- Animated gradient border (for featured items) ---- */
-@keyframes borderRotate {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.border-animated {
-  position: relative;
-}
-.border-animated::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, #7C3AED, #BFA3FA, #7C3AED);
-  background-size: 200% 200%;
-  animation: borderRotate 4s linear infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-.border-animated:hover::before {
-  opacity: 1;
-}
-
-/* ---- Mobile refinements ---- */
 @media (max-width: 768px) {
   section { padding-top: clamp(4rem, 10vw, 5rem); padding-bottom: clamp(4rem, 10vw, 5rem); }
   h1, h2, h3 { word-break: break-word; }
@@ -375,10 +416,8 @@ img[loading="lazy"] {
   .marquee-row { animation-duration: 40s; }
 }
 
-/* ---- Tap highlight removal on mobile ---- */
 * { -webkit-tap-highlight-color: transparent; }
 
-/* ---- Print styles ---- */
 @media print {
   .no-print { display: none !important; }
   body { background: white; color: black; }

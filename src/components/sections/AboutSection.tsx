@@ -1,17 +1,17 @@
 "use client";
 
 // ============================================================
-// Tamim Global — About Section
-// Short, confident, personal. Portrait + stats + bio.
-// Animated counters on stat cards for immediate impact.
+// Tamim Global — Operator Profile & Holographic Dossier (About)
+// Cybernetic digital identity, animated telemetry counters, and bio.
 // ============================================================
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, fadeUp, slideInLeft } from "@/lib/animations";
+import { ShieldCheck, MapPin } from "lucide-react";
 import type { AboutContent } from "@/types";
 
-/** Animate a numeric value from 0 → target when in view */
 function AnimatedStat({ value }: { value: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
@@ -19,19 +19,17 @@ function AnimatedStat({ value }: { value: string }) {
 
   useEffect(() => {
     if (!inView) return;
-    // Extract leading number and trailing suffix (e.g. "20+" → 20, "+")
     const match = value.match(/^(\d+)(.*)$/);
     if (!match) { setDisplay(value); return; }
 
     const target = parseInt(match[1], 10);
     const suffix = match[2];
-    const duration = 1200; // ms
+    const duration = 1200;
     const start = performance.now();
 
     const tick = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(eased * target);
       setDisplay(`${current}${suffix}`);
@@ -41,7 +39,7 @@ function AnimatedStat({ value }: { value: string }) {
     requestAnimationFrame(tick);
   }, [inView, value]);
 
-  return <div ref={ref} className="font-display text-display-lg text-ink-50 mb-1">{display}</div>;
+  return <div ref={ref} className="font-display font-bold text-3xl md:text-4xl text-white mb-1 tracking-tight">{display}</div>;
 }
 
 interface AboutSectionProps {
@@ -49,124 +47,147 @@ interface AboutSectionProps {
 }
 
 export default function AboutSection({ content }: AboutSectionProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
-    <section id="about" className="relative py-32 lg:py-40">
-      <div aria-hidden className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+    <section id="about" className="relative py-32 lg:py-44 overflow-hidden">
+      <div aria-hidden className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
-      {/* Ambient glow */}
-      <div aria-hidden className="absolute inset-0 flex items-center justify-start pointer-events-none overflow-hidden">
-        <div className="w-[500px] h-[500px] rounded-full bg-violet-500/4 blur-[100px] -translate-x-1/3" />
-      </div>
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none" aria-hidden />
 
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
 
-          {/* Left — Portrait */}
+          {/* Left Column — Holographic Digital Dossier Card (5 cols) */}
           <motion.div
             variants={slideInLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            className="relative"
+            className="lg:col-span-5 relative"
           >
-            {/* Portrait frame */}
-            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden max-w-sm mx-auto lg:mx-0">
-              {/* Placeholder gradient — replace with real portrait */}
-              <div className="absolute inset-0 bg-gradient-to-br from-base-700 via-base-800 to-violet-900/30 flex items-end">
-                <div className="p-8 w-full">
-                  <p className="text-label text-ink-500">
-                    Add portrait at: {content.portrait ?? "/images/tamim-portrait.jpg"}
-                  </p>
-                </div>
-              </div>
+            {/* Hologram Card Frame */}
+            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass-card border border-white/15 p-2 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_30px_rgba(124,58,237,0.2)]">
+              {/* Inner container */}
+              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-base-950 flex flex-col justify-between p-6">
+                
+                {/* Real Image if available */}
+                {content.portrait && !imgError ? (
+                  <Image
+                    src={content.portrait}
+                    alt="Tamim portrait"
+                    fill
+                    className="object-cover"
+                    onError={() => setImgError(true)}
+                  />
+                ) : null}
 
-              {/* Monogram watermark */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display font-bold text-[10rem] text-violet-500/5 select-none pointer-events-none leading-none">
-                TG
-              </div>
+                {/* Hologram Visual Grid & Ambient Core */}
+                {(!content.portrait || imgError) && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-950/60 via-base-950 to-base-900 flex flex-col justify-between p-6 pointer-events-none">
+                    {/* Corner Reticles */}
+                    <div className="flex justify-between items-start font-mono text-[9px] text-violet-400">
+                      <span>SEC_LEVEL // 04</span>
+                      <span>SYS_ID: TM-2026</span>
+                    </div>
 
-              {/* Frame border */}
-              <div className="absolute inset-0 rounded-3xl border border-glass-border ring-1 ring-inset ring-white/5" />
-            </div>
+                    {/* Central Holographic Emblem */}
+                    <div className="flex flex-col items-center justify-center my-auto">
+                      <div className="relative w-28 h-28 rounded-full border border-violet-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(124,58,237,0.3)]">
+                        <span className="font-display font-extrabold text-4xl text-transparent bg-clip-text bg-gradient-to-b from-white via-violet-200 to-cyan-300">
+                          TG
+                        </span>
+                        <div className="absolute inset-0 rounded-full border border-cyan-400/20 animate-spin" style={{ animationDuration: "12s" }} />
+                      </div>
+                      <div className="mt-4 font-mono text-xs text-white tracking-widest uppercase">
+                        TAMIM // ARCHITECT
+                      </div>
+                      <div className="text-[10px] font-mono text-cyan-300 mt-1">
+                        FULL-STACK WEB ENGINEER
+                      </div>
+                    </div>
 
-            {/* Floating badge — availability */}
-            <motion.div
-              className="absolute -bottom-6 -right-4 lg:right-auto lg:-left-6 glass border border-glass-border rounded-2xl p-4 flex items-center gap-3"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="relative flex h-3 w-3 flex-shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400" />
-              </span>
-              <div>
-                <p className="text-body-sm font-semibold text-ink-50">Available</p>
-                <p className="text-label text-ink-500">for new projects</p>
-              </div>
-            </motion.div>
-
-            {/* Decorative violet ring */}
-            <div
-              aria-hidden
-              className="absolute -top-6 -left-6 w-24 h-24 rounded-full border border-violet-500/20 opacity-60"
-            />
-            <div
-              aria-hidden
-              className="absolute -top-3 -left-3 w-12 h-12 rounded-full border border-violet-500/30 opacity-40"
-            />
-          </motion.div>
-
-          {/* Right — Bio + stats */}
-          <motion.div
-            variants={staggerContainer(0, 0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-          >
-            <motion.p variants={fadeUp} className="text-label text-violet-400 uppercase tracking-widest mb-4">
-              About
-            </motion.p>
-            <motion.h2 variants={fadeUp} className="font-display text-display-xl text-ink-50 mb-6">
-              {content.headline}
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-body-lg text-ink-400 leading-relaxed mb-10">
-              {content.bio}
-            </motion.p>
-
-            {/* Stats */}
-            <motion.div
-              variants={fadeUp}
-              className="grid grid-cols-2 gap-5 mb-10"
-            >
-              {content.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="p-5 rounded-2xl glass border border-glass-border hover:border-violet-500/20 transition-colors duration-300"
-                >
-                  <AnimatedStat value={stat.value} />
-                  <div className="text-label text-ink-500 uppercase tracking-wider">
-                    {stat.label}
+                    {/* Bottom Metadata */}
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[10px] text-ink-400">
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-3 h-3 text-violet-400" />
+                        DHAKA // 23.81° N, 90.41° E
+                      </span>
+                      <span className="text-emerald-400 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        VERIFIED
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </motion.div>
+                )}
+              </div>
 
-            {/* Signature detail */}
-            <motion.div variants={fadeUp} className="flex items-center gap-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-violet flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-display font-bold text-xs">TG</span>
-              </div>
-              <div>
-                <p className="text-body-sm font-semibold text-ink-50">Tamim</p>
-                <p className="text-label text-ink-500">Full-stack Designer & Developer · Dhaka, Bangladesh</p>
-              </div>
-            </motion.div>
+              {/* Floating Verified Badge */}
+              <motion.div
+                className="absolute -bottom-4 -right-4 glass border border-white/15 rounded-2xl px-4 py-2.5 flex items-center gap-2.5 shadow-2xl"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <div className="flex flex-col text-left">
+                  <span className="font-mono text-[10px] text-ink-400 uppercase tracking-widest leading-none">Status</span>
+                  <span className="font-mono text-xs font-semibold text-white">Full-Stack Verified</span>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
+
+          {/* Right Column — Content & Stats Grid (7 cols) */}
+          <div className="lg:col-span-7">
+            <motion.div
+              variants={staggerContainer(0, 0.1)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+            >
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-4">
+                <span className="font-mono text-xs text-violet-400 uppercase tracking-widest px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20">
+                  [ 05 // OPERATOR PROFILE ]
+                </span>
+              </motion.div>
+
+              <motion.h2
+                variants={fadeUp}
+                className="font-display text-display-xl text-white mb-6 leading-tight"
+              >
+                Obsessed with craft,{" "}
+                <span className="text-gradient">engineered to convert.</span>
+              </motion.h2>
+
+              <motion.p
+                variants={fadeUp}
+                className="text-body-lg text-ink-300 leading-relaxed font-sans mb-10"
+              >
+                {content.bio}
+              </motion.p>
+
+              {/* Telemetry Stats Grid */}
+              <motion.div
+                variants={fadeUp}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-3xl glass-card border border-white/10"
+              >
+                {content.stats.map((stat) => (
+                  <div key={stat.label} className="text-left">
+                    <AnimatedStat value={stat.value} />
+                    <div className="font-mono text-[11px] text-ink-400 uppercase tracking-wider">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 }
-

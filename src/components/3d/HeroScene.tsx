@@ -1,126 +1,146 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Three.js Hero Scene
-// Interactive particle network that reacts to cursor movement.
-// Lazy-loaded. Falls back gracefully on low-end / mobile.
+// Tamim Global — Futuristic Cyber 3D Hero Scene
+// Cosmic particle constellation + crystalline wireframe core.
+// Interacts smoothly with cursor movements.
 // ============================================================
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
+import { Points, PointMaterial, Float } from "@react-three/drei";
 import * as THREE from "three";
 
-// ---- Particle field ----
-function ParticleField({ mouse }: { mouse: React.RefObject<{ x: number; y: number }> }) {
+// ---- Dual-color Cosmic Particle Field ----
+function CosmicParticles({ mouse }: { mouse: React.RefObject<{ x: number; y: number }> }) {
   const pointsRef = useRef<THREE.Points>(null);
 
-  // Generate random sphere of particles
-  const positions = useMemo(() => {
-    const count = 2000;
+  const [positions, colors] = useMemo(() => {
+    const count = 1800;
     const pos = new Float32Array(count * 3);
+    const col = new Float32Array(count * 3);
+
+    const violet = new THREE.Color("#8B5CF6");
+    const cyan = new THREE.Color("#06B6D4");
+    const white = new THREE.Color("#FFFFFF");
 
     for (let i = 0; i < count; i++) {
-      // Random sphere distribution
-      const r = 2.5 + Math.random() * 1.5;
+      const r = 2.0 + Math.random() * 3.5;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
 
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi) - 1;
+      pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      pos[i * 3 + 2] = r * Math.cos(phi) - 0.5;
 
-      pos[i * 3] = x;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
+      // Color distribution: 60% violet, 30% cyan, 10% white
+      const rand = Math.random();
+      const chosenColor = rand > 0.4 ? violet : rand > 0.1 ? cyan : white;
+      col[i * 3]     = chosenColor.r;
+      col[i * 3 + 1] = chosenColor.g;
+      col[i * 3 + 2] = chosenColor.b;
     }
-    return pos;
+    return [pos, col];
   }, []);
 
   useFrame(({ clock }) => {
     if (!pointsRef.current) return;
     const t = clock.getElapsedTime();
 
-    // Slow base rotation
-    pointsRef.current.rotation.y = t * 0.04;
-    pointsRef.current.rotation.x = Math.sin(t * 0.02) * 0.1;
+    // Constant slow planetary drift
+    pointsRef.current.rotation.y = t * 0.035;
+    pointsRef.current.rotation.x = Math.sin(t * 0.02) * 0.08;
 
-    // Cursor influence — subtle displacement
+    // Fluid cursor displacement
     if (mouse.current) {
-      const { x, y } = mouse.current;
-      pointsRef.current.rotation.y += x * 0.0008;
-      pointsRef.current.rotation.x += y * 0.0005;
+      const targetY = mouse.current.x * 0.0012;
+      const targetX = mouse.current.y * 0.0008;
+      pointsRef.current.rotation.y += targetY;
+      pointsRef.current.rotation.x += targetX;
     }
   });
 
   return (
-    <Points ref={pointsRef} positions={positions} stride={3} frustumCulled>
+    <Points ref={pointsRef} positions={positions} colors={colors} stride={3} frustumCulled>
       <PointMaterial
         transparent
-        color="#7C3AED"
-        size={0.018}
+        vertexColors
+        size={0.022}
         sizeAttenuation
         depthWrite={false}
-        opacity={0.7}
+        opacity={0.8}
+        blending={THREE.AdditiveBlending}
       />
     </Points>
   );
 }
 
-// ---- Floating rings ----
-function FloatingRing({
-  radius,
-  rotation,
-  speed,
-}: {
-  radius: number;
-  rotation: [number, number, number];
-  speed: number;
-}) {
+// ---- Floating Holographic Wireframe Core ----
+function HolographicCore({ mouse }: { mouse: React.RefObject<{ x: number; y: number }> }) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const innerRef = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
-    if (!meshRef.current) return;
     const t = clock.getElapsedTime();
-    meshRef.current.rotation.x = rotation[0] + t * speed * 0.3;
-    meshRef.current.rotation.z = rotation[2] + t * speed * 0.2;
+    if (meshRef.current) {
+      meshRef.current.rotation.x = t * 0.15;
+      meshRef.current.rotation.y = t * 0.2;
+      if (mouse.current) {
+        meshRef.current.position.x = mouse.current.x * 0.3;
+        meshRef.current.position.y = -mouse.current.y * 0.3;
+      }
+    }
+    if (innerRef.current) {
+      innerRef.current.rotation.x = -t * 0.25;
+      innerRef.current.rotation.z = t * 0.15;
+    }
   });
 
   return (
-    <mesh ref={meshRef} rotation={rotation}>
-      <torusGeometry args={[radius, 0.004, 16, 100]} />
-      <meshBasicMaterial color="#7C3AED" transparent opacity={0.15} />
-    </mesh>
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.8}>
+      <group position={[0, 0, -0.5]}>
+        {/* Outer wireframe icosahedron */}
+        <mesh ref={meshRef}>
+          <icosahedronGeometry args={[1.5, 1]} />
+          <meshBasicMaterial
+            wireframe
+            color="#A78BFA"
+            transparent
+            opacity={0.22}
+          />
+        </mesh>
+
+        {/* Inner geometric core */}
+        <mesh ref={innerRef}>
+          <octahedronGeometry args={[0.9, 0]} />
+          <meshBasicMaterial
+            wireframe
+            color="#22D3EE"
+            transparent
+            opacity={0.35}
+          />
+        </mesh>
+      </group>
+    </Float>
   );
 }
 
-// ---- Scene wrapper ----
-function Scene({ mouse }: { mouse: React.RefObject<{ x: number; y: number }> }) {
-  return (
-    <>
-      <ParticleField mouse={mouse} />
-      <FloatingRing radius={2.0} rotation={[0.5, 0, 0.3]} speed={0.4} />
-      <FloatingRing radius={2.8} rotation={[1.2, 0.3, 0.7]} speed={0.25} />
-      <FloatingRing radius={3.4} rotation={[0.2, 0.8, 1.1]} speed={0.15} />
-    </>
-  );
-}
-
-// ---- Exported canvas component ----
-interface HeroSceneProps {
+// ---- Exported 3D Scene Canvas ----
+export default function HeroScene({
+  mouse,
+}: {
   mouse: React.RefObject<{ x: number; y: number }>;
-}
-
-export default function HeroScene({ mouse }: HeroSceneProps) {
+}) {
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 60 }}
-      gl={{ antialias: false, alpha: true, powerPreference: "low-power" }}
-      dpr={[1, 1.5]} // cap pixel ratio for performance
+      camera={{ position: [0, 0, 4.5], fov: 55 }}
+      gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+      dpr={[1, 1.5]}
       style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
     >
-      <Scene mouse={mouse} />
+      <ambientLight intensity={0.5} />
+      <CosmicParticles mouse={mouse} />
+      <HolographicCore mouse={mouse} />
     </Canvas>
   );
 }
-

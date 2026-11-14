@@ -1,8 +1,8 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Work / Selected Projects Section
-// Cinematic project cards in a masonry-style grid.
+// Tamim Global — Work / Selected Systems Section
+// Cinematic masonry showcase of production digital systems.
 // ============================================================
 
 import { useRef } from "react";
@@ -22,54 +22,52 @@ export default function WorkSection({ projects }: WorkSectionProps) {
     <section
       id="work"
       ref={ref}
-      className="relative py-32 lg:py-40"
+      className="relative py-32 lg:py-44 overflow-hidden"
     >
-      {/* Subtle section glow */}
+      {/* Laser divider line */}
       <div
         aria-hidden
-        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent"
+        className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent"
       />
 
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Section header */}
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-600/8 blur-[160px] pointer-events-none" aria-hidden />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Section Header */}
         <motion.div
-          className="mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
           variants={staggerContainer(0, 0.1)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "0px 0px -100px 0px" }}
         >
-          <motion.p
-            variants={fadeUp}
-            className="text-label text-violet-400 uppercase tracking-widest mb-4"
-          >
-            Selected Work
-          </motion.p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
+            <span className="font-mono text-xs text-violet-400 uppercase tracking-widest px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20">
+              [ 01 // PRODUCTION ARCHITECTURE ]
+            </span>
+          </motion.div>
+
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <motion.h2
               variants={fadeUp}
-              className="font-display text-display-xl text-ink-50 max-w-2xl"
+              className="font-display text-display-xl text-white max-w-2xl leading-none"
             >
-              Projects that{" "}
-              <span className="text-gradient">move the needle.</span>
+              Systems that{" "}
+              <span className="text-gradient">dominate &amp; scale.</span>
             </motion.h2>
+
             <motion.p
               variants={fadeUp}
-              className="text-body-md text-ink-400 max-w-sm md:text-right"
+              className="text-body-md text-ink-400 max-w-md md:text-right font-sans"
             >
-              Real products, real outcomes. Each project is built to perform and built to last.
+              High-converting marketing flagships, multi-tenant SaaS dashboards, and robust e-commerce platforms engineered without compromise.
             </motion.p>
           </div>
         </motion.div>
 
-        {/* Project grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
-          variants={staggerContainer(0.1, 0.12)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "0px 0px -80px 0px" }}
-        >
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
@@ -77,24 +75,8 @@ export default function WorkSection({ projects }: WorkSectionProps) {
               index={index}
             />
           ))}
-        </motion.div>
-
-        {/* View all CTA */}
-        {projects.length > 4 && (
-          <motion.div
-            className="mt-12 text-center"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <button className="px-8 py-4 rounded-xl glass border border-glass-border hover:border-violet-500/40 text-ink-50 font-semibold text-body-md transition-all duration-300 hover:-translate-y-0.5">
-              View All Work
-            </button>
-          </motion.div>
-        )}
+        </div>
       </div>
     </section>
   );
 }
-
