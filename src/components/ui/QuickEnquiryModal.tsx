@@ -15,11 +15,11 @@ interface QuickEnquiryModalProps {
 }
 
 const PROJECT_TYPES = [
-  "High-Converting Web App",
-  "SaaS Platform / Dashboard",
-  "E-Commerce & Payment Engine",
-  "Brand & Marketing Flagship",
-  "AI Integration & Automation",
+  "Custom Web Design & UI/UX",
+  "Commercial Video Editing & Reels",
+  "Interactive 3D / Motion Web",
+  "Brand Identity & Visual Direction",
+  "Figma to Next.js Development",
 ];
 
 const BUDGET_RANGES = [

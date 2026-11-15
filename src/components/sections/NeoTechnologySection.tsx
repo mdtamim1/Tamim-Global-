@@ -37,25 +37,26 @@ export default function NeoTechnologySection() {
         <div className="col-span-full flex flex-col gap-4 md:col-span-3 lg:col-span-6 lg:gap-5 xl:col-span-5 z-10">
           <div className="flex flex-col items-start gap-2 lg:gap-3">
             <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-              Technology
+              Creative Direction
             </div>
             <h2
               className="text-h2-d lg:text-h2 font-semibold text-text-black"
               id="title-technology"
             >
-              Technology that will make this revolution in web &amp; software
+              Design aesthetics &amp; motion that make your brand unmistakable
             </h2>
           </div>
           <div className="text-body-d lg:text-body text-text-gray flex flex-col gap-3 lg:pr-5">
             <p>
-              At Tamim Global, we build cutting-edge web platforms, custom SaaS
-              engines, and Next.js applications engineered on distributed cloud
-              runtimes for instant responses — no costly technical debt.
+              At Tamim Global, I unite award-winning web design aesthetics with
+              cinematic video post-production. Every layout is crafted with
+              mathematical precision, every interaction is fluid, and every video
+              frame tells a compelling visual story.
             </p>
             <p>
-              Leading-edge web architecture, sub-millisecond edge databases,
-              and AI acceleration drive our digital solutions, delivering the
-              latest advancements directly to your users.
+              From custom Figma design systems and interactive 3D WebGL scenes to
+              commercial-grade video editing, sound design, and color grading —
+              I deliver the full creative arsenal to help your brand lead.
             </p>
           </div>
         </div>

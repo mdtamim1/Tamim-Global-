@@ -12,8 +12,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
-const tickerRow1 = ["neural", "empathetic", "expert", "collab", "precision", "modern", "neural", "empathetic", "expert", "collab"];
-const tickerRow2 = ["explore", "team", "intuitive", "smart", "scalable", "full-stack", "explore", "team", "intuitive", "smart"];
+const tickerRow1 = ["web design", "video editor", "ui/ux", "motion graphics", "figma", "premiere pro", "after effects", "next.js", "davinci", "web design"];
+const tickerRow2 = ["creative director", "cinematic", "visual storyteller", "sound design", "color grade", "responsive", "3d web", "keyframes", "creative director", "cinematic"];
 
 function TickerIcon() {
   return (
@@ -149,12 +149,13 @@ export default function NeoTeamSection() {
 
         {/* Main Content */}
         <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-text-black z-10">
-          We’re a collaborative team of experts
+          Meet Tamim — Web Designer &amp; Video Editor
         </h2>
         <p className="text-body-d lg:text-body text-text-gray w-full max-w-[660px] z-10">
-          Led by Md Tamim, we are full-stack software architects, creative technologists,
-          and UI engineers passionate about crafting high-performance digital products
-          that win market share.
+          I combine modern web design aesthetics, fluid frontend interactions, and
+          cinematic video editing into a single unified creative force. Working with
+          founders, creators, and agencies worldwide to ship digital flagships and videos
+          that command authority.
         </p>
 
         {/* CTA Button */}

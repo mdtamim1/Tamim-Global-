@@ -1,62 +1,62 @@
 {
   "meta": {
-    "siteTitle": "Tamim Global — Premium Web Design & Development",
-    "siteDescription": "Full-stack web designer and developer from Dhaka, Bangladesh. Building high-converting marketing sites, SaaS platforms, and e-commerce systems for clients worldwide.",
+    "siteTitle": "Tamim Global — Professional Web Designer & Video Editor",
+    "siteDescription": "Portfolio of Md Tamim — Professional Web Designer & Cinematic Video Editor. Crafting bespoke, high-converting digital flagships, 3D interactive web experiences, and commercial video edits for clients worldwide.",
     "ogImage": "/images/tg-mark.jpg"
   },
   "hero": {
-    "headline": "Designing & Engineering Digital Systems That Dominate.",
-    "subheadline": "Full-stack digital architecture from Dhaka to the world. Crafting high-converting marketing flagships, robust SaaS platforms, and fluid interactive web experiences.",
-    "ctaPrimary": "Explore Systems",
-    "ctaSecondary": "Initiate Transmission"
+    "headline": "Crafting Bespoke Web Experiences & Cinematic Visual Stories.",
+    "subheadline": "Professional Web Designer & Video Editor based in Dhaka, serving ambitious founders, creators, and brands worldwide. Merging aesthetic precision with high-impact motion.",
+    "ctaPrimary": "Explore Works",
+    "ctaSecondary": "Let's Talk"
   },
   "about": {
-    "headline": "Precision-crafted, beautifully engineered.",
-    "bio": "I'm Tamim — a full-stack web designer and developer based in Dhaka, Bangladesh. Since 2023 I've been building digital products that balance aesthetic precision with engineering depth. I work with founders, brands, and agencies worldwide who refuse to settle for average.",
+    "headline": "Aesthetic Precision Meets Cinematic Storytelling.",
+    "bio": "I'm Md Tamim — a professional web designer and video editor. Over the past 3+ years, I have helped brands, creators, and digital businesses craft bespoke websites in Figma & Next.js and commercial-grade video edits in Premiere Pro & After Effects that captivate audiences and drive conversions.",
     "portrait": "/images/tg-mark.jpg",
     "stats": [
-      { "label": "Years Building", "value": "3+" },
-      { "label": "Projects Shipped", "value": "20+" },
-      { "label": "Countries Served", "value": "5+" },
+      { "label": "Years Experience", "value": "3+" },
+      { "label": "Projects Completed", "value": "45+" },
+      { "label": "Video Views", "value": "4M+" },
       { "label": "Client Satisfaction", "value": "100%" }
     ]
   },
   "services": [
     {
-      "id": "marketing-sites",
-      "title": "Marketing Sites",
-      "description": "High-converting landing pages and marketing sites engineered to generate leads, build trust, and drive revenue from day one.",
+      "id": "web-design",
+      "title": "High-End Web Design (UI/UX)",
+      "description": "Bespoke, conversion-focused website designs created in Figma with custom design systems, modern typography, and intuitive user flows.",
       "icon": "Globe"
     },
     {
-      "id": "saas-platforms",
-      "title": "SaaS Platforms",
-      "description": "Multi-vendor SaaS architectures built for scale — from auth and billing to real-time dashboards and admin systems.",
-      "icon": "Layers"
+      "id": "video-editing",
+      "title": "Cinematic Video Editing",
+      "description": "Commercial-grade video post-production, dynamic rhythm-matched cuts, color grading, sound design, and promotional video reels.",
+      "icon": "Video"
     },
     {
-      "id": "ecommerce",
-      "title": "E-commerce Systems",
-      "description": "Real-time e-commerce platforms with local payment gateways — bKash, Nagad, SSLCommerz — optimised for conversion.",
-      "icon": "ShoppingBag"
-    },
-    {
-      "id": "ai-integrations",
-      "title": "AI Integrations",
-      "description": "Embedding AI into your product — chatbots, content generation, smart recommendations, and automation workflows.",
+      "id": "interactive-motion",
+      "title": "Motion Graphics & 3D Web",
+      "description": "GSAP scroll-driven animations, 3D interactive WebGL scenes, kinetic typography, and fluid micro-interactions that elevate brand prestige.",
       "icon": "Sparkles"
     },
     {
-      "id": "payment-gateways",
-      "title": "Payment Gateways",
-      "description": "Seamless integration of local and global payment systems — bKash, Nagad, SSLCommerz, Stripe, and more.",
-      "icon": "CreditCard"
+      "id": "figma-to-nextjs",
+      "title": "Figma to Next.js Development",
+      "description": "Pixel-perfect translation of design concepts into blazing-fast Next.js 15, React 19, and Tailwind CSS code with sub-second load times.",
+      "icon": "Layers"
     },
     {
-      "id": "full-stack-architecture",
-      "title": "Full-Stack Architecture",
-      "description": "End-to-end system design — database schema, API architecture, caching strategies, and deployment pipelines.",
-      "icon": "Server"
+      "id": "commercial-reels",
+      "title": "Social & Commercial Video Ads",
+      "description": "High-retention short-form reels, TikTok ads, and YouTube features edited with retention hacks, custom sound effects, and kinetic text.",
+      "icon": "Film"
+    },
+    {
+      "id": "brand-identity",
+      "title": "Brand Identity & Visual Direction",
+      "description": "Luxury monograms, modern logos, typography hierarchies, and complete visual guidelines that establish market dominance.",
+      "icon": "PenTool"
     }
   ],
   "process": [
@@ -87,24 +87,18 @@
     }
   ],
   "stack": [
-    { "name": "Next.js", "category": "Framework" },
-    { "name": "React", "category": "Framework" },
-    { "name": "TypeScript", "category": "Language" },
-    { "name": "Node.js", "category": "Runtime" },
+    { "name": "Figma", "category": "Web & UI/UX" },
+    { "name": "Adobe Premiere Pro", "category": "Video Editing" },
+    { "name": "Adobe After Effects", "category": "Motion Graphics" },
+    { "name": "DaVinci Resolve", "category": "Color Grading" },
+    { "name": "Next.js 15", "category": "Frontend" },
+    { "name": "React 19", "category": "Frontend" },
     { "name": "Tailwind CSS", "category": "Styling" },
+    { "name": "GSAP ScrollTrigger", "category": "Animation" },
+    { "name": "Three.js / WebGL", "category": "3D Interactive" },
+    { "name": "TypeScript", "category": "Language" },
     { "name": "Framer Motion", "category": "Animation" },
-    { "name": "Three.js", "category": "3D" },
-    { "name": "PostgreSQL", "category": "Database" },
-    { "name": "MongoDB", "category": "Database" },
-    { "name": "Prisma", "category": "ORM" },
-    { "name": "Redis", "category": "Cache" },
-    { "name": "Docker", "category": "DevOps" },
-    { "name": "Vercel", "category": "Deployment" },
-    { "name": "Stripe", "category": "Payments" },
-    { "name": "SSLCommerz", "category": "Payments" },
-    { "name": "bKash API", "category": "Payments" },
-    { "name": "Figma", "category": "Design" },
-    { "name": "Git", "category": "Tools" }
+    { "name": "Vercel", "category": "Deployment" }
   ],
   "testimonials": [],
   "contact": {

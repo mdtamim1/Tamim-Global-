@@ -8,18 +8,18 @@
 import { motion } from "framer-motion";
 
 const tags = [
-  "smart",
-  "deep",
-  "cognitive",
-  "neural",
-  "empathetic",
-  "intuitive",
-  "machine-learning",
-  "data-driven",
-  "generative",
-  "scalable",
-  "next.js",
-  "cloud-native",
+  "web design",
+  "video editing",
+  "ui/ux craft",
+  "motion graphics",
+  "figma to code",
+  "cinematic cuts",
+  "3d interactive",
+  "color grading",
+  "sound design",
+  "visual stories",
+  "next.js 15",
+  "creative direction",
 ];
 
 function TagIcon() {

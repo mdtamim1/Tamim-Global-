@@ -15,13 +15,13 @@ export default function NeoProductsBentoSection() {
     >
       <div className="flex flex-col items-start gap-2 lg:gap-3">
         <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-          Products &amp; Capabilities
+          Design &amp; Video Specialties
         </div>
         <h2
           className="text-h2-d lg:text-h2 font-semibold styles_gradientMask__lzbc_"
           id="title-products"
         >
-          What&#x27;s possible with us
+          What I create for bold brands
         </h2>
       </div>
 
@@ -49,23 +49,23 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              High-Performance Web &amp; Next.js
+              High-End Web Design &amp; Next.js UI
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Ultra-fast headless websites, dynamic web applications, and
-              interactive digital flagships built with Next.js 15, React 19, and
-              Tailwind.
+              Bespoke, conversion-focused digital flagships designed in Figma and
+              engineered with Next.js 15, React 19, and Tailwind CSS. Ultra-fast,
+              responsive, and built custom from scratch.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:-right-px lg:left-auto lg:w-[55%] lg:rounded-l-none lg:before:-left-px lg:before:right-auto lg:before:h-full lg:before:w-[50%] lg:before:bg-gradient-product-card-big-overlay">
             <Image
-              alt="High-Performance Web"
+              alt="High-End Web Design"
               src="/neoleaf-media/1.fd43cba1.webp"
               fill
               className="object-cover max-lg:hidden"
             />
             <Image
-              alt="High-Performance Web"
+              alt="High-End Web Design"
               src="/neoleaf-media/1-d.25d1c4eb.webp"
               fill
               className="object-cover lg:hidden"
@@ -73,7 +73,7 @@ export default function NeoProductsBentoSection() {
           </div>
         </div>
 
-        {/* Bento 2: Bespoke SaaS & Cloud Engines */}
+        {/* Bento 2: Cinematic Video Editing & Post-Production */}
         <div className="relative z-0 flex min-h-[392px] items-end overflow-hidden rounded-3xl bg-[#252629] p-6 text-white lg:min-h-[426px] lg:rounded-[32px] lg:p-12 col-span-full md:max-lg:col-span-1 lg:col-span-1">
           <div className="flex max-w-[475px] flex-col gap-2 lg:max-w-[400px] lg:gap-3 z-10">
             <div className="mb-3 flex size-[60px] shrink-0 items-center justify-center self-start rounded-xl bg-[#37393e] text-accent-1 lg:mb-4 lg:size-[68px]">
@@ -88,26 +88,27 @@ export default function NeoProductsBentoSection() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                <path d="m22 8-6 4 6 4V8Z" />
+                <rect width="14" height="12" x="2" y="6" rx="2" />
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              Bespoke SaaS &amp; Cloud Engines
+              Cinematic Video Editing &amp; Post-Production
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Scalable multi-tenant cloud platforms, REST &amp; GraphQL APIs,
-              microservices, and secure payment integrations built for rapid scaling.
+              Commercial video edits, brand teasers, high-retention YouTube cuts,
+              precision sound design, and color grading in Premiere Pro and DaVinci.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:before:h-[57%]">
             <Image
-              alt="SaaS & Cloud"
+              alt="Video Editing & Post-Production"
               src="/neoleaf-media/2.3924e0ff.webp"
               fill
               className="object-cover max-lg:hidden"
             />
             <Image
-              alt="SaaS & Cloud"
+              alt="Video Editing & Post-Production"
               src="/neoleaf-media/2-d.32c3a3f9.webp"
               fill
               className="object-cover lg:hidden"
@@ -115,7 +116,7 @@ export default function NeoProductsBentoSection() {
           </div>
         </div>
 
-        {/* Bento 3: AI Acceleration & Smart Automation */}
+        {/* Bento 3: Motion Graphics & 3D Interactive Web */}
         <div className="relative z-0 flex min-h-[392px] items-end overflow-hidden rounded-3xl bg-[#252629] p-6 text-white lg:min-h-[426px] lg:rounded-[32px] lg:p-12 col-span-full md:max-lg:col-span-1 lg:col-span-1">
           <div className="flex max-w-[475px] flex-col gap-2 lg:max-w-[400px] lg:gap-3 z-10">
             <div className="mb-3 flex size-[60px] shrink-0 items-center justify-center self-start rounded-xl bg-[#37393e] text-accent-1 lg:mb-4 lg:size-[68px]">
@@ -141,22 +142,23 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              AI Acceleration &amp; Smart Automation
+              Motion Graphics &amp; 3D Interactive Web
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Integrate LLMs, intelligent workflow automation, neural search, and
-              cognitive features directly into your core business stack.
+              GSAP scroll-triggered choreography, WebGL particle shaders,
+              smooth page reveals, and After Effects motion typography that hooks
+              viewers instantly.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:before:h-[57%]">
             <Image
-              alt="AI Acceleration"
+              alt="Motion Graphics & 3D Web"
               src="/neoleaf-media/3.eb2479f9.webp"
               fill
               className="object-cover max-lg:hidden"
             />
             <Image
-              alt="AI Acceleration"
+              alt="Motion Graphics & 3D Web"
               src="/neoleaf-media/3-d.8c477fd4.webp"
               fill
               className="object-cover lg:hidden"
@@ -164,7 +166,7 @@ export default function NeoProductsBentoSection() {
           </div>
         </div>
 
-        {/* Bento 4: Brand Identity & Precision 3D (With Video) */}
+        {/* Bento 4: Brand Direction & Commercial Film Stage */}
         <div className="relative z-0 flex min-h-[392px] items-end overflow-hidden rounded-3xl bg-[#252629] p-6 text-white lg:min-h-[426px] lg:rounded-[32px] lg:p-12 max-lg:bg-[#1D1F21] lg:grid lg:grid-cols-2 lg:gap-6 lg:bg-gradient-product-card-big-reversed-bg col-span-full md:max-lg:col-span-1">
           <div className="flex max-w-[475px] flex-col gap-2 lg:gap-3 lg:col-start-2 lg:ml-12 lg:max-w-[475px] z-10">
             <div className="mb-3 flex size-[60px] shrink-0 items-center justify-center self-start rounded-xl bg-[#37393e] text-accent-1 lg:mb-4 lg:size-[68px]">
@@ -190,11 +192,11 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              Brand Identity &amp; Precision 3D
+              Brand Direction &amp; Commercial Video Films
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Iconic titanium monogram marks, 3D interactive graphics,
-              conversion-focused design systems, and award-winning digital experiences.
+              Luxury monogram marks, bespoke typography systems, and cinematic
+              commercial video showcases engineered to command industry prestige.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay max-md:h-[70%] max-lg:bottom-auto max-lg:h-[85%] max-lg:rounded-b-none max-lg:before:h-[38%] lg:before:h-full lg:before:bg-gradient-product-card-big-overlay lg:-left-px lg:right-auto lg:w-[53%] lg:rounded-l-[inherit] lg:rounded-r-none lg:before:-right-px lg:before:left-auto lg:before:w-[36%] lg:before:-scale-x-100">

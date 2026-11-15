@@ -189,18 +189,10 @@ export default function NeoHeroSection() {
             <nav className="max-md:hidden md:relative md:top-1.5 md:flex md:items-center md:gap-5 md:text-menu-link md:font-medium md:text-text-gray lg:gap-7">
               <a
                 className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
-                href="#technology"
-              >
-                <span className="inline-flex items-center justify-center overflow-hidden">
-                  Technology
-                </span>
-              </a>
-              <a
-                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
                 href="#products"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
-                  Products
+                  Web Design
                 </span>
               </a>
               <a
@@ -208,7 +200,15 @@ export default function NeoHeroSection() {
                 href="#expertise"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
-                  Expertise
+                  Video &amp; Motion
+                </span>
+              </a>
+              <a
+                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
+                href="#technology"
+              >
+                <span className="inline-flex items-center justify-center overflow-hidden">
+                  Creative Direction
                 </span>
               </a>
               <a
@@ -216,7 +216,7 @@ export default function NeoHeroSection() {
                 href="#features"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
-                  Key features
+                  Key Features
                 </span>
               </a>
             </nav>
@@ -305,22 +305,22 @@ export default function NeoHeroSection() {
               ref={captionRef}
               className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full opacity-0"
             >
-              Fast, secure and scalable
+              Professional Web Designer &amp; Video Editor
             </div>
             <h1
               ref={titleRef}
               className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-text-black"
             >
-              We’re building the future of digital systems &amp; web products
+              Crafting bespoke web experiences &amp; cinematic visual stories
             </h1>
             <div className="col-span-full flex flex-col gap-6 pt-2 md:col-span-6 md:pl-3 lg:col-span-5 lg:pl-[70px] lg:pr-[34px] lg:pt-[11px]">
               <p
                 ref={textRef}
                 className="text-body-d lg:text-body text-text-gray opacity-0"
               >
-                We empower enterprises, ambitious founders, and growing brands to
-                engineer high-converting digital flagships, robust SaaS
-                architectures, and AI-accelerated web experiences.
+                I help visionary founders, creators, and modern brands stand out with
+                bespoke high-end web design, fluid interactive motion, and cinematic
+                video editing that commands attention and drives conversions.
               </p>
               <div ref={buttonRef} className="opacity-0 md:self-start">
                 <button

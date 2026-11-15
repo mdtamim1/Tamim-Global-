@@ -47,10 +47,10 @@ export default function NeoFooter() {
           <li className="flex items-center max-md:even:justify-end max-md:even:text-right max-lg:min-h-6">
             <a
               className="inline-flex lg:transition-colors lg:hover:text-accent-1"
-              href="#technology"
+              href="#products"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Technology
+                Web Design
               </span>
             </a>
           </li>
@@ -60,17 +60,17 @@ export default function NeoFooter() {
               href="#expertise"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Expertise
+                Video &amp; Motion
               </span>
             </a>
           </li>
           <li className="flex items-center max-md:even:justify-end max-md:even:text-right max-lg:min-h-6">
             <a
               className="inline-flex lg:transition-colors lg:hover:text-accent-1"
-              href="#products"
+              href="#technology"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Products
+                Creative Direction
               </span>
             </a>
           </li>
@@ -80,7 +80,7 @@ export default function NeoFooter() {
               href="#features"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Key features
+                Key Features
               </span>
             </a>
           </li>
@@ -89,7 +89,7 @@ export default function NeoFooter() {
         {/* Form Column */}
         <div className="col-span-full flex flex-col gap-5 md:col-span-2 lg:col-span-6 lg:-col-end-1 xl:col-span-5 xl:-col-end-1 xl:pl-10">
           <h4 className="text-h4-d lg:text-h4 font-semibold">
-            Still have questions?
+            Ready to craft your next web or video project?
           </h4>
           <form
             onSubmit={handleSubmit}

@@ -16,56 +16,56 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const tabsData = [
   {
-    id: "launch",
-    label: "Product launch",
+    id: "web-design",
+    label: "Web & UI/UX Design",
     paragraphs: [
-      "We will help you to launch the best web & software product in the market with ease, while ensuring flawless execution and maximum market impact.",
-      "Our expertise in launching digital projects with precise data insights and optimized strategies will ensure your product reaches its full potential from day one.",
-      "We will help you to achieve a successful launch with the combined power of AI acceleration and robust modern engineering.",
+      "I craft visually stunning, bespoke websites designed to establish brand authority and turn casual visitors into loyal high-value clients.",
+      "Every layout is tailored in Figma with deep attention to typography, negative space, visual hierarchy, and responsive fluidity across all screen sizes.",
+      "From sleek portfolio flagships to multi-page corporate hubs, every design is built custom — never generic templates.",
     ],
-    stat1: "33K",
-    stat1Label: "monthly installs at first launch",
-    stat2: "12K",
-    stat2Label: "revenue in the first month",
+    stat1: "99.8%",
+    stat1Label: "client satisfaction rating",
+    stat2: "60fps",
+    stat2Label: "buttery smooth UI performance",
   },
   {
-    id: "validation",
-    label: "Hypothesis validation",
+    id: "video-editing",
+    label: "Cinematic Video Editing",
     paragraphs: [
-      "We aim to validate that we are on the right track already at the first steps. Using insights from real user research, we will refine your strategies aimed at user acquisition, engagement, and retention.",
-      "By analyzing interactions, feedback, and behavioral data, we can validate key assumptions, optimize flows, and identify high-value growth opportunities.",
-      "Great measurable results are what we are all about.",
-    ],
-    stat1: "12+",
-    stat1Label: "active enterprise pilots",
-    stat2: "8+",
-    stat2Label: "validated software architectures",
-  },
-  {
-    id: "scaling",
-    label: "Scaling",
-    paragraphs: [
-      "Scaling is what we are all about. Our experience in successful scaling of high-load platforms will ensure that you are in the right hands.",
-      "Whether you're handling increased data loads, expanding user bases, or enhancing service capabilities, our architecture ensures smooth, efficient scaling without compromising speed or quality.",
-      "Become a major player in the modern digital market with us!",
-    ],
-    stat1: "280K",
-    stat1Label: "peak requests handled / sec",
-    stat2: "100K",
-    stat2Label: "concurrent users scaled",
-  },
-  {
-    id: "marketing",
-    label: "Product marketing",
-    paragraphs: [
-      "Revolutionize your strategy with AI-powered, high-converting digital flagships. Unlock the full potential of your brand using our engineering and UI experts.",
-      "We will ensure a smooth ride with the product marketing approach — achieve greater impact, efficiency, and ROI from targeted campaigns to optimized content.",
-      "Even an amazing product needs exceptional engineering and design, and we are here to make it great.",
+      "Video is the most powerful storytelling medium. I edit high-impact commercial ads, brand films, YouTube features, and short-form reels that hook viewers in the first 3 seconds.",
+      "Utilizing industry-standard tools like Premiere Pro, After Effects, and DaVinci Resolve for precision pacing, advanced sound design, and cinematic color grades.",
+      "Turn raw footage into an emotional visual experience that commands attention and drives sales.",
     ],
     stat1: "4M+",
-    stat1Label: "global platform impressions",
-    stat2: "74%",
-    stat2Label: "average conversion uplift",
+    stat1Label: "organic video views generated",
+    stat2: "4K UHD",
+    stat2Label: "crystal-clear cinema grade master",
+  },
+  {
+    id: "motion-gsap",
+    label: "Motion Graphics & 3D",
+    paragraphs: [
+      "Static websites are a thing of the past. I bring web pages to life with GSAP ScrollTrigger, kinetic typography, interactive canvas shaders, and fluid spring physics.",
+      "Engineered for performance with zero lag, ensuring high frame-rate smoothness even on mobile devices.",
+      "Create an unforgettable interactive journey that wins awards and leaves a lasting impression.",
+    ],
+    stat1: "120Hz",
+    stat1Label: "motion fluidity & refresh rate",
+    stat2: "0.2s",
+    stat2Label: "instant interaction response",
+  },
+  {
+    id: "figma-code",
+    label: "Figma to Live Web",
+    paragraphs: [
+      "Seamless transition from design canvas to live, production-grade Next.js code with 100% pixel fidelity and clean maintainable architecture.",
+      "SEO-optimized, accessible, and connected to modern headless CMS, custom APIs, and analytics.",
+      "Fast delivery, transparent communication, and continuous support from concept to deployment.",
+    ],
+    stat1: "100%",
+    stat1Label: "pixel-perfect design fidelity",
+    stat2: "100/100",
+    stat2Label: "Google Lighthouse speed score",
   },
 ];
 
@@ -113,13 +113,13 @@ export default function NeoExpertiseSection() {
       <div className="col-span-full flex flex-col gap-3 lg:col lg:col-span-6 lg:gap-4 xl:pr-8">
         <div className="flex flex-col items-start gap-2 lg:gap-3 max-md:gap-1">
           <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-            Expertise
+            Expertise &amp; Craft
           </div>
           <h2
             className="text-h2-d lg:text-h2 font-semibold text-text-black"
             id="title-expertise"
           >
-            We have huge expertise
+            Specialized in web design &amp; video post-production
           </h2>
         </div>
 

@@ -18,9 +18,9 @@ if (typeof window !== "undefined") {
 const features = [
   {
     id: 1,
-    title: "Customizable product",
-    tag: "custom",
-    text: "Tamim Global provides advanced customization tools that deliver top model and application performance at competitive inference and cloud cost.",
+    title: "Bespoke Web Design",
+    tag: "UI / UX",
+    text: "Custom-tailored digital flagships designed in Figma and coded from scratch. Zero generic templates, zero bloated code — only pure aesthetic precision and high conversion.",
     video: "/video/features/1.mp4",
     dots: [
       false, true, true,
@@ -30,9 +30,9 @@ const features = [
   },
   {
     id: 2,
-    title: "Flexibility and Diversity",
-    tag: "flex",
-    text: "Tamim Global delivers the greatest variety and diversity of modern architectures to help deliver maximum performance and business conversion.",
+    title: "Cinematic Video Editing",
+    tag: "Video & Motion",
+    text: "Rhythm-matched cuts, commercial pacing, sound-designed soundscapes, and cinematic color grading in Premiere Pro and DaVinci that stop the scroll.",
     video: "/video/features/2.mp4",
     dots: [
       true, false, true,
@@ -42,9 +42,9 @@ const features = [
   },
   {
     id: 3,
-    title: "Scalability",
-    tag: "performance",
-    text: "Tamim Global is packaged with distributed edge runtimes that deliver better application throughput at lower costs. Scale up, or down, as needed.",
+    title: "Interactive Motion & 3D",
+    tag: "GSAP & WebGL",
+    text: "Scroll-driven GSAP motion, WebGL particle shaders, and sub-second page loads powered by Next.js 15 on globally distributed edge networks.",
     video: "/video/features/3.mp4",
     dots: [
       false, true, true,
@@ -170,13 +170,13 @@ export default function NeoFeaturesSection() {
         {/* Section Header */}
         <div className="flex flex-col items-start gap-2 lg:gap-3 col-span-full md:col-span-2 lg:col-span-5 lg:-mr-6">
           <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-            Key features
+            Key Capabilities
           </div>
           <h2
             className="text-h2-d lg:text-h2 font-semibold text-text-black"
             id="title-features"
           >
-            The best in the business
+            The craft behind every project
           </h2>
         </div>
 

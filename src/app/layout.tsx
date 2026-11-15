@@ -16,15 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL("https://tamimglobal.com"),
     title: {
-      default: "Tamim Global | Premium Web Design & Software Studio",
+      default: "Tamim Global | Professional Web Designer & Video Editor",
       template: `%s — Tamim Global`,
     },
     description:
-      "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
+      "Portfolio of Md Tamim — Elite Professional Web Designer and Cinematic Video Editor. Crafting bespoke high-converting digital flagships, 3D interactive web experiences, and commercial video productions.",
     openGraph: {
-      title: "Tamim Global | Premium Web Design & Software Studio",
+      title: "Tamim Global | Professional Web Designer & Video Editor",
       description:
-        "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
+        "Portfolio of Md Tamim — Elite Professional Web Designer and Cinematic Video Editor. Crafting bespoke high-converting digital flagships, 3D interactive web experiences, and commercial video productions.",
       url: "https://tamimglobal.com",
       siteName: "Tamim Global",
       images: [{ url: meta.ogImage || "/images/tg-mark.jpg", width: 1200, height: 630 }],
@@ -33,9 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Tamim Global | Premium Web Design & Software Studio",
+      title: "Tamim Global | Professional Web Designer & Video Editor",
       description:
-        "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed.",
+        "Portfolio of Md Tamim — Elite Professional Web Designer and Cinematic Video Editor.",
       images: [meta.ogImage || "/images/tg-mark.jpg"],
     },
     robots: {
