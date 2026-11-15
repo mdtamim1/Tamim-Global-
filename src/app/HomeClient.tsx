@@ -3,13 +3,12 @@
 // ============================================================
 // Tamim Global — Homepage Client Architecture
 // Exact 1:1 sequence matching awmedia.marketing:
-// Hero → Built Device → Trusted Marquee → Intro & Pain →
-// Work → Lanes → Services → Process → Proof → Why → FAQ →
-// About → Closing CTA
+// Preloader (NeoLeaf style) → Hero → Built Device →
+// Trusted Marquee → Intro & Pain → Work → Lanes → Services →
+// Process → Proof → Why → FAQ → About → Closing CTA
 // ============================================================
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Preloader from "@/components/ui/Preloader";
 import HeroSection from "@/components/sections/HeroSection";
 import BuiltDeviceSection from "@/components/sections/BuiltDeviceSection";
@@ -36,62 +35,52 @@ export default function HomeClient({ content }: HomeClientProps) {
 
   return (
     <>
-      {/* Preloader */}
-      <AnimatePresence>
-        {!preloaderDone && (
-          <Preloader onComplete={() => setPreloaderDone(true)} />
-        )}
-      </AnimatePresence>
+      {/* NeoLeaf-Style Luxury Curtain Preloader */}
+      {!preloaderDone && (
+        <Preloader onComplete={() => setPreloaderDone(true)} />
+      )}
 
       {/* Main Page Content */}
-      <AnimatePresence>
-        {preloaderDone && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* 01. Hero Section */}
-            <HeroSection content={content.hero} />
+      <div className="relative">
+        {/* 01. Hero Section */}
+        <HeroSection content={content.hero} />
 
-            {/* 02. Built Device Showcase (awmedia signature) */}
-            <BuiltDeviceSection />
+        {/* 02. Built Device Showcase */}
+        <BuiltDeviceSection />
 
-            {/* 03. Infinite Marquee Ticker */}
-            <TrustedMarquee />
+        {/* 03. Infinite Marquee Ticker */}
+        <TrustedMarquee />
 
-            {/* 04. Studio Manifesto & Pain Comparison */}
-            <IntroPainSection />
+        {/* 04. Studio Manifesto & Pain Comparison */}
+        <IntroPainSection />
 
-            {/* 05. Flagship Work Showcase */}
-            <WorkSection projects={sortedProjects} />
+        {/* 05. Flagship Work Showcase */}
+        <WorkSection projects={sortedProjects} />
 
-            {/* 06. Dual Speed Lanes (AI-Accelerated vs Bespoke) */}
-            <LanesSection />
+        {/* 06. Dual Speed Lanes (AI-Accelerated vs Bespoke) */}
+        <LanesSection />
 
-            {/* 07. Comprehensive Bento Services Matrix */}
-            <ServicesSection />
+        {/* 07. Comprehensive Bento Services Matrix */}
+        <ServicesSection />
 
-            {/* 08. 5-Step Process Roadmap */}
-            <ProcessSection />
+        {/* 08. 5-Step Process Roadmap */}
+        <ProcessSection />
 
-            {/* 09. Verified 5.0 Star Reviews & Social Proof */}
-            <ProofSection testimonials={content.testimonials} />
+        {/* 09. Verified 5.0 Star Reviews & Social Proof */}
+        <ProofSection testimonials={content.testimonials} />
 
-            {/* 10. Why Ambitious Businesses Choose Us */}
-            <WhySection />
+        {/* 10. Why Ambitious Businesses Choose Us */}
+        <WhySection />
 
-            {/* 11. Everything You Need to Know (FAQ Accordion) */}
-            <FaqSection />
+        {/* 11. Everything You Need to Know (FAQ Accordion) */}
+        <FaqSection />
 
-            {/* 12. Behind The Studio / Founder Profile */}
-            <AboutSection content={content.about} />
+        {/* 12. Behind The Studio / Founder Profile */}
+        <AboutSection content={content.about} />
 
-            {/* 13. High-Impact Closing CTA Banner */}
-            <CtaSection />
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* 13. High-Impact Closing CTA Banner */}
+        <CtaSection />
+      </div>
     </>
   );
 }
