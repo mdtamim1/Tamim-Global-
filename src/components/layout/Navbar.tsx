@@ -14,13 +14,13 @@ import { Menu, X } from "lucide-react";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
 const NAV_LINKS = [
+  { href: "/#technology", label: "Technology" },
+  { href: "/#products", label: "Products" },
+  { href: "/#expertise", label: "Expertise" },
+  { href: "/#features", label: "Key Features" },
   { href: "/#work", label: "Work" },
-  { href: "/#services", label: "Services" },
-  { href: "/#lanes", label: "Two Lanes" },
-  { href: "/#process", label: "How We Work" },
-  { href: "/#why", label: "Why Us" },
-  { href: "/#faq", label: "FAQ" },
   { href: "/#about", label: "About" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export default function Navbar() {
