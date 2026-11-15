@@ -3,9 +3,11 @@
 // ============================================================
 // Tamim Global — Team / Studio Showcase
 // Exact 1:1 Match to neoleaf.bytetown.agency Section 7
+// Features: Undulating 3D canvas particle wave grid in background,
+// dual counter-scrolling tickers, and discover/join CTA.
 // ============================================================
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
@@ -34,17 +36,88 @@ function TickerIcon() {
   );
 }
 
+// 3D Sine Wave Particle Canvas (Exact NeoLeaf Section 7 background)
+function ParticleWaveCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId: number;
+    let time = 0;
+
+    const resize = () => {
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      canvas.height = canvas.parentElement?.clientHeight || 600;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const cols = 55;
+    const rows = 28;
+
+    const render = () => {
+      time += 0.02;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height * 0.65;
+      const spacingX = canvas.width / cols;
+      const spacingY = 14;
+
+      for (let r = 0; r < rows; r++) {
+        const perspective = 0.5 + (r / rows) * 0.9;
+        const alpha = Math.min(1, Math.max(0.08, (r / rows) * 0.35));
+        ctx.fillStyle = `rgba(180, 180, 185, ${alpha})`;
+
+        for (let c = 0; c < cols; c++) {
+          const x = (c - cols / 2) * spacingX * perspective + cx;
+          const wave = Math.sin(c * 0.2 + time) * Math.cos(r * 0.2 + time * 0.8) * 22;
+          const y = cy + (r - rows / 2) * spacingY * perspective + wave;
+
+          const radius = (1 + (r / rows) * 1.8) * perspective;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      animId = requestAnimationFrame(render);
+    };
+
+    animId = requestAnimationFrame(render);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 size-full pointer-events-none select-none -z-10"
+    />
+  );
+}
+
 export default function NeoTeamSection() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
       <section className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden">
+        {/* Real Undulating 3D Particle Wave Canvas */}
+        <ParticleWaveCanvas />
+
         {/* Main Content */}
-        <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-text-black">
+        <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-text-black z-10">
           We’re a collaborative team of experts
         </h2>
-        <p className="text-body-d lg:text-body text-text-gray w-full max-w-[660px]">
+        <p className="text-body-d lg:text-body text-text-gray w-full max-w-[660px] z-10">
           Led by Md Tamim, we are full-stack software architects, creative technologists,
           and UI engineers passionate about crafting high-performance digital products
           that win market share.
@@ -54,7 +127,7 @@ export default function NeoTeamSection() {
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="group relative z-0 inline-flex shrink-0 cursor-pointer appearance-none justify-center whitespace-nowrap rounded-none border-0 p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-12 items-stretch gap-0 text-[16px] leading-[130%] text-text-black lg:h-[52px] lg:text-button mt-4 max-md:w-full lg:mt-5"
+          className="group relative z-10 inline-flex shrink-0 cursor-pointer appearance-none justify-center whitespace-nowrap rounded-none border-0 p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-12 items-stretch gap-0 text-[16px] leading-[130%] text-text-black lg:h-[52px] lg:text-button mt-4 max-md:w-full lg:mt-5"
         >
           <span className="inline-flex items-center justify-center relative h-full grow overflow-hidden rounded-[100px] bg-accent-1 px-10 transition-colors lg:group-hover:bg-accent-3 font-semibold">
             Let’s Talk!
@@ -96,9 +169,9 @@ export default function NeoTeamSection() {
           </span>
         </button>
 
-        {/* Ambient Counter-Moving Tickers in Background (Signature NeoLeaf touch) */}
+        {/* Ambient Counter-Moving Tickers in Background */}
         <div
-          className="max-lg:hidden lg:absolute lg:left-0 lg:right-0 lg:top-1/2 lg:-z-10 lg:mt-[-96px] lg:grid lg:grid-cols-2 lg:items-center lg:justify-center lg:gap-6 lg:overflow-hidden lg:text-text-gray opacity-30 pointer-events-none select-none"
+          className="max-lg:hidden lg:absolute lg:left-0 lg:right-0 lg:top-1/2 lg:-z-10 lg:mt-[-96px] lg:grid lg:grid-cols-2 lg:items-center lg:justify-center lg:gap-6 lg:overflow-hidden lg:text-text-gray opacity-35 pointer-events-none select-none"
           aria-hidden="true"
         >
           <motion.div
@@ -139,4 +212,3 @@ export default function NeoTeamSection() {
     </>
   );
 }
-

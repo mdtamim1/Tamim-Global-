@@ -3,9 +3,11 @@
 // ============================================================
 // Tamim Global — Hero Section & Header
 // Exact 1:1 Replication of neoleaf.bytetown.agency Section 1
+// Features: Real ambient audio playback (/audio/bg.mp3),
+// interactive equalizer, intro.mp4 cinematic stage, and dual pill CTA.
 // ============================================================
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
@@ -13,9 +15,27 @@ import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 export default function NeoHeroSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [soundPlaying, setSoundPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const toggleSound = () => {
+    if (!audioRef.current) return;
+    if (soundPlaying) {
+      audioRef.current.pause();
+      setSoundPlaying(false);
+    } else {
+      audioRef.current.play().then(() => {
+        setSoundPlaying(true);
+      }).catch(() => {
+        // Autoplay may be restricted until user interacts
+      });
+    }
+  };
 
   return (
     <>
+      {/* Hidden Audio Player for NeoLeaf Ambient Music */}
+      <audio ref={audioRef} src="/audio/bg.mp3" loop preload="none" />
+
       <section className="relative">
         <div className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col justify-end gap-5 pb-10 overflow-hidden lg:gap-9">
           {/* Header */}
@@ -78,12 +98,16 @@ export default function NeoHeroSection() {
 
             {/* Header Right Actions */}
             <div className="ml-auto flex items-center gap-3 lg:gap-4">
-              {/* Sound Equalizer Pill */}
+              {/* Sound Equalizer Pill with Audio Stream */}
               <button
-                className="relative z-0 flex size-9 shrink-0 items-center justify-center gap-0.5 rounded-full border border-black text-text-gray lg:size-10 lg:transition-colors lg:hover:bg-black lg:hover:text-white max-lg:hidden cursor-pointer"
+                className={`relative z-0 flex size-9 shrink-0 items-center justify-center gap-0.5 rounded-full border border-black lg:size-10 lg:transition-colors max-lg:hidden cursor-pointer ${
+                  soundPlaying
+                    ? "bg-black text-white"
+                    : "text-text-gray hover:bg-black hover:text-white"
+                }`}
                 type="button"
                 aria-label="Toggle ambient audio"
-                onClick={() => setSoundPlaying(!soundPlaying)}
+                onClick={toggleSound}
               >
                 <div
                   className={`h-4 w-0.5 shrink-0 origin-bottom rounded-md bg-current transition-all duration-300 ${
@@ -145,7 +169,7 @@ export default function NeoHeroSection() {
             <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full">
               Fast, secure and scalable
             </div>
-            <h1 className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7">
+            <h1 className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-text-black">
               We’re building the future of digital systems &amp; web products
             </h1>
             <div className="col-span-full flex flex-col gap-6 pt-2 md:col-span-6 md:pl-3 lg:col-span-5 lg:pl-[70px] lg:pr-[34px] lg:pt-[11px]">
@@ -211,4 +235,3 @@ export default function NeoHeroSection() {
     </>
   );
 }
-
