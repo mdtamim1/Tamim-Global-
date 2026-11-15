@@ -1,16 +1,11 @@
 // ============================================================
 // Tamim Global — Root Layout
-// Matching awmedia.marketing's high-performance layout,
-// typography, smooth scroll, and floating contact bar.
+// Exact 1:1 match to neoleaf.bytetown.agency:
+// Font loading (Onest & Roboto Flex), metadata, smooth viewport.
 // ============================================================
 
 import type { Metadata, Viewport } from "next";
 import { getContent } from "@/lib/content";
-import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
-import CustomCursor from "@/components/ui/CustomCursor";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import FloatingContactBar from "@/components/ui/FloatingContactBar";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,21 +18,24 @@ export async function generateMetadata(): Promise<Metadata> {
       default: "Tamim Global | Premium Web Design & Software Studio",
       template: `%s — Tamim Global`,
     },
-    description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
+    description:
+      "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
     openGraph: {
       title: "Tamim Global | Premium Web Design & Software Studio",
-      description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
+      description:
+        "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed. Two lanes. Both fully custom. Never templated.",
       url: "https://tamimglobal.com",
       siteName: "Tamim Global",
-      images: [{ url: meta.ogImage, width: 1200, height: 630 }],
+      images: [{ url: meta.ogImage || "/images/tg-mark.jpg", width: 1200, height: 630 }],
       locale: "en_US",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: "Tamim Global | Premium Web Design & Software Studio",
-      description: "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed.",
-      images: [meta.ogImage],
+      description:
+        "Award-winning digital experiences & scalable platforms engineered at AI-accelerated speed.",
+      images: [meta.ogImage || "/images/tg-mark.jpg"],
     },
     robots: {
       index: true,
@@ -48,50 +46,36 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#151515",
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark antialiased" suppressHydrationWarning>
+    <html lang="en" className="box-border w-full overflow-x-clip overscroll-none">
       <head>
-        {/* Rethink Sans & JetBrains Mono Fonts */}
+        {/* Onest & Roboto Flex Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&family=Roboto+Flex:wght@100..1000&display=swap"
           rel="stylesheet"
         />
         {/* Favicon & App Icons */}
         <link rel="icon" href="/images/tg-mark.jpg" type="image/jpeg" />
         <link rel="apple-touch-icon" href="/images/tg-mark.jpg" />
       </head>
-      <body className="bg-black text-[#f5f5f7] antialiased overflow-x-hidden">
-        {/* Skip to content link */}
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg">
-          Skip to main content
-        </a>
-        <SmoothScrollProvider>
-          {/* Custom Cursor */}
-          <CustomCursor />
-          {/* Floating Island Navigation */}
-          <Navbar />
-          {/* Main Viewport */}
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
-          {/* Studio Footer */}
-          <Footer />
-          {/* Floating Quick Action Bar (Bottom-Left) */}
-          <FloatingContactBar />
-        </SmoothScrollProvider>
+      <body
+        id="__next"
+        className="flex min-h-dvh w-full flex-col overflow-x-clip overscroll-none bg-white font-primary text-body-d text-text-black antialiased lg:text-body"
+      >
+        {children}
       </body>
     </html>
   );

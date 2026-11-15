@@ -54,7 +54,9 @@ export default function HeroNeoSection() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="lede max-w-2xl mx-auto text-white/70 mb-10"
         >
-          We empower enterprises, ambitious founders, and growing brands to engineer high-converting digital flagships, robust SaaS architectures, and AI-accelerated web experiences.
+          We empower enterprises, ambitious founders, and growing brands to
+          engineer high-converting digital flagships, robust SaaS architectures,
+          and AI-accelerated web experiences.
         </motion.p>
 
         {/* Dual Actions */}
@@ -71,10 +73,7 @@ export default function HeroNeoSection() {
             <span>Let’s Talk!</span>
             <ArrowRight size={15} />
           </button>
-          <a
-            href="#technology"
-            className="btn btn-glass w-full sm:w-auto"
-          >
+          <a href="#technology" className="btn btn-glass w-full sm:w-auto">
             <span>Explore Systems</span>
           </a>
         </motion.div>
