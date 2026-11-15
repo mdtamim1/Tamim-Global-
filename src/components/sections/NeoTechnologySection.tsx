@@ -3,8 +3,9 @@
 // ============================================================
 // Tamim Global — Technology Section
 // Exact 1:1 Match to neoleaf.bytetown.agency Section 3
-// Features: Sticky layout, text-accent-2 tag, and the authentic
-// 3,634-dot particle human face (head-particles.svg) on the right.
+// Features: Sticky bottom layout for dramatic curtain reveal under
+// Section 4, text-accent-2 tag, and the authentic 3,634-dot particle
+// human face (head-particles.svg) on the right.
 // ============================================================
 
 import { useState, useEffect } from "react";
@@ -28,10 +29,10 @@ export default function NeoTechnologySection() {
 
   return (
     <section
-      className="relative flex flex-col justify-end max-lg:scroll-mt-6 pt-16 pb-20 lg:py-28 overflow-hidden"
+      className="relative flex flex-col justify-end max-lg:scroll-mt-6 -mb-16 lg:-mb-24"
       id="technology"
     >
-      <div className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 z-0 items-center">
+      <div className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 sticky bottom-0 z-0 overflow-hidden pb-32 pt-16 lg:pb-[240px] lg:pt-24 items-center">
         {/* Left Column: Technology Headings & Description */}
         <div className="col-span-full flex flex-col gap-4 md:col-span-3 lg:col-span-6 lg:gap-5 xl:col-span-5 z-10">
           <div className="flex flex-col items-start gap-2 lg:gap-3">
@@ -60,7 +61,7 @@ export default function NeoTechnologySection() {
         </div>
 
         {/* Right Column: 3,634-Dot Particle Human Head (Exact NeoLeaf Visual) */}
-        <div className="col-span-full md:col-span-1 lg:col-span-6 xl:col-span-7 flex items-center justify-center lg:justify-end relative min-h-[350px] lg:min-h-[550px] pointer-events-none select-none">
+        <div className="col-span-full md:col-span-1 lg:col-span-6 xl:col-span-7 flex items-center justify-center lg:justify-end relative min-h-[350px] lg:min-h-[520px] pointer-events-none select-none">
           <motion.div
             animate={{
               rotateY: mousePos.x,

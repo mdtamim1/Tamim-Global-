@@ -1,13 +1,15 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Lenis Smooth Scroll Provider
-// Wraps the app with Lenis for buttery smooth scrolling.
-// Falls back gracefully when JS is disabled or reduced motion is on.
+// Tamim Global — Lenis Smooth Scroll Provider with GSAP Integration
+// Syncs Lenis scroll engine with GSAP ScrollTrigger for
+// 120Hz buttery smooth inertia scrolling matching neoleaf.bytetown.agency
 // ============================================================
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScrollProvider({
   children,
@@ -17,31 +19,36 @@ export default function SmoothScrollProvider({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Respect user's motion preference
+    // Register GSAP ScrollTrigger plugin
+    if (typeof window !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo ease
+      duration: 1.15,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.4,
     });
 
     lenisRef.current = lenis;
-
-    // Expose lenis to GSAP ScrollTrigger if needed
     (window as typeof window & { lenis?: Lenis }).lenis = lenis;
 
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    // Connect Lenis to GSAP ScrollTrigger
+    lenis.on("scroll", ScrollTrigger.update);
+
+    const tickerCb = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(tickerCb);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(tickerCb);
       lenis.destroy();
       lenisRef.current = null;
     };
@@ -49,4 +56,3 @@ export default function SmoothScrollProvider({
 
   return <>{children}</>;
 }
-

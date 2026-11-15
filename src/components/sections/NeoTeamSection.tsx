@@ -4,15 +4,16 @@
 // Tamim Global — Team / Studio Showcase
 // Exact 1:1 Match to neoleaf.bytetown.agency Section 7
 // Features: Undulating 3D canvas particle wave grid in background,
-// dual counter-scrolling tickers, and discover/join CTA.
+// GSAP ScrollTrigger counter-scrubbing tickers, and discover CTA.
 // ============================================================
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
-const tickerRow1 = ["neural", "empathetic", "expert", "collab", "precision", "modern"];
-const tickerRow2 = ["explore", "team", "intuitive", "smart", "scalable", "full-stack"];
+const tickerRow1 = ["neural", "empathetic", "expert", "collab", "precision", "modern", "neural", "empathetic", "expert", "collab"];
+const tickerRow2 = ["explore", "team", "intuitive", "smart", "scalable", "full-stack", "explore", "team", "intuitive", "smart"];
 
 function TickerIcon() {
   return (
@@ -106,10 +107,43 @@ function ParticleWaveCanvas() {
 
 export default function NeoTeamSection() {
   const [modalOpen, setModalOpen] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const row1Ref = useRef<HTMLDivElement | null>(null);
+  const row2Ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    const r1 = row1Ref.current;
+    const r2 = row2Ref.current;
+    if (!section || !r1 || !r2) return;
+
+    // Exact NeoLeaf counter-scrolling tickers driven by scroll wheel scrub
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.8,
+        },
+      });
+
+      tl.to(r1, { x: -380, ease: "none" }, 0);
+      tl.to(r2, { x: 380, ease: "none" }, 0);
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
-      <section className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden">
+      <section
+        ref={sectionRef}
+        className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden"
+      >
         {/* Real Undulating 3D Particle Wave Canvas */}
         <ParticleWaveCanvas />
 
@@ -169,17 +203,16 @@ export default function NeoTeamSection() {
           </span>
         </button>
 
-        {/* Ambient Counter-Moving Tickers in Background */}
+        {/* Ambient Counter-Moving Tickers Driven by GSAP Scroll Scrub */}
         <div
           className="max-lg:hidden lg:absolute lg:left-0 lg:right-0 lg:top-1/2 lg:-z-10 lg:mt-[-96px] lg:grid lg:grid-cols-2 lg:items-center lg:justify-center lg:gap-6 lg:overflow-hidden lg:text-text-gray opacity-35 pointer-events-none select-none"
           aria-hidden="true"
         >
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 20, ease: "linear", repeat: Infinity }}
-            className="lg:flex lg:shrink-0 lg:items-center lg:justify-end lg:gap-6 whitespace-nowrap"
+          <div
+            ref={row1Ref}
+            className="lg:flex lg:shrink-0 lg:items-center lg:justify-end lg:gap-6 whitespace-nowrap will-change-transform"
           >
-            {[...tickerRow1, ...tickerRow1, ...tickerRow1].map((word, i) => (
+            {tickerRow1.map((word, i) => (
               <span key={i} className="inline-flex items-center gap-6">
                 <TickerIcon />
                 <span className="text-h3-d lg:text-h3 font-medium lowercase">
@@ -187,13 +220,12 @@ export default function NeoTeamSection() {
                 </span>
               </span>
             ))}
-          </motion.div>
-          <motion.div
-            animate={{ x: ["-50%", "0%"] }}
-            transition={{ duration: 20, ease: "linear", repeat: Infinity }}
-            className="lg:flex lg:shrink-0 lg:items-center lg:gap-6 whitespace-nowrap"
+          </div>
+          <div
+            ref={row2Ref}
+            className="lg:flex lg:shrink-0 lg:items-center lg:gap-6 whitespace-nowrap will-change-transform"
           >
-            {[...tickerRow2, ...tickerRow2, ...tickerRow2].map((word, i) => (
+            {tickerRow2.map((word, i) => (
               <span key={i} className="inline-flex items-center gap-6">
                 <TickerIcon />
                 <span className="text-h3-d lg:text-h3 font-medium lowercase">
@@ -201,7 +233,7 @@ export default function NeoTeamSection() {
                 </span>
               </span>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

@@ -4,18 +4,35 @@
 // Tamim Global — Hero Section & Header
 // Exact 1:1 Replication of neoleaf.bytetown.agency Section 1
 // Features: Real ambient audio playback (/audio/bg.mp3),
-// interactive equalizer, intro.mp4 cinematic stage, and dual pill CTA.
+// interactive equalizer, intro.mp4 cinematic stage with GSAP
+// clipPath shrink scrub on scroll, and monolithic typography.
 // ============================================================
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function NeoHeroSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [soundPlaying, setSoundPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Animation refs
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const videoSlotRef = useRef<HTMLDivElement | null>(null);
+  const videoWrapRef = useRef<HTMLDivElement | null>(null);
+  const captionRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const textRef = useRef<HTMLParagraphElement | null>(null);
+  const buttonRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSound = () => {
     if (!audioRef.current) return;
@@ -31,15 +48,123 @@ export default function NeoHeroSection() {
     }
   };
 
+  useEffect(() => {
+    if (!sectionRef.current || !containerRef.current || !videoSlotRef.current || !videoWrapRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const section = sectionRef.current!;
+      const container = containerRef.current!;
+      const videoSlot = videoSlotRef.current!;
+      const videoWrap = videoWrapRef.current!;
+
+      // Section pins for 1000px scrub
+      gsap.set(section, { minHeight: `${container.offsetHeight + 1000}px` });
+      gsap.set(container, { position: "sticky", top: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: "+=1000",
+          scrub: 1,
+        },
+      });
+
+      const sRect = container.getBoundingClientRect();
+      const rRect = videoSlot.getBoundingClientRect();
+      const borderRadius = parseInt(window.getComputedStyle(videoSlot).borderRadius, 10) || 20;
+
+      const inset = {
+        top: rRect.top - sRect.top,
+        right: sRect.right - rRect.right,
+        bottom: sRect.bottom - rRect.bottom,
+        left: rRect.left - sRect.left,
+        borderRadius: borderRadius,
+      };
+
+      const brProp = "--cp-brs";
+      videoWrap.style.setProperty(brProp, "0px");
+
+      tl.to(
+        videoWrap,
+        {
+          duration: 0.15,
+          ease: "none",
+          [brProp]: `${inset.borderRadius}px`,
+        },
+        0
+      );
+
+      tl.to(
+        videoWrap,
+        {
+          ease: "none",
+          clipPath: `inset(${inset.top}px ${inset.right}px ${inset.bottom}px ${inset.left}px round var(${brProp}, 0px))`,
+        },
+        0
+      );
+
+      if (captionRef.current) {
+        captionRef.current.classList.remove("opacity-0");
+        tl.from(
+          captionRef.current,
+          {
+            duration: 0.15,
+            ease: "none",
+            opacity: 0,
+            y: -20,
+          },
+          "<75%"
+        );
+      }
+
+      if (textRef.current) {
+        textRef.current.classList.remove("opacity-0");
+        tl.from(
+          textRef.current,
+          {
+            duration: 0.15,
+            ease: "none",
+            opacity: 0,
+            y: 30,
+          },
+          "<50%"
+        );
+      }
+
+      if (buttonRef.current) {
+        buttonRef.current.classList.remove("opacity-0");
+        tl.from(
+          buttonRef.current,
+          {
+            duration: 0.15,
+            ease: "none",
+            opacity: 0,
+            y: 30,
+            scale: 1.05,
+          },
+          "<50%"
+        );
+      }
+
+      tl.to(section, { duration: 0.2 });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
       {/* Hidden Audio Player for NeoLeaf Ambient Music */}
       <audio ref={audioRef} src="/audio/bg.mp3" loop preload="none" />
 
-      <section className="relative">
-        <div className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col justify-end gap-5 pb-10 overflow-hidden lg:gap-9">
+      <section ref={sectionRef} className="relative">
+        <div
+          ref={containerRef}
+          className="w-full px-5 md:px-10 lg:px-[60px] min-h-screen relative z-0 flex flex-col justify-end gap-5 pb-10 overflow-hidden lg:gap-9"
+        >
           {/* Header */}
-          <header className="px-5 md:px-10 lg:px-[60px] left-0 top-0 z-50 flex w-full items-center gap-6 py-4 lg:gap-[42px] lg:py-5 relative -mb-4 !px-0 lg:-mb-8">
+          <header className="left-0 top-0 z-50 flex w-full items-center gap-6 py-4 lg:gap-[42px] lg:py-5 relative -mb-4 !px-0 lg:-mb-8">
             <Link
               className="flex items-center gap-3 shrink-0 lg:transition-transform lg:hover:scale-105"
               aria-label="Tamim Global logo"
@@ -149,9 +274,19 @@ export default function NeoHeroSection() {
             </div>
           </header>
 
-          {/* Hero Cinematic Video Stage */}
-          <div className="grow select-none rounded-2xl lg:rounded-[20px] relative min-h-[300px] md:min-h-[420px] lg:min-h-[500px]">
-            <div className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden before:absolute before:inset-0 before:bg-gradient-section-intro-bg before:z-10">
+          {/* Hero Cinematic Video Slot Container */}
+          <div
+            ref={videoSlotRef}
+            className="grow select-none rounded-2xl lg:rounded-[20px] min-h-[300px] md:min-h-[420px] lg:min-h-[500px]"
+          >
+            {/* The Video element itself covers the entire container and gets clipped on scroll */}
+            <div
+              ref={videoWrapRef}
+              className="absolute inset-0 -z-10 before:absolute before:inset-0 before:bg-gradient-section-intro-bg before:z-10"
+              style={{
+                clipPath: "inset(0px 0px 0px 0px round 0px)",
+              }}
+            >
               <video
                 className="size-full object-cover"
                 playsInline
@@ -166,62 +301,73 @@ export default function NeoHeroSection() {
 
           {/* Hero Typography & CTA Block */}
           <div className="grid grid-cols-12 items-start gap-y-2">
-            <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full">
+            <div
+              ref={captionRef}
+              className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full opacity-0"
+            >
               Fast, secure and scalable
             </div>
-            <h1 className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-text-black">
+            <h1
+              ref={titleRef}
+              className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-text-black"
+            >
               We’re building the future of digital systems &amp; web products
             </h1>
             <div className="col-span-full flex flex-col gap-6 pt-2 md:col-span-6 md:pl-3 lg:col-span-5 lg:pl-[70px] lg:pr-[34px] lg:pt-[11px]">
-              <p className="text-body-d lg:text-body text-text-gray">
+              <p
+                ref={textRef}
+                className="text-body-d lg:text-body text-text-gray opacity-0"
+              >
                 We empower enterprises, ambitious founders, and growing brands to
                 engineer high-converting digital flagships, robust SaaS
                 architectures, and AI-accelerated web experiences.
               </p>
-              <button
-                type="button"
-                onClick={() => setModalOpen(true)}
-                className="group relative z-0 inline-flex shrink-0 cursor-pointer appearance-none justify-center whitespace-nowrap rounded-none border-0 p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-12 items-stretch gap-0 text-[16px] leading-[130%] text-text-black lg:h-[52px] lg:text-button md:self-start"
-              >
-                <span className="inline-flex items-center justify-center relative h-full grow overflow-hidden rounded-[100px] bg-accent-1 px-10 transition-colors lg:group-hover:bg-accent-3 font-semibold">
-                  Let’s Talk!
-                </span>
-                <span className="relative flex shrink-0 items-center justify-center overflow-hidden aspect-square h-full rounded-full bg-accent-1 lg:transition-colors lg:group-hover:bg-accent-3">
-                  <span
-                    className="max-lg:hidden lg:absolute lg:inset-0 lg:m-auto lg:flex lg:size-full lg:translate-y-full lg:items-center lg:justify-center lg:transition-transform lg:group-hover:translate-y-0 lg:group-hover:duration-700"
-                    aria-hidden="true"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      fill="none"
-                      viewBox="0 0 28 28"
-                      className="styles_component__XuEBc block h-[1em] w-[1em] max-w-none shrink-0 text-[28px]"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="m22.707 13.293-7-7a1 1 0 0 0-1.497 1.32l.083.094L19.586 13H6a1 1 0 0 0-.993.883L5 14a1 1 0 0 0 .883.993L6 15h13.586l-5.293 5.293a1 1 0 0 0-.083 1.32l.083.094a1 1 0 0 0 1.32.083l.094-.083 7-7 .097-.112.071-.11.054-.114.035-.105.025-.117.007-.06.004-.108-.004-.07-.016-.112-.03-.111-.044-.111-.052-.098-.067-.096a1 1 0 0 0-.08-.09l-7-7z"
-                      />
-                    </svg>
+              <div ref={buttonRef} className="opacity-0 md:self-start">
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="group relative z-0 inline-flex shrink-0 cursor-pointer appearance-none justify-center whitespace-nowrap rounded-none border-0 p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-12 items-stretch gap-0 text-[16px] leading-[130%] text-text-black lg:h-[52px] lg:text-button"
+                >
+                  <span className="inline-flex items-center justify-center relative h-full grow overflow-hidden rounded-[100px] bg-accent-1 px-10 transition-colors lg:group-hover:bg-accent-3 font-semibold">
+                    Let’s Talk!
                   </span>
-                  <span className="flex size-full items-center justify-center lg:transition-transform lg:group-hover:-translate-y-full lg:group-hover:duration-700">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="28"
-                      height="28"
-                      fill="none"
-                      viewBox="0 0 28 28"
-                      className="styles_component__XuEBc block h-[1em] w-[1em] max-w-none shrink-0 text-[28px]"
+                  <span className="relative flex shrink-0 items-center justify-center overflow-hidden aspect-square h-full rounded-full bg-accent-1 lg:transition-colors lg:group-hover:bg-accent-3">
+                    <span
+                      className="max-lg:hidden lg:absolute lg:inset-0 lg:m-auto lg:flex lg:size-full lg:translate-y-full lg:items-center lg:justify-center lg:transition-transform lg:group-hover:translate-y-0 lg:group-hover:duration-700"
+                      aria-hidden="true"
                     >
-                      <path
-                        fill="currentColor"
-                        d="m22.707 13.293-7-7a1 1 0 0 0-1.497 1.32l.083.094L19.586 13H6a1 1 0 0 0-.993.883L5 14a1 1 0 0 0 .883.993L6 15h13.586l-5.293 5.293a1 1 0 0 0-.083 1.32l.083.094a1 1 0 0 0 1.32.083l.094-.083 7-7 .097-.112.071-.11.054-.114.035-.105.025-.117.007-.06.004-.108-.004-.07-.016-.112-.03-.111-.044-.111-.052-.098-.067-.096a1 1 0 0 0-.08-.09l-7-7z"
-                      />
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        fill="none"
+                        viewBox="0 0 28 28"
+                        className="block h-[1em] w-[1em] max-w-none shrink-0 text-[28px]"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="m22.707 13.293-7-7a1 1 0 0 0-1.497 1.32l.083.094L19.586 13H6a1 1 0 0 0-.993.883L5 14a1 1 0 0 0 .883.993L6 15h13.586l-5.293 5.293a1 1 0 0 0-.083 1.32l.083.094a1 1 0 0 0 1.32.083l.094-.083 7-7 .097-.112.071-.11.054-.114.035-.105.025-.117.007-.06.004-.108-.004-.07-.016-.112-.03-.111-.044-.111-.052-.098-.067-.096a1 1 0 0 0-.08-.09l-7-7z"
+                        />
+                      </svg>
+                    </span>
+                    <span className="flex size-full items-center justify-center lg:transition-transform lg:group-hover:-translate-y-full lg:group-hover:duration-700">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        fill="none"
+                        viewBox="0 0 28 28"
+                        className="block h-[1em] w-[1em] max-w-none shrink-0 text-[28px]"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="m22.707 13.293-7-7a1 1 0 0 0-1.497 1.32l.083.094L19.586 13H6a1 1 0 0 0-.993.883L5 14a1 1 0 0 0 .883.993L6 15h13.586l-5.293 5.293a1 1 0 0 0-.083 1.32l.083.094a1 1 0 0 0 1.32.083l.094-.083 7-7 .097-.112.071-.11.054-.114.035-.105.025-.117.007-.06.004-.108-.004-.07-.016-.112-.03-.111-.044-.111-.052-.098-.067-.096a1 1 0 0 0-.08-.09l-7-7z"
+                        />
+                      </svg>
+                    </span>
                   </span>
-                </span>
-              </button>
+                </button>
+              </div>
             </div>
           </div>
         </div>

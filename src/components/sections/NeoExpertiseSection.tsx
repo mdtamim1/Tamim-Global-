@@ -3,13 +3,16 @@
 // ============================================================
 // Tamim Global — Expertise Interactive Tabs Section
 // Exact 1:1 Match to neoleaf.bytetown.agency Section 5
-// Features: Real NeoLeaf hand mockup, dynamic tabs, animated capsule,
-// and matching dual stat counters.
+// Features: Real NeoLeaf hand mockup with GSAP ScrollTrigger
+// slide-in scrub (xPercent: 101 -> 0, scale: 0.85 -> 1.0),
+// dynamic tabs, animated capsule, and matching dual stat counters.
 // ============================================================
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const tabsData = [
   {
@@ -70,9 +73,40 @@ export default function NeoExpertiseSection() {
   const [activeTab, setActiveTab] = useState(0);
   const current = tabsData[activeTab];
 
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const handRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = sectionRef.current;
+    const hand = handRef.current;
+    if (!section || !hand) return;
+
+    // Exact NeoLeaf scrub animation for the phone in hand
+    const ctx = gsap.context(() => {
+      gsap.from(hand, {
+        xPercent: 101,
+        yPercent: 15,
+        scale: 0.85,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "5% bottom",
+          end: "95% bottom",
+          scrub: 1,
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
-      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px]"
+      ref={sectionRef}
+      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px] overflow-hidden"
       id="expertise"
     >
       {/* Col 1: Left Tab Controls & Insights */}
@@ -129,7 +163,7 @@ export default function NeoExpertiseSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Dual Stat Metrics Counters (Signature NeoLeaf text-accent-2 numbers) */}
+          {/* Dual Stat Metrics Counters */}
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id + "-stats"}
@@ -160,7 +194,7 @@ export default function NeoExpertiseSection() {
         </div>
       </div>
 
-      {/* Col 2: Real NeoLeaf Hand & Phone Mockup */}
+      {/* Col 2: Real NeoLeaf Hand & Phone Mockup with GSAP Scroll Scrub */}
       <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-bg-black md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[28px] shadow-xl">
         {/* Background Texture */}
         <Image
@@ -187,8 +221,11 @@ export default function NeoExpertiseSection() {
           />
         </div>
 
-        {/* Realistic Hand Holding Smartphone with App Screen */}
-        <div className="relative z-10 select-none flex items-end justify-center h-full w-full">
+        {/* Realistic Hand Holding Smartphone with GSAP Scroll Scrub */}
+        <div
+          ref={handRef}
+          className="relative z-10 select-none flex items-end justify-center h-full w-full will-change-transform"
+        >
           <Image
             alt="Hand holding app"
             src="/neoleaf-media/hand.f044b646.webp"

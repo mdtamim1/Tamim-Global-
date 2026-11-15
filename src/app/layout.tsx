@@ -1,11 +1,12 @@
 // ============================================================
 // Tamim Global — Root Layout
 // Exact 1:1 match to neoleaf.bytetown.agency:
-// Font loading (Onest & Roboto Flex), metadata, smooth viewport.
+// Font loading (Onest & Roboto Flex), Lenis Smooth Scroll, metadata.
 // ============================================================
 
 import type { Metadata, Viewport } from "next";
 import { getContent } from "@/lib/content";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -75,7 +76,9 @@ export default function RootLayout({
         id="__next"
         className="flex min-h-dvh w-full flex-col overflow-x-clip overscroll-none bg-white font-primary text-body-d text-text-black antialiased lg:text-body"
       >
-        {children}
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );
