@@ -142,7 +142,7 @@ export default function NeoHeroSection() {
 
           {/* Hero Typography & CTA Block */}
           <div className="grid grid-cols-12 items-start gap-y-2">
-            <div className="text-tag-d lg:text-tag font-bold uppercase text-[#4cd964] col-span-full">
+            <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full">
               Fast, secure and scalable
             </div>
             <h1 className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7">
@@ -211,3 +211,4 @@ export default function NeoHeroSection() {
     </>
   );
 }
+

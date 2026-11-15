@@ -14,7 +14,7 @@ export default function NeoProductsBentoSection() {
       id="products"
     >
       <div className="flex flex-col items-start gap-2 lg:gap-3">
-        <div className="text-tag-d lg:text-tag font-bold uppercase text-[#4cd964]">
+        <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
           Products &amp; Capabilities
         </div>
         <h2
@@ -217,3 +217,4 @@ export default function NeoProductsBentoSection() {
     </section>
   );
 }
+

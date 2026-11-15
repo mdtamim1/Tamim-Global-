@@ -68,7 +68,7 @@ export default function NeoExpertiseSection() {
       {/* Left Column: Interactive Tab Controls & Insights */}
       <div className="col-span-full flex flex-col gap-3 lg:col lg:col-span-6 lg:gap-4 xl:pr-8">
         <div className="flex flex-col items-start gap-2 lg:gap-3 max-md:gap-1">
-          <div className="text-tag-d lg:text-tag font-bold uppercase text-[#4cd964]">
+          <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
             Expertise
           </div>
           <h2
@@ -158,3 +158,4 @@ export default function NeoExpertiseSection() {
     </section>
   );
 }
+
