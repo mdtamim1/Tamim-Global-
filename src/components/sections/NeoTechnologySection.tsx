@@ -8,25 +8,9 @@
 // human face (head-particles.svg) on the right.
 // ============================================================
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import ParticleHead3D from "@/components/ui/ParticleHead3D";
 
 export default function NeoTechnologySection() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 12;
-      const y = (e.clientY / innerHeight - 0.5) * 12;
-      setMousePos({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
     <section
       className="relative flex flex-col justify-end max-lg:scroll-mt-6 -mb-16 lg:-mb-24"
@@ -61,26 +45,11 @@ export default function NeoTechnologySection() {
           </div>
         </div>
 
-        {/* Right Column: 3,634-Dot Particle Human Head (Exact NeoLeaf Visual) */}
-        <div className="col-span-full md:col-span-1 lg:col-span-6 xl:col-span-7 flex items-center justify-center lg:justify-end relative min-h-[350px] lg:min-h-[520px] pointer-events-none select-none">
-          <motion.div
-            animate={{
-              rotateY: mousePos.x,
-              rotateX: -mousePos.y,
-              x: mousePos.x * 1.5,
-              y: mousePos.y * 1.5,
-            }}
-            transition={{ type: "spring", stiffness: 75, damping: 20 }}
-            className="relative w-full max-w-[480px] lg:max-w-[580px] aspect-[620/786]"
-          >
-            <Image
-              src="/neoleaf-media/head-particles.svg"
-              alt="Technology Neural Particle Head"
-              fill
-              priority
-              className="object-contain filter drop-shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
-            />
-          </motion.div>
+        {/* Right Column: Real-Time 3D Multi-Color Neural Particle Head */}
+        <div className="col-span-full md:col-span-1 lg:col-span-6 xl:col-span-7 flex items-center justify-center lg:justify-end relative min-h-[420px] lg:min-h-[580px] select-none">
+          <div className="w-full max-w-[540px] lg:max-w-[620px] aspect-[620/720] flex items-center justify-center">
+            <ParticleHead3D />
+          </div>
         </div>
       </div>
     </section>
