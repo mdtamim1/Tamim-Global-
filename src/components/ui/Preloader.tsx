@@ -77,7 +77,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         initial={{ y: 0 }}
         animate={{ y: isExiting ? "-100%" : 0 }}
         transition={{ duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
-        className="fixed inset-0 z-[9999999] flex select-none items-center justify-center bg-[#151515] text-center text-white w-screen h-screen overflow-hidden"
+        className="fixed inset-0 z-[9999999] flex select-none items-center justify-center bg-[#000000] text-center text-white w-screen h-screen overflow-hidden"
       >
         <div className="relative w-full max-w-[90%] md:max-w-[85%] lg:max-w-[965px] flex flex-col items-center">
           {/* Centered Titanium TG Monogram Emblem */}

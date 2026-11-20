@@ -107,7 +107,7 @@ export default function NeoExpertiseSection() {
   return (
     <section
       ref={sectionRef}
-      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px] overflow-hidden bg-[#030209]"
+      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px] overflow-hidden bg-[#000000] border-t border-white/[0.04]"
       id="expertise"
     >
       {/* Col 1: Left Tab Controls & Insights */}
@@ -196,7 +196,7 @@ export default function NeoExpertiseSection() {
       </div>
 
       {/* Col 2: Real NeoLeaf Hand & Phone Mockup with GSAP Scroll Scrub */}
-      <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-[#141416] md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[32px] shadow-2xl border border-white/10">
+      <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-[#08080a] md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[32px] shadow-[0_30px_80px_rgba(0,0,0,0.9)] border border-white/10">
         {/* Background 3D Texture */}
         <Image
           alt="Expertise Background"

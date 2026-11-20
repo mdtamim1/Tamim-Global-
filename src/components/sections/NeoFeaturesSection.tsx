@@ -153,7 +153,7 @@ export default function NeoFeaturesSection() {
       {/* Sticky Pinned Viewport Container */}
       <div
         ref={containerRef}
-        className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 gap-y-4 pt-20 lg:gap-y-8 lg:pt-[100px] bg-[#030209]"
+        className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 gap-y-4 pt-20 lg:gap-y-8 lg:pt-[100px] bg-[#000000] border-t border-white/[0.04]"
       >
         {/* Section Header */}
         <div className="flex flex-col items-start gap-2 lg:gap-3 col-span-full md:col-span-2 lg:col-span-5 lg:-mr-6">

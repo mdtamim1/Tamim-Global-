@@ -60,7 +60,7 @@ function TagIcon() {
 
 export default function NeoKineticTicker() {
   return (
-    <section className="pb-20 pt-10 lg:py-[60px] overflow-hidden select-none bg-[#030209]">
+    <section className="pb-20 pt-10 lg:py-[60px] overflow-hidden select-none bg-[#000000] border-y border-white/[0.04]">
       {/* Row 1: Right-to-Left (code/web/programming) */}
       <div className="flex w-full items-center overflow-hidden">
         <motion.div

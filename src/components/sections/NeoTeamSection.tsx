@@ -142,7 +142,7 @@ export default function NeoTeamSection() {
     <>
       <section
         ref={sectionRef}
-        className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden bg-[#030209]"
+        className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden bg-[#000000] border-t border-white/[0.04]"
       >
         {/* Real Undulating 3D Particle Wave Canvas */}
         <ParticleWaveCanvas />
