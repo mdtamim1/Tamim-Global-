@@ -14,6 +14,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
+import HeroDarkCanvas from "@/components/ui/HeroDarkCanvas";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -161,7 +162,7 @@ export default function NeoHeroSection() {
       <section ref={sectionRef} className="relative">
         <div
           ref={containerRef}
-          className="w-full px-5 md:px-10 lg:px-[60px] min-h-screen relative z-0 flex flex-col justify-end gap-5 pb-10 overflow-hidden lg:gap-9"
+          className="w-full px-5 md:px-10 lg:px-[60px] min-h-screen relative z-0 flex flex-col justify-end gap-5 pb-10 overflow-hidden lg:gap-9 bg-[#030209]"
         >
           {/* Header */}
           <header className="left-0 top-0 z-50 flex w-full items-center gap-6 py-4 lg:gap-[42px] lg:py-5 relative -mb-4 !px-0 lg:-mb-8">
@@ -180,15 +181,15 @@ export default function NeoHeroSection() {
                   className="size-full object-cover"
                 />
               </div>
-              <span className="font-brand font-extrabold text-xl lg:text-2xl tracking-tight text-text-black">
+              <span className="font-brand font-extrabold text-xl lg:text-2xl tracking-tight text-white">
                 Tamim Global
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="max-md:hidden md:relative md:top-1.5 md:flex md:items-center md:gap-5 md:text-menu-link md:font-medium md:text-text-gray lg:gap-7">
+            <nav className="max-md:hidden md:relative md:top-1.5 md:flex md:items-center md:gap-5 md:text-menu-link md:font-medium md:text-white/70 lg:gap-7">
               <a
-                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
+                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-white"
                 href="#products"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
@@ -196,7 +197,7 @@ export default function NeoHeroSection() {
                 </span>
               </a>
               <a
-                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
+                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-white"
                 href="#expertise"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
@@ -204,7 +205,7 @@ export default function NeoHeroSection() {
                 </span>
               </a>
               <a
-                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
+                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-white"
                 href="#technology"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
@@ -212,7 +213,7 @@ export default function NeoHeroSection() {
                 </span>
               </a>
               <a
-                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-text-black"
+                className="inline-flex shrink-0 lg:transition-colors lg:hover:text-white"
                 href="#features"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden">
@@ -225,10 +226,10 @@ export default function NeoHeroSection() {
             <div className="ml-auto flex items-center gap-3 lg:gap-4">
               {/* Sound Equalizer Pill with Audio Stream */}
               <button
-                className={`relative z-0 flex size-9 shrink-0 items-center justify-center gap-0.5 rounded-full border border-black lg:size-10 lg:transition-colors max-lg:hidden cursor-pointer ${
+                className={`relative z-0 flex size-9 shrink-0 items-center justify-center gap-0.5 rounded-full border border-white/30 lg:size-10 lg:transition-colors max-lg:hidden cursor-pointer ${
                   soundPlaying
-                    ? "bg-black text-white"
-                    : "text-text-gray hover:bg-black hover:text-white"
+                    ? "bg-white text-black"
+                    : "text-white/60 hover:bg-white hover:text-black"
                 }`}
                 type="button"
                 aria-label="Toggle ambient audio"
@@ -265,7 +266,7 @@ export default function NeoHeroSection() {
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="group relative z-0 inline-flex shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 whitespace-nowrap p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-9 overflow-hidden rounded-[100px] border border-bg-dark-gray px-5 text-[14px] leading-[110%] text-text-black lg:h-10 lg:text-menu-link lg:hover:bg-bg-dark-gray lg:hover:text-white"
+                className="group relative z-0 inline-flex shrink-0 cursor-pointer appearance-none items-center justify-center gap-2 whitespace-nowrap p-0 text-center font-medium tracking-normal no-underline shadow-none transition-colors disabled:cursor-not-allowed disabled:select-none disabled:opacity-50 h-9 overflow-hidden rounded-[100px] border border-white/20 px-5 text-[14px] leading-[110%] text-white lg:h-10 lg:text-menu-link lg:hover:bg-white/10 lg:hover:text-white"
               >
                 <span className="inline-flex items-center justify-center overflow-hidden h-full">
                   Let’s Talk!
@@ -287,15 +288,7 @@ export default function NeoHeroSection() {
                 clipPath: "inset(0px 0px 0px 0px round 0px)",
               }}
             >
-              <video
-                className="size-full object-cover"
-                playsInline
-                autoPlay
-                loop
-                muted
-              >
-                <source src="/video/intro.mp4" type="video/mp4" />
-              </video>
+              <HeroDarkCanvas />
             </div>
           </div>
 
@@ -309,14 +302,14 @@ export default function NeoHeroSection() {
             </div>
             <h1
               ref={titleRef}
-              className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-text-black"
+              className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-white"
             >
               Crafting bespoke web experiences &amp; cinematic visual stories
             </h1>
             <div className="col-span-full flex flex-col gap-6 pt-2 md:col-span-6 md:pl-3 lg:col-span-5 lg:pl-[70px] lg:pr-[34px] lg:pt-[11px]">
               <p
                 ref={textRef}
-                className="text-body-d lg:text-body text-text-gray opacity-0"
+                className="text-body-d lg:text-body text-white/60 opacity-0"
               >
                 I help visionary founders, creators, and modern brands stand out with
                 bespoke high-end web design, fluid interactive motion, and cinematic

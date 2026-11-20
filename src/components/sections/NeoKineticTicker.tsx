@@ -46,7 +46,7 @@ function TagIcon() {
 
 export default function NeoKineticTicker() {
   return (
-    <section className="pb-20 pt-10 text-text-gray lg:py-[60px] overflow-hidden select-none">
+    <section className="pb-20 pt-10 text-white/40 lg:py-[60px] overflow-hidden select-none bg-[#030209]">
       <div className="flex w-full items-center overflow-hidden">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
@@ -57,7 +57,7 @@ export default function NeoKineticTicker() {
           {[...tags, ...tags, ...tags].map((tag, idx) => (
             <span key={idx} className="inline-flex items-center gap-6">
               <TagIcon />
-              <span className="text-h3-d lg:text-h3 font-medium max-lg:text-h3 lowercase text-text-gray hover:text-text-black transition-colors">
+              <span className="text-h3-d lg:text-h3 font-medium max-lg:text-h3 lowercase text-white/40 hover:text-white transition-colors">
                 {tag}
               </span>
             </span>

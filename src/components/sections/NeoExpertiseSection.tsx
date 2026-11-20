@@ -106,7 +106,7 @@ export default function NeoExpertiseSection() {
   return (
     <section
       ref={sectionRef}
-      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px] overflow-hidden"
+      className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 lg:grid-cols-12 lg:gap-6 -scroll-mt-px gap-[67px] py-20 lg:py-[100px] overflow-hidden bg-[#030209]"
       id="expertise"
     >
       {/* Col 1: Left Tab Controls & Insights */}
@@ -116,7 +116,7 @@ export default function NeoExpertiseSection() {
             Expertise &amp; Craft
           </div>
           <h2
-            className="text-h2-d lg:text-h2 font-semibold text-text-black"
+            className="text-h2-d lg:text-h2 font-semibold text-white"
             id="title-expertise"
           >
             Specialized in web design &amp; video post-production
@@ -125,7 +125,7 @@ export default function NeoExpertiseSection() {
 
         <div className="flex flex-col gap-5 lg:gap-7">
           {/* Capsule Tab Selector matching NeoLeaf border-gallery */}
-          <div className="relative max-w-full self-start overflow-hidden rounded-full border border-black/10 bg-black/5 p-1.5">
+          <div className="relative max-w-full self-start overflow-hidden rounded-full border border-white/10 bg-white/5 p-1.5">
             <div className="flex flex-wrap gap-1">
               {tabsData.map((tab, idx) => {
                 const isActive = activeTab === idx;
@@ -136,8 +136,8 @@ export default function NeoExpertiseSection() {
                     onClick={() => setActiveTab(idx)}
                     className={`relative z-0 inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[100px] px-4 py-2 text-center text-sm transition-all duration-300 font-medium ${
                       isActive
-                        ? "bg-accent-1 text-text-black font-semibold shadow-sm"
-                        : "text-text-gray hover:text-text-black"
+                        ? "bg-accent-1 text-black font-semibold shadow-sm"
+                        : "text-white/50 hover:text-white"
                     }`}
                   >
                     <span>{tab.label}</span>
@@ -155,7 +155,7 @@ export default function NeoExpertiseSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3 }}
-              className="text-body-d lg:text-body text-text-gray flex flex-col gap-3.5"
+              className="text-body-d lg:text-body text-white/60 flex flex-col gap-3.5"
             >
               {current.paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
@@ -171,13 +171,13 @@ export default function NeoExpertiseSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.35 }}
-              className="grid grid-cols-2 gap-6 pt-4 border-t border-black/10"
+              className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10"
             >
               <div>
                 <div className="font-semibold text-accent-2 flex text-[48px] leading-none max-xs:text-[38px] lg:text-[56px] xl:text-[80px]">
                   <span className="whitespace-nowrap">{current.stat1}</span>
                 </div>
-                <div className="text-body-small-d lg:text-body-small text-text-gray mt-2">
+                <div className="text-body-small-d lg:text-body-small text-white/50 mt-2">
                   {current.stat1Label}
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function NeoExpertiseSection() {
                 <div className="font-semibold text-accent-2 flex text-[48px] leading-none max-xs:text-[38px] lg:text-[56px] xl:text-[80px]">
                   <span className="whitespace-nowrap">{current.stat2}</span>
                 </div>
-                <div className="text-body-small-d lg:text-body-small text-text-gray mt-2">
+                <div className="text-body-small-d lg:text-body-small text-white/50 mt-2">
                   {current.stat2Label}
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function NeoExpertiseSection() {
       </div>
 
       {/* Col 2: Real NeoLeaf Hand & Phone Mockup with GSAP Scroll Scrub */}
-      <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-bg-black md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[28px] shadow-xl">
+      <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-[#030209] md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[28px] shadow-xl">
         {/* Background Texture */}
         <Image
           alt="Expertise Background"

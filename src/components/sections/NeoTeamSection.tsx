@@ -142,16 +142,16 @@ export default function NeoTeamSection() {
     <>
       <section
         ref={sectionRef}
-        className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden"
+        className="w-full px-5 md:px-10 lg:px-[60px] min-h-fs relative z-0 flex flex-col items-center justify-center gap-3 pb-[142px] pt-20 text-center lg:gap-4 lg:pb-[160px] lg:pt-[180px] overflow-hidden bg-[#030209]"
       >
         {/* Real Undulating 3D Particle Wave Canvas */}
         <ParticleWaveCanvas />
 
         {/* Main Content */}
-        <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-text-black z-10">
+        <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-white z-10">
           Meet Tamim — Web Designer &amp; Video Editor
         </h2>
-        <p className="text-body-d lg:text-body text-text-gray w-full max-w-[660px] z-10">
+        <p className="text-body-d lg:text-body text-white/60 w-full max-w-[660px] z-10">
           I combine modern web design aesthetics, fluid frontend interactions, and
           cinematic video editing into a single unified creative force. Working with
           founders, creators, and agencies worldwide to ship digital flagships and videos

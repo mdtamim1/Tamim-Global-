@@ -16,7 +16,7 @@ export default function NeoTechnologySection() {
       className="relative flex flex-col justify-end max-lg:scroll-mt-6 -mb-16 lg:-mb-24"
       id="technology"
     >
-      <div className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 sticky bottom-0 z-0 overflow-hidden pb-32 pt-16 lg:pb-[240px] lg:pt-24 items-center">
+      <div className="w-full px-5 md:px-10 lg:px-[60px] grid grid-cols-4 gap-5 lg:grid-cols-12 lg:gap-6 sticky bottom-0 z-0 overflow-hidden pb-32 pt-16 lg:pb-[240px] lg:pt-24 items-center bg-[#030209]">
         {/* Left Column: Technology Headings & Description */}
         <div className="col-span-full flex flex-col gap-4 md:col-span-3 lg:col-span-6 lg:gap-5 xl:col-span-5 z-10">
           <div className="flex flex-col items-start gap-2 lg:gap-3">
@@ -24,13 +24,13 @@ export default function NeoTechnologySection() {
               Creative Direction
             </div>
             <h2
-              className="text-h2-d lg:text-h2 font-semibold text-text-black"
+              className="text-h2-d lg:text-h2 font-semibold text-white"
               id="title-technology"
             >
               Design aesthetics &amp; motion that make your brand unmistakable
             </h2>
           </div>
-          <div className="text-body-d lg:text-body text-text-gray flex flex-col gap-3 lg:pr-5">
+          <div className="text-body-d lg:text-body text-white/60 flex flex-col gap-3 lg:pr-5">
             <p>
               At Tamim Global, I unite award-winning web design aesthetics with
               cinematic video post-production. Every layout is crafted with

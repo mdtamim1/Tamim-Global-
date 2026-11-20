@@ -74,7 +74,7 @@ export default function RootLayout({
       </head>
       <body
         id="__next"
-        className="flex min-h-dvh w-full flex-col overflow-x-clip overscroll-none bg-white font-primary text-body-d text-text-black antialiased lg:text-body"
+        className="flex min-h-dvh w-full flex-col overflow-x-clip overscroll-none bg-[#030209] font-primary text-body-d text-white antialiased lg:text-body"
       >
         <SmoothScrollProvider>
           {children}
