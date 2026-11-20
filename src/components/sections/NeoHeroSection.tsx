@@ -298,22 +298,20 @@ export default function NeoHeroSection() {
               ref={captionRef}
               className="text-tag-d lg:text-tag font-bold uppercase text-accent-2 col-span-full opacity-0"
             >
-              Professional Web Designer &amp; Video Editor
+              Programmer · Web Developer · Video Editor · Music Composer
             </div>
             <h1
               ref={titleRef}
               className="text-h1-d lg:text-h1 font-semibold col-span-full md:col-span-6 lg:col-span-7 text-white"
             >
-              Crafting bespoke web experiences &amp; cinematic visual stories
+              I build, design, film &amp; compose digital experiences that stop the world
             </h1>
             <div className="col-span-full flex flex-col gap-6 pt-2 md:col-span-6 md:pl-3 lg:col-span-5 lg:pl-[70px] lg:pr-[34px] lg:pt-[11px]">
               <p
                 ref={textRef}
                 className="text-body-d lg:text-body text-white/60 opacity-0"
               >
-                I help visionary founders, creators, and modern brands stand out with
-                bespoke high-end web design, fluid interactive motion, and cinematic
-                video editing that commands attention and drives conversions.
+                From pixel-perfect Next.js apps and cinematic video edits to original music compositions and interactive 3D WebGL scenes — every line of code, every frame, every note is crafted with obsessive precision.
               </p>
               <div ref={buttonRef} className="opacity-0 md:self-start">
                 <button

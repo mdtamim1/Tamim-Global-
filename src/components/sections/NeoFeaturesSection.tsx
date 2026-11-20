@@ -18,39 +18,27 @@ if (typeof window !== "undefined") {
 const features = [
   {
     id: 1,
-    title: "Bespoke Web Design",
-    tag: "UI / UX",
-    text: "Custom-tailored digital flagships designed in Figma and coded from scratch. Zero generic templates, zero bloated code — only pure aesthetic precision and high conversion.",
+    title: "Engineer-Grade Web Development",
+    tag: "TypeScript / Next.js",
+    text: "Full-stack production apps with clean architecture, real-time features, edge deployment, and obsessive performance optimization. Code that scales, code that lasts.",
     video: "/video/features/1.mp4",
-    dots: [
-      false, true, true,
-      false, true, false,
-      true, false, true,
-    ],
+    dots: [false, true, true, false, true, false, true, false, true],
   },
   {
     id: 2,
-    title: "Cinematic Video Editing",
-    tag: "Video & Motion",
-    text: "Rhythm-matched cuts, commercial pacing, sound-designed soundscapes, and cinematic color grading in Premiere Pro and DaVinci that stop the scroll.",
+    title: "Cinematic Video & Music",
+    tag: "Film / Sound / Compose",
+    text: "Hollywood-grade video editing fused with original music composition. Every project gets a unique sonic identity — no stock tracks, no generic cuts, only bespoke audio-visual storytelling.",
     video: "/video/features/2.mp4",
-    dots: [
-      true, false, true,
-      false, false, false,
-      true, false, true,
-    ],
+    dots: [true, false, true, false, false, false, true, false, true],
   },
   {
     id: 3,
-    title: "Interactive Motion & 3D",
-    tag: "GSAP & WebGL",
-    text: "Scroll-driven GSAP motion, WebGL particle shaders, and sub-second page loads powered by Next.js 15 on globally distributed edge networks.",
+    title: "Interactive Design & Motion",
+    tag: "GSAP / WebGL / Figma",
+    text: "Award-caliber UI/UX design brought to life with GSAP ScrollTrigger, Three.js WebGL shaders, and kinetic micro-animations. Where Figma artistry meets frontend engineering.",
     video: "/video/features/3.mp4",
-    dots: [
-      false, true, true,
-      true, false, true,
-      true, true, false,
-    ],
+    dots: [false, true, true, true, false, true, true, true, false],
   },
 ];
 
@@ -176,7 +164,7 @@ export default function NeoFeaturesSection() {
             className="text-h2-d lg:text-h2 font-semibold text-white"
             id="title-features"
           >
-            The craft behind every project
+            The craft behind every pixel, frame &amp; note
           </h2>
         </div>
 

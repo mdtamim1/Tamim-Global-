@@ -15,13 +15,13 @@ export default function NeoProductsBentoSection() {
     >
       <div className="flex flex-col items-start gap-2 lg:gap-3">
         <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-          Design &amp; Video Specialties
+          What I Build &amp; Create
         </div>
         <h2
           className="text-h2-d lg:text-h2 font-semibold styles_gradientMask__lzbc_"
           id="title-products"
         >
-          What I create for bold brands
+          Four crafts. One unified creative force.
         </h2>
       </div>
 
@@ -49,12 +49,10 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              High-End Web Design &amp; Next.js UI
+              Full-Stack Engineering &amp; Next.js
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Bespoke, conversion-focused digital flagships designed in Figma and
-              engineered with Next.js 15, React 19, and Tailwind CSS. Ultra-fast,
-              responsive, and built custom from scratch.
+              Production-grade web apps built with TypeScript, React 19, Next.js 15, Node.js, Prisma, and PostgreSQL. API-first architecture, edge-deployed, 100/100 Lighthouse — engineered for real users, real scale.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:-right-px lg:left-auto lg:w-[55%] lg:rounded-l-none lg:before:-left-px lg:before:right-auto lg:before:h-full lg:before:w-[50%] lg:before:bg-gradient-product-card-big-overlay">
@@ -93,11 +91,10 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              Cinematic Video Editing &amp; Post-Production
+              Cinematic Video Production
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Commercial video edits, brand teasers, high-retention YouTube cuts,
-              precision sound design, and color grading in Premiere Pro and DaVinci.
+              Brand films, commercial ads, YouTube long-forms, and short-form reels — edited in Premiere Pro and DaVinci Resolve with Hollywood-grade color science and immersive sound design.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:before:h-[57%]">
@@ -131,23 +128,16 @@ export default function NeoProductsBentoSection() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M12 2v4" />
-                <path d="m4.93 4.93 2.83 2.83" />
-                <path d="M2 12h4" />
-                <path d="m4.93 19.07 2.83-2.83" />
-                <path d="M12 22v-4" />
-                <path d="m19.07 19.07-2.83-2.83" />
-                <path d="M22 12h-4" />
-                <path d="m19.07 4.93-2.83 2.83" />
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              Motion Graphics &amp; 3D Interactive Web
+              Original Music Composition
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              GSAP scroll-triggered choreography, WebGL particle shaders,
-              smooth page reveals, and After Effects motion typography that hooks
-              viewers instantly.
+              Cinematic scores, brand anthems, ambient soundscapes, and commercial jingles composed in Ableton Live and Logic Pro. The invisible architecture that makes visuals unforgettable.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay lg:before:h-[57%]">
@@ -192,11 +182,10 @@ export default function NeoProductsBentoSection() {
               </svg>
             </div>
             <h3 className="text-h3-d lg:text-h3 font-semibold">
-              Brand Direction &amp; Commercial Video Films
+              Bespoke Web Design &amp; Brand Identity
             </h3>
             <p className="text-body-d lg:text-body text-text-light-gray">
-              Luxury monogram marks, bespoke typography systems, and cinematic
-              commercial video showcases engineered to command industry prestige.
+              Award-worthy digital flagships designed in Figma with mathematical precision. Custom typography systems, motion design systems, and UI libraries that establish undeniable brand authority.
             </p>
           </div>
           <div className="absolute -inset-px -z-10 transform-gpu select-none overflow-hidden rounded-[inherit] before:absolute before:-bottom-px before:-left-px before:-right-px before:z-10 before:h-[83.5%] before:bg-gradient-product-card-overlay max-md:h-[70%] max-lg:bottom-auto max-lg:h-[85%] max-lg:rounded-b-none max-lg:before:h-[38%] lg:before:h-full lg:before:bg-gradient-product-card-big-overlay lg:-left-px lg:right-auto lg:w-[53%] lg:rounded-l-[inherit] lg:rounded-r-none lg:before:-right-px lg:before:left-auto lg:before:w-[36%] lg:before:-scale-x-100">

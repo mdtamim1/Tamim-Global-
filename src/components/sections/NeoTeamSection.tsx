@@ -12,8 +12,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
-const tickerRow1 = ["web design", "video editor", "ui/ux", "motion graphics", "figma", "premiere pro", "after effects", "next.js", "davinci", "web design"];
-const tickerRow2 = ["creative director", "cinematic", "visual storyteller", "sound design", "color grade", "responsive", "3d web", "keyframes", "creative director", "cinematic"];
+const tickerRow1 = ["full-stack dev", "web architect", "typescript", "react", "next.js", "node.js", "postgresql", "prisma", "rest api", "full-stack dev"];
+const tickerRow2 = ["video director", "music composer", "premiere pro", "after effects", "davinci", "ableton live", "logic pro", "foley sfx", "4k cinema", "video director"];
 
 function TickerIcon() {
   return (
@@ -149,13 +149,10 @@ export default function NeoTeamSection() {
 
         {/* Main Content */}
         <h2 className="text-h2-d font-semibold w-full max-w-[732px] will-change-transform lg:max-w-[796px] lg:px-8 lg:text-h1 text-white z-10">
-          Meet Tamim — Web Designer &amp; Video Editor
+          Meet Tamim — Programmer, Web Architect &amp; Cinematic Creator
         </h2>
         <p className="text-body-d lg:text-body text-white/60 w-full max-w-[660px] z-10">
-          I combine modern web design aesthetics, fluid frontend interactions, and
-          cinematic video editing into a single unified creative force. Working with
-          founders, creators, and agencies worldwide to ship digital flagships and videos
-          that command authority.
+          I code production-grade full-stack applications, craft award-worthy web experiences, direct cinematic brand films, and compose original music scores — all under one roof. No agency overhead, pure creative execution.
         </p>
 
         {/* CTA Button */}

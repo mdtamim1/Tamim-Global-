@@ -15,11 +15,12 @@ interface QuickEnquiryModalProps {
 }
 
 const PROJECT_TYPES = [
-  "Custom Web Design & UI/UX",
-  "Commercial Video Editing & Reels",
-  "Interactive 3D / Motion Web",
+  "Full-Stack Web Application (Next.js / Node.js)",
+  "Custom Web Design & UI/UX System",
+  "Cinematic Video Editing & Post-Production",
+  "Original Music Composition & Sound Design",
+  "Interactive Motion & 3D WebGL Experience",
   "Brand Identity & Visual Direction",
-  "Figma to Next.js Development",
 ];
 
 const BUDGET_RANGES = [

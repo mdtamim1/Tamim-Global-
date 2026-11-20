@@ -1,25 +1,39 @@
 "use client";
 
 // ============================================================
-// Tamim Global — Kinetic Tag Cloud Marquee
-// Exact 1:1 Match to neoleaf.bytetown.agency Section 2
+// Tamim Global — Kinetic Tag Cloud Marquee (Two-Row)
+// Row 1: code/web/programming → RIGHT-TO-LEFT
+// Row 2: video/music/cinema   → LEFT-TO-RIGHT (reverse)
 // ============================================================
 
 import { motion } from "framer-motion";
 
-const tags = [
-  "web design",
-  "video editing",
-  "ui/ux craft",
-  "motion graphics",
-  "figma to code",
-  "cinematic cuts",
-  "3d interactive",
+const tagsRow1 = [
+  "typescript",
+  "react 19",
+  "next.js 15",
+  "node.js",
+  "prisma orm",
+  "webgl shaders",
+  "gsap motion",
+  "figma systems",
+  "tailwind css",
+  "rest apis",
+  "postgresql",
+];
+
+const tagsRow2 = [
+  "premiere pro",
+  "davinci resolve",
+  "after effects",
   "color grading",
   "sound design",
-  "visual stories",
-  "next.js 15",
-  "creative direction",
+  "music composition",
+  "film scoring",
+  "foley & sfx",
+  "4k cinema",
+  "ableton live",
+  "logic pro",
 ];
 
 function TagIcon() {
@@ -46,18 +60,39 @@ function TagIcon() {
 
 export default function NeoKineticTicker() {
   return (
-    <section className="pb-20 pt-10 text-white/40 lg:py-[60px] overflow-hidden select-none bg-[#030209]">
+    <section className="pb-20 pt-10 lg:py-[60px] overflow-hidden select-none bg-[#030209]">
+      {/* Row 1: Right-to-Left (code/web/programming) */}
       <div className="flex w-full items-center overflow-hidden">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 25, ease: "linear", repeat: Infinity }}
           className="flex shrink-0 items-center gap-6 pr-6 whitespace-nowrap will-change-transform"
         >
-          {/* Double list for seamless loop */}
-          {[...tags, ...tags, ...tags].map((tag, idx) => (
+          {[...tagsRow1, ...tagsRow1, ...tagsRow1].map((tag, idx) => (
             <span key={idx} className="inline-flex items-center gap-6">
               <TagIcon />
-              <span className="text-h3-d lg:text-h3 font-medium max-lg:text-h3 lowercase text-white/40 hover:text-white transition-colors">
+              <span className="text-h3-d lg:text-h3 font-medium lowercase text-white/30 hover:text-white transition-colors">
+                {tag}
+              </span>
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Separator */}
+      <div className="border-t border-white/5 my-4" />
+
+      {/* Row 2: Left-to-Right / reverse (video/music/cinema) */}
+      <div className="flex w-full items-center overflow-hidden">
+        <motion.div
+          animate={{ x: ["-50%", "0%"] }}
+          transition={{ duration: 25, ease: "linear", repeat: Infinity }}
+          className="flex shrink-0 items-center gap-6 pr-6 whitespace-nowrap will-change-transform"
+        >
+          {[...tagsRow2, ...tagsRow2, ...tagsRow2].map((tag, idx) => (
+            <span key={idx} className="inline-flex items-center gap-6">
+              <TagIcon />
+              <span className="text-h3-d lg:text-h3 font-medium lowercase text-white/30 hover:text-white transition-colors">
                 {tag}
               </span>
             </span>
@@ -67,4 +102,3 @@ export default function NeoKineticTicker() {
     </section>
   );
 }
-

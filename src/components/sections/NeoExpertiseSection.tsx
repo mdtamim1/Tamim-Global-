@@ -16,56 +16,59 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const tabsData = [
   {
+    id: "fullstack",
+    label: "Full-Stack Dev",
+    paragraphs: [
+      "I build end-to-end production applications using TypeScript, React 19, Next.js 15, Node.js, Prisma ORM, and PostgreSQL. From REST APIs to real-time WebSocket systems.",
+      "My code is clean, typed, and maintainable — built with CI/CD pipelines, automated testing, and modern DevOps practices on Vercel and Railway.",
+      "Every app I ship is fast (100/100 Lighthouse), accessible, and engineered for scale — not just for looks.",
+    ],
+    stat1: "100/100", stat1Label: "Google Lighthouse score",
+    stat2: "0ms", stat2Label: "time to first meaningful paint",
+  },
+  {
     id: "web-design",
     label: "Web & UI/UX Design",
     paragraphs: [
-      "I craft visually stunning, bespoke websites designed to establish brand authority and turn casual visitors into loyal high-value clients.",
-      "Every layout is tailored in Figma with deep attention to typography, negative space, visual hierarchy, and responsive fluidity across all screen sizes.",
-      "From sleek portfolio flagships to multi-page corporate hubs, every design is built custom — never generic templates.",
+      "I craft visually stunning bespoke websites in Figma with mathematical precision — perfect typographic hierarchy, airtight grid systems, and obsessive attention to micro-interactions.",
+      "Every layout ships as pixel-perfect Next.js code. Zero generic templates, zero bloated libraries — pure aesthetic precision fused with engineering excellence.",
+      "From sleek portfolio flagships to complex multi-page corporate hubs, every design is built to convert and to awe.",
     ],
-    stat1: "99.8%",
-    stat1Label: "client satisfaction rating",
-    stat2: "60fps",
-    stat2Label: "buttery smooth UI performance",
+    stat1: "99.8%", stat1Label: "client satisfaction rating",
+    stat2: "60fps", stat2Label: "buttery smooth UI performance",
   },
   {
     id: "video-editing",
-    label: "Cinematic Video Editing",
+    label: "Cinematic Video",
     paragraphs: [
-      "Video is the most powerful storytelling medium. I edit high-impact commercial ads, brand films, YouTube features, and short-form reels that hook viewers in the first 3 seconds.",
-      "Utilizing industry-standard tools like Premiere Pro, After Effects, and DaVinci Resolve for precision pacing, advanced sound design, and cinematic color grades.",
-      "Turn raw footage into an emotional visual experience that commands attention and drives sales.",
+      "Video is the most powerful storytelling medium. I direct, edit, and color-grade high-impact brand films, commercial ads, YouTube long-forms, and viral short-form reels.",
+      "Using Premiere Pro, DaVinci Resolve, and After Effects for precision pacing, Hollywood-grade color science, and immersive sound design that emotionally connects.",
+      "Turn raw footage into an emotional visual experience that stops the scroll, commands attention, and drives real conversions.",
     ],
-    stat1: "4M+",
-    stat1Label: "organic video views generated",
-    stat2: "4K UHD",
-    stat2Label: "crystal-clear cinema grade master",
+    stat1: "4M+", stat1Label: "organic video views generated",
+    stat2: "4K UHD", stat2Label: "cinema-grade master output",
   },
   {
-    id: "motion-gsap",
-    label: "Motion Graphics & 3D",
+    id: "music",
+    label: "Music Composition",
     paragraphs: [
-      "Static websites are a thing of the past. I bring web pages to life with GSAP ScrollTrigger, kinetic typography, interactive canvas shaders, and fluid spring physics.",
-      "Engineered for performance with zero lag, ensuring high frame-rate smoothness even on mobile devices.",
-      "Create an unforgettable interactive journey that wins awards and leaves a lasting impression.",
+      "I compose original music scores, brand anthems, ambient soundscapes, and commercial jingles using Ableton Live, Logic Pro X, and professional orchestral libraries.",
+      "From cinematic orchestral swells to lo-fi electronic textures — every note is crafted to serve the visual narrative and amplify emotional impact.",
+      "Music is the invisible architecture of every great film, game, and brand identity. I make yours unforgettable.",
     ],
-    stat1: "120Hz",
-    stat1Label: "motion fluidity & refresh rate",
-    stat2: "0.2s",
-    stat2Label: "instant interaction response",
+    stat1: "60+", stat1Label: "original compositions produced",
+    stat2: "48kHz", stat2Label: "studio-grade audio master",
   },
   {
-    id: "figma-code",
-    label: "Figma to Live Web",
+    id: "motion",
+    label: "Motion & 3D",
     paragraphs: [
-      "Seamless transition from design canvas to live, production-grade Next.js code with 100% pixel fidelity and clean maintainable architecture.",
-      "SEO-optimized, accessible, and connected to modern headless CMS, custom APIs, and analytics.",
-      "Fast delivery, transparent communication, and continuous support from concept to deployment.",
+      "Static websites are dead. I bring pages to life with GSAP ScrollTrigger, Three.js WebGL particle systems, kinetic typography, and spring-physics micro-animations.",
+      "Every motion sequence is engineered for 60fps performance — even on mobile — with will-change transforms and GPU-accelerated compositing.",
+      "I create unforgettable interactive journeys that win awards and imprint your brand permanently in memory.",
     ],
-    stat1: "100%",
-    stat1Label: "pixel-perfect design fidelity",
-    stat2: "100/100",
-    stat2Label: "Google Lighthouse speed score",
+    stat1: "120Hz", stat1Label: "motion fluidity target",
+    stat2: "0.2s", stat2Label: "interaction response time",
   },
 ];
 
@@ -113,13 +116,13 @@ export default function NeoExpertiseSection() {
       <div className="col-span-full flex flex-col gap-3 lg:col lg:col-span-6 lg:gap-4 xl:pr-8">
         <div className="flex flex-col items-start gap-2 lg:gap-3 max-md:gap-1">
           <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-            Expertise &amp; Craft
+            Expertise &amp; Arsenal
           </div>
           <h2
             className="text-h2-d lg:text-h2 font-semibold text-white"
             id="title-expertise"
           >
-            Specialized in web design &amp; video post-production
+            Five disciplines. One obsessive standard of craft.
           </h2>
         </div>
 

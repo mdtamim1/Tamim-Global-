@@ -50,7 +50,7 @@ export default function NeoFooter() {
               href="#products"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Web Design
+                Web Design & Dev
               </span>
             </a>
           </li>
@@ -60,7 +60,7 @@ export default function NeoFooter() {
               href="#expertise"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Video &amp; Motion
+                Video &amp; Music Compose
               </span>
             </a>
           </li>
@@ -89,7 +89,7 @@ export default function NeoFooter() {
         {/* Form Column */}
         <div className="col-span-full flex flex-col gap-5 md:col-span-2 lg:col-span-6 lg:-col-end-1 xl:col-span-5 xl:-col-end-1 xl:pl-10">
           <h4 className="text-h4-d lg:text-h4 font-semibold">
-            Ready to craft your next web or video project?
+            Ready to craft your next web, video, or music project?
           </h4>
           <form
             onSubmit={handleSubmit}

@@ -21,26 +21,21 @@ export default function NeoTechnologySection() {
         <div className="col-span-full flex flex-col gap-4 md:col-span-3 lg:col-span-6 lg:gap-5 xl:col-span-5 z-10">
           <div className="flex flex-col items-start gap-2 lg:gap-3">
             <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
-              Creative Direction
+              The Arsenal
             </div>
             <h2
               className="text-h2-d lg:text-h2 font-semibold text-white"
               id="title-technology"
             >
-              Design aesthetics &amp; motion that make your brand unmistakable
+              One mind. Four disciplines. Zero compromise.
             </h2>
           </div>
           <div className="text-body-d lg:text-body text-white/60 flex flex-col gap-3 lg:pr-5">
             <p>
-              At Tamim Global, I unite award-winning web design aesthetics with
-              cinematic video post-production. Every layout is crafted with
-              mathematical precision, every interaction is fluid, and every video
-              frame tells a compelling visual story.
+              I am not a generalist — I am a specialist in four interconnected crafts: full-stack programming, bespoke web design, cinematic video production, and original music composition.
             </p>
             <p>
-              From custom Figma design systems and interactive 3D WebGL scenes to
-              commercial-grade video editing, sound design, and color grading —
-              I deliver the full creative arsenal to help your brand lead.
+              This rare convergence means every project I touch is built from first principles — no handoffs, no miscommunication, no creative dilution. Pure, undivided mastery from concept to delivery.
             </p>
           </div>
         </div>
