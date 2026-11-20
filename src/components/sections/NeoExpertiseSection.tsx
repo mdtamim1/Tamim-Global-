@@ -2,73 +2,113 @@
 
 // ============================================================
 // Tamim Global — Expertise Interactive Tabs Section
-// Exact 1:1 Match to neoleaf.bytetown.agency Section 5
-// Features: Real NeoLeaf hand mockup with GSAP ScrollTrigger
-// slide-in scrub (xPercent: 101 -> 0, scale: 0.85 -> 1.0),
-// dynamic tabs, animated capsule, and matching dual stat counters.
+// Ultra-Premium 5-Discipline Showcase
+// Exact GSAP ScrollTrigger scrub integration, high-tech glass
+// segmented tabs, structured craft pillars, illuminated metric
+// cards, and an interactive titanium studio device.
 // ============================================================
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  Code2,
+  Layout,
+  Film,
+  Music,
+  Sparkles,
+  CheckCircle2,
+  Zap,
+  Activity,
+} from "lucide-react";
+import ExpertiseDeviceShowcase from "@/components/ui/ExpertiseDeviceShowcase";
 
 const tabsData = [
   {
     id: "fullstack",
+    num: "01",
     label: "Full-Stack Dev",
-    paragraphs: [
-      "I build end-to-end production applications using TypeScript, React 19, Next.js 15, Node.js, Prisma ORM, and PostgreSQL. From REST APIs to real-time WebSocket systems.",
-      "My code is clean, typed, and maintainable — built with CI/CD pipelines, automated testing, and modern DevOps practices on Vercel and Railway.",
-      "Every app I ship is fast (100/100 Lighthouse), accessible, and engineered for scale — not just for looks.",
+    icon: Code2,
+    lead: "Production-grade distributed web applications engineered for speed, resilience, and scale.",
+    points: [
+      "TypeScript & React 19 / Next.js 15 App Router architecture with sub-second page loads.",
+      "Scalable REST & WebSocket APIs, Prisma ORM, PostgreSQL clusters, and edge deployments.",
+      "Obsessive DevOps, automated CI/CD pipelines, and rigorous type safety from client to DB.",
     ],
-    stat1: "100/100", stat1Label: "Google Lighthouse score",
-    stat2: "0ms", stat2Label: "time to first meaningful paint",
+    tech: ["TypeScript", "Next.js 15", "Node.js", "Prisma", "PostgreSQL", "Docker"],
+    stat1: "100/100",
+    stat1Label: "Google Lighthouse score",
+    stat2: "0ms",
+    stat2Label: "first paint latency delay",
   },
   {
     id: "web-design",
+    num: "02",
     label: "Web & UI/UX Design",
-    paragraphs: [
-      "I craft visually stunning bespoke websites in Figma with mathematical precision — perfect typographic hierarchy, airtight grid systems, and obsessive attention to micro-interactions.",
-      "Every layout ships as pixel-perfect Next.js code. Zero generic templates, zero bloated libraries — pure aesthetic precision fused with engineering excellence.",
-      "From sleek portfolio flagships to complex multi-page corporate hubs, every design is built to convert and to awe.",
+    icon: Layout,
+    lead: "Bespoke digital flagships designed in Figma with mathematical precision and converted directly into code.",
+    points: [
+      "Tailored visual systems with airtight typography scales, micro-spacing, and intentional negative space.",
+      "100% pixel-perfect translation to clean Next.js & Tailwind CSS without generic templates.",
+      "Optimized user journeys designed to establish instant authority and drive conversions.",
     ],
-    stat1: "99.8%", stat1Label: "client satisfaction rating",
-    stat2: "60fps", stat2Label: "buttery smooth UI performance",
+    tech: ["Figma", "Design Systems", "Tailwind CSS", "Micro-Interactions", "Responsive 4K"],
+    stat1: "99.8%",
+    stat1Label: "client satisfaction rating",
+    stat2: "60fps",
+    stat2Label: "smooth interaction target",
   },
   {
     id: "video-editing",
+    num: "03",
     label: "Cinematic Video",
-    paragraphs: [
-      "Video is the most powerful storytelling medium. I direct, edit, and color-grade high-impact brand films, commercial ads, YouTube long-forms, and viral short-form reels.",
-      "Using Premiere Pro, DaVinci Resolve, and After Effects for precision pacing, Hollywood-grade color science, and immersive sound design that emotionally connects.",
-      "Turn raw footage into an emotional visual experience that stops the scroll, commands attention, and drives real conversions.",
+    icon: Film,
+    lead: "High-retention commercial ads, brand films, and documentary cuts that hook viewers from second zero.",
+    points: [
+      "Rhythm-matched pacing and narrative flow engineered in Premiere Pro & DaVinci Resolve.",
+      "Hollywood-caliber color grading with custom cinema LUTs and true Rec.709 mastering.",
+      "Layered, multi-track sound design and foley that emotionally envelops the audience.",
     ],
-    stat1: "4M+", stat1Label: "organic video views generated",
-    stat2: "4K UHD", stat2Label: "cinema-grade master output",
+    tech: ["DaVinci Resolve", "Premiere Pro", "After Effects", "Color Grading", "4K Cinema"],
+    stat1: "4M+",
+    stat1Label: "organic video views generated",
+    stat2: "4K UHD",
+    stat2Label: "cinema master output",
   },
   {
     id: "music",
+    num: "04",
     label: "Music Composition",
-    paragraphs: [
-      "I compose original music scores, brand anthems, ambient soundscapes, and commercial jingles using Ableton Live, Logic Pro X, and professional orchestral libraries.",
-      "From cinematic orchestral swells to lo-fi electronic textures — every note is crafted to serve the visual narrative and amplify emotional impact.",
-      "Music is the invisible architecture of every great film, game, and brand identity. I make yours unforgettable.",
+    icon: Music,
+    lead: "Original cinematic scores, ambient soundscapes, and brand sonic identities composed from scratch.",
+    points: [
+      "Composed in Ableton Live & Logic Pro using premium analog modeling and orchestral libraries.",
+      "Bespoke audio architecture built specifically around visual cuts and video pacing.",
+      "Studio-grade mixing and mastering delivered in pristine 48kHz / 24-bit lossless stereo.",
     ],
-    stat1: "60+", stat1Label: "original compositions produced",
-    stat2: "48kHz", stat2Label: "studio-grade audio master",
+    tech: ["Ableton Live", "Logic Pro X", "Orchestral VSTs", "Foley & SFX", "Mastering"],
+    stat1: "60+",
+    stat1Label: "original compositions crafted",
+    stat2: "48kHz",
+    stat2Label: "lossless studio-grade master",
   },
   {
     id: "motion",
+    num: "05",
     label: "Motion & 3D",
-    paragraphs: [
-      "Static websites are dead. I bring pages to life with GSAP ScrollTrigger, Three.js WebGL particle systems, kinetic typography, and spring-physics micro-animations.",
-      "Every motion sequence is engineered for 60fps performance — even on mobile — with will-change transforms and GPU-accelerated compositing.",
-      "I create unforgettable interactive journeys that win awards and imprint your brand permanently in memory.",
+    icon: Sparkles,
+    lead: "Award-caliber interactive experiences powered by Three.js WebGL and GSAP ScrollTrigger physics.",
+    points: [
+      "Custom WebGL particle systems, gravity simulators, and reactive canvas shaders.",
+      "GPU-accelerated scrub animations with will-change optimizations for lag-free performance.",
+      "Kinetic typography and spring physics that make your portfolio feel alive.",
     ],
-    stat1: "120Hz", stat1Label: "motion fluidity target",
-    stat2: "0.2s", stat2Label: "interaction response time",
+    tech: ["Three.js", "WebGL Shaders", "GSAP ScrollTrigger", "Spring Physics", "Framer Motion"],
+    stat1: "120Hz",
+    stat1Label: "motion fluidity target",
+    stat2: "0.2s",
+    stat2Label: "interaction response time",
   },
 ];
 
@@ -77,19 +117,19 @@ export default function NeoExpertiseSection() {
   const current = tabsData[activeTab];
 
   const sectionRef = useRef<HTMLElement | null>(null);
-  const handRef = useRef<HTMLDivElement | null>(null);
+  const deviceRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
     const section = sectionRef.current;
-    const hand = handRef.current;
-    if (!section || !hand) return;
+    const device = deviceRef.current;
+    if (!section || !device) return;
 
-    // Exact NeoLeaf scrub animation for the phone in hand
+    // Exact NeoLeaf scrub animation for the device
     const ctx = gsap.context(() => {
-      gsap.from(hand, {
+      gsap.from(device, {
         xPercent: 101,
         yPercent: 15,
         scale: 0.85,
@@ -113,82 +153,136 @@ export default function NeoExpertiseSection() {
       id="expertise"
     >
       {/* Col 1: Left Tab Controls & Insights */}
-      <div className="col-span-full flex flex-col gap-3 lg:col lg:col-span-6 lg:gap-4 xl:pr-8">
-        <div className="flex flex-col items-start gap-2 lg:gap-3 max-md:gap-1">
-          <div className="text-tag-d lg:text-tag font-bold uppercase text-accent-2">
+      <div className="col-span-full flex flex-col gap-4 lg:col lg:col-span-6 lg:gap-5 xl:pr-6 z-10">
+        <div className="flex flex-col items-start gap-2.5 max-md:gap-1.5">
+          {/* Glowing Tag Pill */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-2/10 border border-accent-2/30 text-accent-2 text-xs font-semibold uppercase tracking-widest backdrop-blur-md">
+            <span className="size-1.5 rounded-full bg-accent-2 animate-ping" />
+            <span className="size-1.5 rounded-full bg-accent-2 -ml-3" />
             Expertise &amp; Arsenal
           </div>
           <h2
-            className="text-h2-d lg:text-h2 font-semibold text-white"
+            className="text-h2-d lg:text-h2 font-semibold text-white tracking-tight leading-tight"
             id="title-expertise"
           >
             Five disciplines. One obsessive standard of craft.
           </h2>
         </div>
 
-        <div className="flex flex-col gap-5 lg:gap-7">
-          {/* Capsule Tab Selector matching NeoLeaf border-gallery */}
-          <div className="relative max-w-full self-start overflow-hidden rounded-full border border-white/10 bg-white/5 p-1.5">
-            <div className="flex flex-wrap gap-1">
-              {tabsData.map((tab, idx) => {
-                const isActive = activeTab === idx;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveTab(idx)}
-                    className={`relative z-0 inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[100px] px-4 py-2 text-center text-sm transition-all duration-300 font-medium ${
+        <div className="flex flex-col gap-5 lg:gap-6">
+          {/* Luxury Segmented Tab Selector with Icons & Numbers */}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {tabsData.map((tab, idx) => {
+              const isActive = activeTab === idx;
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(idx)}
+                  className={`group relative z-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? "bg-accent-1 text-black font-bold shadow-[0_0_24px_rgba(230,245,54,0.35)] scale-[1.02]"
+                      : "bg-white/[0.04] hover:bg-white/[0.09] text-white/70 hover:text-white border border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <span
+                    className={`size-4 sm:size-5 rounded flex items-center justify-center text-[9px] sm:text-[10px] font-mono font-bold ${
                       isActive
-                        ? "bg-accent-1 text-black font-semibold shadow-sm"
-                        : "text-white/50 hover:text-white"
+                        ? "bg-black/15 text-black"
+                        : "bg-white/10 text-white/50 group-hover:text-white"
                     }`}
                   >
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </div>
+                    {tab.num}
+                  </span>
+                  <Icon className={`size-3.5 sm:size-4 ${isActive ? "text-black" : "text-accent-2"}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Dynamic Tab Body Paragraphs */}
+          {/* Dynamic Tab Body with Lead, Checkpoints & Tech Arsenal */}
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
-              className="text-body-d lg:text-body text-white/60 flex flex-col gap-3.5"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="flex flex-col gap-4 text-white/90"
             >
-              {current.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+              {/* Lead Paragraph */}
+              <p className="text-base sm:text-lg font-medium text-white/90 leading-relaxed">
+                {current.lead}
+              </p>
+
+              {/* 3 Structured Craft Pillars */}
+              <div className="space-y-2.5 pt-1">
+                {current.points.map((pt, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 text-sm text-white/70 leading-normal"
+                  >
+                    <div className="size-5 rounded-full bg-accent-1/10 border border-accent-1/30 flex items-center justify-center shrink-0 mt-0.5 text-accent-1">
+                      <CheckCircle2 className="size-3.5" />
+                    </div>
+                    <span>{pt}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Technical Arsenal Pill Row */}
+              <div className="pt-2 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <span className="text-[11px] uppercase font-mono tracking-wider text-white/40 mr-1">
+                  Arsenal:
+                </span>
+                {current.tech.map((t, i) => (
+                  <span
+                    key={i}
+                    className="px-2.5 py-0.5 rounded-md text-[11px] font-mono bg-white/[0.04] border border-white/10 text-white/80"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Dual Stat Metrics Counters */}
+          {/* Dual Stat Metrics Cards */}
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id + "-stats"}
-              initial={{ opacity: 0, scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.35 }}
-              className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10"
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 border-t border-white/10"
             >
-              <div>
-                <div className="font-semibold text-accent-2 flex text-[48px] leading-none max-xs:text-[38px] lg:text-[56px] xl:text-[80px]">
-                  <span className="whitespace-nowrap">{current.stat1}</span>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md relative overflow-hidden group hover:border-accent-1/40 transition-all">
+                <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-60 transition-opacity">
+                  <Zap className="size-4 sm:size-5 text-accent-1" />
                 </div>
-                <div className="text-body-small-d lg:text-body-small text-white/50 mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white flex items-baseline">
+                  <span className="bg-gradient-to-r from-accent-1 via-[#f4ff70] to-white bg-clip-text text-transparent">
+                    {current.stat1}
+                  </span>
+                </div>
+                <div className="text-[11px] sm:text-xs font-medium text-white/60 mt-1 uppercase tracking-wider">
                   {current.stat1Label}
                 </div>
               </div>
-              <div>
-                <div className="font-semibold text-accent-2 flex text-[48px] leading-none max-xs:text-[38px] lg:text-[56px] xl:text-[80px]">
-                  <span className="whitespace-nowrap">{current.stat2}</span>
+
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md relative overflow-hidden group hover:border-accent-2/40 transition-all">
+                <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-60 transition-opacity">
+                  <Activity className="size-4 sm:size-5 text-accent-2" />
                 </div>
-                <div className="text-body-small-d lg:text-body-small text-white/50 mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white flex items-baseline">
+                  <span className="bg-gradient-to-r from-accent-2 via-[#c4b5fd] to-white bg-clip-text text-transparent">
+                    {current.stat2}
+                  </span>
+                </div>
+                <div className="text-[11px] sm:text-xs font-medium text-white/60 mt-1 uppercase tracking-wider">
                   {current.stat2Label}
                 </div>
               </div>
@@ -197,53 +291,20 @@ export default function NeoExpertiseSection() {
         </div>
       </div>
 
-      {/* Col 2: Real NeoLeaf Hand & Phone Mockup with GSAP Scroll Scrub */}
-      <div className="col-span-full relative flex aspect-[320/274] items-end justify-center overflow-hidden rounded-2xl bg-[#030209] md:col-span-2 lg:col-span-6 lg:aspect-[560/481] lg:rounded-[28px] shadow-xl">
-        {/* Background Texture */}
-        <Image
-          alt="Expertise Background"
-          src="/neoleaf-media/bg.7173f725.webp"
-          fill
-          className="max-lg:hidden rounded-[inherit] object-cover select-none pointer-events-none"
-        />
-        <Image
-          alt="Expertise Background"
-          src="/neoleaf-media/bg-d.fb84fa4c.webp"
-          fill
-          className="lg:hidden rounded-[inherit] object-cover select-none pointer-events-none"
-        />
+      {/* Col 2: Ultra-Luxury Device Showcase Stage with GSAP Scroll Scrub */}
+      <div className="col-span-full relative flex items-center justify-center overflow-hidden rounded-3xl lg:rounded-[36px] bg-gradient-to-b from-[#0b0818] via-[#05030e] to-[#020106] border border-white/10 md:col-span-2 lg:col-span-6 p-4 sm:p-6 lg:p-8 shadow-[0_20px_80px_rgba(0,0,0,0.8),0_0_60px_rgba(124,58,237,0.15)] min-h-[460px] lg:min-h-[580px]">
+        {/* Subtle Background Radial Starfield */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent-2/15 via-transparent to-transparent pointer-events-none" />
 
-        {/* Ambient Light Effect */}
-        <div className="pointer-events-none absolute inset-0 z-10 select-none overflow-hidden rounded-[inherit] max-lg:hidden">
-          <Image
-            alt="Light Effect"
-            src="/neoleaf-media/light.53a4274a.webp"
-            width={955}
-            height={814}
-            className="absolute left-0 top-0 w-[176.5%] max-w-none translate-x-[22%] translate-y-[44%]"
-          />
-        </div>
+        {/* Ambient Studio Lighting Grid */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-        {/* Realistic Hand Holding Smartphone with GSAP Scroll Scrub */}
+        {/* Interactive Titanium Device with GSAP Scroll Scrub */}
         <div
-          ref={handRef}
-          className="relative z-10 select-none flex items-end justify-center h-full w-full will-change-transform"
+          ref={deviceRef}
+          className="relative z-10 w-full flex items-center justify-center will-change-transform"
         >
-          <Image
-            alt="Hand holding app"
-            src="/neoleaf-media/hand.f044b646.webp"
-            width={1944}
-            height={1713}
-            className="max-lg:hidden object-contain max-h-[92%] w-auto"
-            priority
-          />
-          <Image
-            alt="Hand holding app"
-            src="/neoleaf-media/hand-d.ec4d028c.webp"
-            width={987}
-            height={933}
-            className="lg:hidden object-contain max-h-[92%] w-auto"
-          />
+          <ExpertiseDeviceShowcase activeTab={activeTab} />
         </div>
       </div>
     </section>
