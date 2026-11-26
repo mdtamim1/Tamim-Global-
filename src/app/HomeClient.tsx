@@ -27,6 +27,7 @@ import NeoFeaturesSection from "@/components/sections/NeoFeaturesSection";
 import NeoTeamSection from "@/components/sections/NeoTeamSection";
 import NeoFooter from "@/components/layout/NeoFooter";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
+import WhyChooseMeSection from "@/components/sections/WhyChooseMeSection";
 import type { SiteContent } from "@/types";
 
 interface HomeClientProps {
@@ -66,8 +67,8 @@ export default function HomeClient({ content }: HomeClientProps) {
         {/* Section 5: Deep Expertise Interactive Tabs */}
         <NeoExpertiseSection />
 
-        {/* Section 6: Key Features with 3 Looping Videos */}
-        <NeoFeaturesSection />
+        {/* Section 6: Why Choose Me – Oxnod-style split image reveal */}
+        <WhyChooseMeSection />
 
         {/* Section 7: Team & Collaborative Studio */}
         <NeoTeamSection />
