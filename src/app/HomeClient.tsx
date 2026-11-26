@@ -16,12 +16,10 @@
 
 import { useState } from "react";
 import Preloader from "@/components/ui/Preloader";
-import WaterCursorEffect from "@/components/ui/WaterCursorEffect";
 import { ThemeProvider } from "@/context/ThemeContext";
 import NeoHeroSection from "@/components/sections/NeoHeroSection";
 import NeoKineticTicker from "@/components/sections/NeoKineticTicker";
 import NeoTechnologySection from "@/components/sections/NeoTechnologySection";
-import NeoProductsBentoSection from "@/components/sections/NeoProductsBentoSection";
 import NeoExpertiseSection from "@/components/sections/NeoExpertiseSection";
 import NeoFeaturesSection from "@/components/sections/NeoFeaturesSection";
 import NeoTeamSection from "@/components/sections/NeoTeamSection";
@@ -39,9 +37,6 @@ export default function HomeClient({ content }: HomeClientProps) {
 
   return (
     <ThemeProvider>
-      {/* 3D Water Drop Cursor + Click Ripple – desktop only */}
-      <WaterCursorEffect />
-
       {/* 1:1 NeoLeaf Style Curtain Preloader */}
       {!preloaderDone && (
         <Preloader onComplete={() => setPreloaderDone(true)} />
@@ -60,9 +55,6 @@ export default function HomeClient({ content }: HomeClientProps) {
 
         {/* Section 4: Technology Architecture */}
         <NeoTechnologySection />
-
-        {/* Section 4: Products Bento with Embedded Video */}
-        <NeoProductsBentoSection />
 
         {/* Section 5: Deep Expertise Interactive Tabs */}
         <NeoExpertiseSection />

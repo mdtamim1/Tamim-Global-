@@ -47,7 +47,7 @@ export default function NeoFooter() {
           <li className="flex items-center max-md:even:justify-end max-md:even:text-right max-lg:min-h-6">
             <a
               className="inline-flex lg:transition-colors lg:hover:text-accent-1"
-              href="#products"
+              href="#what-i-build"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
                 Web Design & Dev

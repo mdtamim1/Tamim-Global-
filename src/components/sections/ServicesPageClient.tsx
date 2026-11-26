@@ -15,7 +15,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
-import WaterCursorEffect from "@/components/ui/WaterCursorEffect";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
 import NeoFooter from "@/components/layout/NeoFooter";
 
@@ -119,8 +118,6 @@ function ServicesPageInner() {
         color: isDark ? "#ffffff" : "#0a0a0a",
       }}
     >
-      <WaterCursorEffect />
-
       {/* Staircase vertical bar reveal transition matching oxnod.webflow.io/service */}
       {!curtainRemoved && (
         <div

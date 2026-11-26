@@ -309,7 +309,7 @@ export default function NeoHeroSection() {
             >
               {[
                 { label: "Services & Craft", href: "/services" },
-                { label: "Web Design & Craft", href: "#products" },
+                { label: "Web Design & Craft", href: "#what-i-build" },
                 { label: "Full-Stack Architecture", href: "#expertise" },
                 { label: "Video & Motion Lab", href: "#technology" },
                 { label: "Why Choose Me", href: "#why-choose-me" },
@@ -470,7 +470,7 @@ export default function NeoHeroSection() {
               </div>
 
               <a
-                href="#products"
+                href="#what-i-build"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-[12px] sm:text-[13px] font-normal backdrop-blur-xl transition-all duration-300 shadow-sm"
                 style={{ borderColor: outlineBorder, color: fgPrimary }}
               >
