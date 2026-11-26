@@ -215,7 +215,13 @@ function ServicesPageInner() {
               role="switch"
               aria-checked={!isDark}
               aria-label="Toggle color theme"
-              onClick={toggleTheme}
+              onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                toggleTheme({
+                  x: rect.left + rect.width / 2,
+                  y: rect.top + rect.height / 2,
+                });
+              }}
               className="flex items-center rounded-full p-[3px] border text-[11px] font-mono tracking-tight transition-colors cursor-pointer"
               style={{
                 borderColor: borderCol,

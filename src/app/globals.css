@@ -3112,8 +3112,8 @@ html[data-theme="light"] .hover\:bg-white\/10:hover {
   background-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Nav backdrop */
-html[data-theme="light"] nav {
+/* Nav backdrop (only when scrolled past hero) */
+html[data-theme="light"] nav.mowa-nav-scrolled {
   background-color: rgba(244, 244, 240, 0.85) !important;
   backdrop-filter: blur(16px);
 }
@@ -3495,4 +3495,66 @@ html[data-theme="light"] .bg-black\/90 {
   background-color: #f84022;
   color: #ffffff;
   border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* ============================================================
+   Mowa.studio Circular View Transition Wipe & Desktop Nav/Grid Utilities
+   ============================================================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+html.tg-vt-active,
+html.tg-vt-active * {
+  transition: none !important;
+}
+
+.mowa-desktop-inline {
+  display: none;
+}
+@media (min-width: 768px) {
+  .mowa-desktop-inline {
+    display: inline-flex;
+  }
+}
+
+.mowa-brand-label {
+  display: none;
+}
+@media (min-width: 640px) {
+  .mowa-brand-label {
+    display: inline-block;
+  }
+}
+
+.mowa-grid-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mowa-grid-col-md,
+.mowa-grid-col-lg {
+  display: none;
+}
+@media (min-width: 768px) {
+  .mowa-grid-cols {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .mowa-grid-col-md {
+    display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .mowa-grid-cols {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .mowa-grid-col-lg {
+    display: block;
+  }
 }

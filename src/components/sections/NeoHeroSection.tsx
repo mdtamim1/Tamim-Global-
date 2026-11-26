@@ -2,25 +2,28 @@
 
 // ============================================================
 // Tamim Global — Mowa Studio 1:1 Architectural Hero Section
-// Complete authentic replication of https://mowa.studio/
-// - Procedural Three.js 3D MorphBlob Canvas with Simplex Noise
-// - Vertical architectural guide grid lines (border-white/[0.05])
-// - Fixed minimalist header: Brand Monogram + Dark/Light toggle
-//   pill + WhatsApp/Audio action + Outline "get in touch" + Menu
-// - 5-Column Mid-Level Alignment Grid with stacked center wordmark
-//   over the 3D morphing blob + "view projects ↗" capsule
-// - Bottom-left 4 square frosted glass metric cards (100+, 50+, 4M+, 8Y)
-// - Manifesto statement with "more about me ↗"
-// - Interactive floating action dock: [NEW] Full-Stack Edge ↗,
-//   FAQ ↗, reviews ★, and royal blue "get in touch ↗"
+// Complete authentic replication of https://mowa.studio/:
+//   - Sculpted 3D Cross Manifolds & 5-Lobe Rosette Hub +
+//     unified WebGL Ping-Pong Fluid Refraction & Chromatic Ripple
+//   - Native circular View Transition wipe originating from the
+//     clicked Darkmode / Lightmode toggle pill
+//   - Theme-adaptive header, 6-col architectural grid, 5-col
+//     mid-grid skills + TA/MiM centerpiece, 4 KPI bento cards,
+//     manifesto & floating action dock
 // ============================================================
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import Mowa3DBlobCanvas from "@/components/ui/Mowa3DBlobCanvas";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 import { useTheme } from "@/context/ThemeContext";
+
+const METRICS = [
+  { value: "100+", label: "Identities" },
+  { value: "50+", label: "Websites" },
+  { value: "4M+", label: "Video Views" },
+  { value: "8Y", label: "Experience" },
+];
 
 export default function NeoHeroSection() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,6 +53,12 @@ export default function NeoHeroSection() {
     }
   };
 
+  const fgPrimary = isDark ? "#ffffff" : "#0a0a0a";
+  const fgMuted = isDark ? "rgba(255,255,255,0.62)" : "rgba(10,10,10,0.6)";
+  const outlineBorder = isDark
+    ? "rgba(255,255,255,0.38)"
+    : "rgba(10,10,10,0.28)";
+
   return (
     <>
       {/* Hidden Ambient Audio Player */}
@@ -57,30 +66,48 @@ export default function NeoHeroSection() {
 
       {/* Fixed Header / Top Navigation (1:1 Mowa Studio Header) */}
       <nav
-        aria-label="Hauptnavigation"
-        className={`fixed top-0 left-0 right-0 z-[9999] flex items-center justify-between px-5 md:px-10 py-5 md:py-6 transition-all duration-500 font-sans pointer-events-auto ${
-          scrolled && isDark
-            ? "bg-black/75 backdrop-blur-xl border-b border-white/[0.06]"
+        aria-label="Primary navigation"
+        className={`fixed top-0 left-0 right-0 z-[9999] flex items-center justify-between px-5 md:px-10 py-5 md:py-6 font-sans pointer-events-auto ${
+          scrolled
+            ? isDark
+              ? "bg-black/75 backdrop-blur-xl border-b border-white/[0.06]"
+              : "mowa-nav-scrolled border-b border-black/[0.08]"
             : "bg-transparent"
         }`}
+        style={{
+          backgroundColor: scrolled
+            ? undefined
+            : "transparent",
+        }}
       >
-        {/* Left: TG Monogram / Brand Identity */}
+        {/* Left: Minimalist Geometric TG Monogram */}
         <Link
           href="/"
           className="flex items-center gap-3 transition-transform duration-300 hover:scale-105"
           aria-label="Tamim Global Home"
         >
-          <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 bg-black flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.08)]">
-            <Image
-              src="/images/tg-mark.jpg"
-              alt="TG Monogram"
-              width={40}
-              height={40}
-              priority
-              className="w-full h-full object-cover"
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 36 36"
+            fill="none"
+            style={{ width: 32, height: 32, flexShrink: 0, display: "block" }}
+            aria-hidden="true"
+          >
+            {/* Geometric architectural T + G emblem matching Mowa minimal mark */}
+            <path
+              d="M4 7H22V11.2H15.1V29H10.9V11.2H4V7Z"
+              fill={fgPrimary}
             />
-          </div>
-          <span className="text-white font-medium text-sm tracking-tight hidden sm:inline-block">
+            <path
+              d="M27.5 14.5C23.8 14.5 21 17.3 21 21C21 24.7 23.8 27.5 27.5 27.5C30.4 27.5 32.5 25.8 33 23.2H27.2V19.6H36V21.5C36 26.8 32.5 30.8 27.4 30.8C21.6 30.8 17.2 26.5 17.2 21C17.2 15.5 21.6 11.2 27.4 11.2C30.8 11.2 33.7 12.7 35.4 15.2L31.9 17.4C30.9 15.6 29.4 14.5 27.5 14.5Z"
+              fill={fgPrimary}
+            />
+          </svg>
+          <span
+            className="mowa-brand-label font-medium text-sm tracking-tight"
+            style={{ color: fgPrimary }}
+          >
             tamim.global
           </span>
         </Link>
@@ -89,50 +116,71 @@ export default function NeoHeroSection() {
         <button
           type="button"
           role="switch"
-          aria-checked={isDark}
-          onClick={toggleTheme}
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex rounded-full p-1 backdrop-blur-2xl border select-none cursor-pointer transition-all duration-500 ${
-            isDark
-              ? "bg-white/[0.07] border-white/10 shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)]"
-              : "bg-black/[0.07] border-black/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]"
-          }`}
+          aria-checked={!isDark}
+          aria-label="Toggle darkmode and lightmode"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            toggleTheme({
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2,
+            });
+          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex rounded-full p-1 backdrop-blur-2xl border select-none cursor-pointer"
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.08)"
+              : "rgba(0,0,0,0.07)",
+            borderColor: isDark
+              ? "rgba(255,255,255,0.14)"
+              : "rgba(0,0,0,0.14)",
+          }}
         >
           <div className="relative flex items-center">
             {/* Sliding active pill */}
             <div
-              className={`absolute top-0 bottom-0 w-1/2 rounded-full shadow-sm transition-all duration-300 ${
-                isDark ? "left-0 bg-white" : "left-1/2 bg-black"
-              }`}
+              className="absolute top-0 bottom-0 w-1/2 rounded-full shadow-sm transition-all duration-300"
+              style={{
+                left: isDark ? "0%" : "50%",
+                backgroundColor: isDark ? "#ffffff" : "#0a0a0a",
+              }}
             />
             <span
-              className={`relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs font-semibold tracking-wide transition-colors duration-300 ${
-                isDark ? "text-black" : "text-white/50"
-              }`}
+              className="relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs font-semibold tracking-wide"
+              style={{
+                color: isDark ? "#000000" : "rgba(10,10,10,0.58)",
+              }}
             >
               darkmode
             </span>
             <span
-              className={`relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs tracking-wide transition-colors duration-300 ${
-                !isDark ? "text-white font-semibold" : "text-white/50 font-normal"
-              }`}
+              className="relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs tracking-wide"
+              style={{
+                color: !isDark ? "#ffffff" : "rgba(255,255,255,0.58)",
+                fontWeight: !isDark ? 600 : 400,
+              }}
             >
               lightmode
             </span>
           </div>
         </button>
 
-        {/* Right Actions: Sound / Contact / Menu */}
+        {/* Right Actions: Sound / WhatsApp / Outline get in touch / Menu */}
         <div className="flex items-center gap-2.5 relative">
-          {/* Sound / Ambient Audio Toggle Pill */}
+          {/* Sound Toggle Pill */}
           <button
             type="button"
             onClick={toggleSound}
             aria-label="Toggle ambient soundscape"
-            className={`w-10 h-10 rounded-full border border-white/40 flex items-center justify-center transition-all duration-300 backdrop-blur-xl ${
-              soundPlaying
-                ? "bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.4)]"
-                : "text-white/80 hover:bg-white hover:text-black bg-transparent"
-            }`}
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 backdrop-blur-xl cursor-pointer"
+            style={{
+              borderColor: outlineBorder,
+              backgroundColor: soundPlaying ? fgPrimary : "transparent",
+              color: soundPlaying
+                ? isDark
+                  ? "#000000"
+                  : "#ffffff"
+                : fgPrimary,
+            }}
           >
             {soundPlaying ? (
               <div className="flex items-end gap-[2px] h-3.5">
@@ -151,6 +199,12 @@ export default function NeoHeroSection() {
                 strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                style={{
+                  width: 16,
+                  height: 16,
+                  flexShrink: 0,
+                  display: "block",
+                }}
               >
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
@@ -165,7 +219,8 @@ export default function NeoHeroSection() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Message on WhatsApp"
-            className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center text-white backdrop-blur-xl hover:bg-white hover:text-black transition-all duration-300"
+            className="w-10 h-10 rounded-full border flex items-center justify-center backdrop-blur-xl transition-all duration-300"
+            style={{ borderColor: outlineBorder, color: fgPrimary }}
           >
             <svg
               aria-hidden="true"
@@ -177,102 +232,121 @@ export default function NeoHeroSection() {
               strokeWidth="1.6"
               strokeLinecap="round"
               strokeLinejoin="round"
+              style={{
+                width: 17,
+                height: 17,
+                flexShrink: 0,
+                display: "block",
+              }}
             >
               <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
               <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
             </svg>
           </a>
 
-          {/* Outline "get in touch" Pill */}
+          {/* Outline "get in touch" Pill (mowa-desktop-inline bypasses unlayered .hidden) */}
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white text-white text-[13px] font-normal backdrop-blur-xl hover:bg-white hover:text-black transition-all duration-300"
+            className="mowa-desktop-inline items-center gap-2 px-5 py-2.5 rounded-full border text-[13px] font-normal backdrop-blur-xl transition-all duration-300 cursor-pointer"
+            style={{ borderColor: fgPrimary, color: fgPrimary }}
           >
             get in touch
           </button>
 
-          {/* "Menu" Pill with Arrow and Dropdown */}
+          {/* "Menu" Pill with Diagonal Arrow Badge */}
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-expanded={menuOpen}
-            className="inline-flex items-center gap-2.5 pl-5 pr-2 py-2 rounded-full bg-white/[0.12] hover:bg-white/[0.18] text-white text-[13px] backdrop-blur-2xl transition-all duration-300 shadow-sm"
+            className="inline-flex items-center gap-2.5 pl-5 pr-2 py-2 rounded-full text-[13px] backdrop-blur-2xl transition-all duration-300 shadow-sm cursor-pointer"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "rgba(10,10,10,0.08)",
+              color: fgPrimary,
+            }}
           >
             <span>Menu</span>
             <div
-              className={`w-7 h-7 rounded-full bg-white/[0.15] flex items-center justify-center transition-transform duration-300 ${
+              className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-300 ${
                 menuOpen ? "rotate-180" : ""
               }`}
+              style={{
+                backgroundColor: isDark
+                  ? "rgba(255,255,255,0.16)"
+                  : "rgba(10,10,10,0.10)",
+              }}
             >
               <svg
                 width="10"
                 height="10"
                 viewBox="0 0 203 203"
                 fill="none"
-                style={{ width: 10, height: 10, flexShrink: 0 }}
+                style={{ width: 10, height: 10, flexShrink: 0, display: "block" }}
               >
                 <path
                   d="M184.391 0H6.133C2.743 0 0 2.743 0 6.133V12.495C0 15.885 2.743 18.628 6.133 18.628H157.174C162.621 18.628 165.364 25.218 161.497 29.084L5.333 185.229C2.933 187.629 2.933 191.496 5.333 193.896L9.847 198.41C12.247 200.81 16.114 200.81 18.513 198.41L173.935 42.969C177.801 39.103 184.391 41.846 184.391 47.293V196.886C184.391 200.276 187.134 203.019 190.524 203.019H196.886C200.276 203.019 203.019 200.276 203.019 196.886V6.133C203.019 2.743 200.276 0 196.886 0H184.391Z"
-                  fill="#fff"
+                  fill={fgPrimary}
                 />
               </svg>
             </div>
           </button>
 
-          {/* Menu Dropdown Menu */}
+          {/* Menu Dropdown */}
           {menuOpen && (
-            <div className="absolute top-[calc(100%+10px)] right-0 min-w-[220px] p-2 rounded-2xl bg-neutral-900/90 backdrop-blur-2xl border border-white/10 shadow-2xl flex flex-col gap-1 z-50 animate-in fade-in zoom-in-95 duration-200">
-              <a
-                href="#products"
-                onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between"
-              >
-                Web Design &amp; Craft
-                <span className="text-white/40">↗</span>
-              </a>
-              <a
-                href="#expertise"
-                onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between"
-              >
-                Full-Stack Architecture
-                <span className="text-white/40">↗</span>
-              </a>
-              <a
-                href="#technology"
-                onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between"
-              >
-                Video &amp; Motion Lab
-                <span className="text-white/40">↗</span>
-              </a>
-              <a
-                href="#features"
-                onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between"
-              >
-                Music Composition
-                <span className="text-white/40">↗</span>
-              </a>
-              <a
-                href="#team"
-                onClick={() => setMenuOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-between"
-              >
-                Collaborative Studio
-                <span className="text-white/40">↗</span>
-              </a>
-              <div className="h-px bg-white/10 my-1" />
+            <div
+              className="absolute top-[calc(100%+10px)] right-0 min-w-[230px] p-2 rounded-2xl backdrop-blur-2xl border shadow-2xl flex flex-col gap-1 z-50"
+              style={{
+                backgroundColor: isDark
+                  ? "rgba(20,20,24,0.92)"
+                  : "rgba(255,255,255,0.94)",
+                borderColor: isDark
+                  ? "rgba(255,255,255,0.12)"
+                  : "rgba(0,0,0,0.12)",
+                color: fgPrimary,
+              }}
+            >
+              {[
+                { label: "Services & Craft", href: "/services" },
+                { label: "Web Design & Craft", href: "#products" },
+                { label: "Full-Stack Architecture", href: "#expertise" },
+                { label: "Video & Motion Lab", href: "#technology" },
+                { label: "Why Choose Me", href: "#why-choose-me" },
+                { label: "Collaborative Studio", href: "#team" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2.5 rounded-xl text-sm transition-opacity hover:opacity-75 flex items-center justify-between"
+                  style={{ color: fgPrimary }}
+                >
+                  <span>{item.label}</span>
+                  <span style={{ color: fgMuted }}>↗</span>
+                </a>
+              ))}
+              <div
+                className="h-px my-1"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(255,255,255,0.1)"
+                    : "rgba(0,0,0,0.1)",
+                }}
+              />
               <button
                 type="button"
                 onClick={() => {
                   setMenuOpen(false);
                   setModalOpen(true);
                 }}
-                className="px-4 py-2.5 rounded-xl text-sm text-black font-semibold bg-accent-1 hover:bg-white transition-colors flex items-center justify-between text-left"
+                className="px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-left cursor-pointer"
+                style={{
+                  backgroundColor: "#002BFF",
+                  color: "#ffffff",
+                }}
               >
-                Start a Project
+                <span>Start a Project</span>
                 <span>↗</span>
               </button>
             </div>
@@ -283,110 +357,122 @@ export default function NeoHeroSection() {
       {/* Main Hero Container */}
       <section
         id="hero"
-        className={`relative w-full min-h-[100dvh] font-sans overflow-hidden flex flex-col justify-between transition-colors duration-500 ${
-          isDark ? "bg-[#000000] text-white" : "bg-[#f4f4f0] text-[#0a0a0a]"
-        }`}
+        className="relative w-full min-h-[100dvh] font-sans overflow-hidden flex flex-col justify-between"
+        style={{
+          backgroundColor: isDark ? "#000000" : "#f4f4f0",
+          color: fgPrimary,
+        }}
       >
-        {/* 1. Procedural 3D Three.js Simplex Morphing Blob Canvas */}
+        {/* 1. Procedural 3D Sculpted Cross/Rosette + Unified GPU Fluid Refraction Canvas */}
         <Mowa3DBlobCanvas />
 
-        {/* 2. Vertical Architectural Column Guide Lines (6 Columns) */}
+        {/* 2. Vertical Architectural Column Guide Lines (6 Columns on Desktop) */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 pointer-events-none z-[2]"
+          className="mowa-grid-cols absolute inset-0 pointer-events-none z-[2]"
         >
-          <div className="border-r border-white/[0.04] h-full" />
-          <div className="border-r border-white/[0.04] h-full" />
-          <div className="border-r border-white/[0.04] h-full hidden md:block" />
-          <div className="border-r border-white/[0.04] h-full hidden md:block" />
-          <div className="border-r border-white/[0.04] h-full hidden lg:block" />
-          <div className="h-full hidden lg:block" />
+          <div
+            className="border-r h-full"
+            style={{
+              borderColor: isDark
+                ? "rgba(255,255,255,0.045)"
+                : "rgba(0,0,0,0.055)",
+            }}
+          />
+          <div
+            className="border-r h-full"
+            style={{
+              borderColor: isDark
+                ? "rgba(255,255,255,0.045)"
+                : "rgba(0,0,0,0.055)",
+            }}
+          />
+          <div
+            className="mowa-grid-col-md border-r h-full"
+            style={{
+              borderColor: isDark
+                ? "rgba(255,255,255,0.045)"
+                : "rgba(0,0,0,0.055)",
+            }}
+          />
+          <div
+            className="mowa-grid-col-md border-r h-full"
+            style={{
+              borderColor: isDark
+                ? "rgba(255,255,255,0.045)"
+                : "rgba(0,0,0,0.055)",
+            }}
+          />
+          <div
+            className="mowa-grid-col-lg border-r h-full"
+            style={{
+              borderColor: isDark
+                ? "rgba(255,255,255,0.045)"
+                : "rgba(0,0,0,0.055)",
+            }}
+          />
+          <div className="mowa-grid-col-lg h-full" />
         </div>
 
         {/* 3. Mid-Level 5-Column Alignment Grid (Centerpiece) */}
         <div className="relative z-10 w-full px-5 md:px-10 lg:px-12 pt-[clamp(110px,18vh,220px)] pb-[clamp(30px,5vh,60px)]">
           <div className="grid grid-cols-12 items-center gap-4 lg:gap-6">
             {/* Col 1: Far Left Skills */}
-            <div className="col-span-6 sm:col-span-3 lg:col-span-2 flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] text-white/90 leading-tight font-sans tracking-wide">
+            <div
+              className="col-span-6 sm:col-span-3 lg:col-span-2 flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] leading-tight font-sans tracking-wide"
+              style={{ color: fgPrimary }}
+            >
               <div>code</div>
               <div>architecture</div>
               <div>full-stack</div>
             </div>
 
             {/* Col 2: Left Inner Skills */}
-            <div className="col-span-6 sm:col-span-3 lg:col-span-2 lg:pl-6 flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] text-white/90 leading-tight font-sans tracking-wide">
+            <div
+              className="col-span-6 sm:col-span-3 lg:col-span-2 lg:pl-6 flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] leading-tight font-sans tracking-wide"
+              style={{ color: fgPrimary }}
+            >
               <div>web design</div>
               <div>ui/ux craft</div>
-              <div>next.js 15</div>
+              <div>next.js 16</div>
             </div>
 
-            {/* Col 3: Center Monolithic Wordmark directly over 3D Canvas */}
+            {/* Col 3: Measured Center Slot — WebGL Canvas composites & refracts TA/MiM inside this rect */}
             <div className="col-span-12 lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
-              <div className="relative group cursor-pointer select-none">
-                {/* Stylized Futuristic Stacked Wordmark matching Mowa Studio Monogram Proportions */}
-                <svg
-                  width="260"
-                  height="220"
-                  viewBox="0 0 240 200"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-[clamp(140px,18vw,260px)] h-auto drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)] transition-transform duration-500 hover:scale-105"
-                >
-                  {/* Top Line: "ta" */}
-                  <g className="transition-opacity duration-300">
-                    {/* T stem & crossbar */}
-                    <path
-                      d="M20 20 H105 V34 H70 V100 H50 V34 H20 V20 Z"
-                      fill="#FFFFFF"
-                    />
-                    {/* A geometric arch */}
-                    <path
-                      d="M130 100 L160 20 H180 L210 100 H188 L182 82 H158 L152 100 H130 Z M163 68 H177 L170 42 L163 68 Z"
-                      fill="#FFFFFF"
-                    />
-                  </g>
-
-                  {/* Bottom Line: "mim" */}
-                  <g className="transition-opacity duration-300">
-                    {/* M geometric glyph */}
-                    <path
-                      d="M20 180 V115 H38 L55 152 L72 115 H90 V180 H74 V142 L59 174 H51 L36 142 V180 H20 Z"
-                      fill="#FFFFFF"
-                    />
-                    {/* I pillar with titanium dot */}
-                    <path
-                      d="M106 180 V128 H124 V180 H106 Z M106 120 V110 H124 V120 H106 Z"
-                      fill="#FFFFFF"
-                    />
-                    {/* Second M geometric glyph */}
-                    <path
-                      d="M140 180 V115 H158 L175 152 L192 115 H210 V180 H194 V142 L179 174 H171 L156 142 V180 H140 Z"
-                      fill="#FFFFFF"
-                    />
-                  </g>
-                </svg>
+              <div
+                data-mowa-logo-slot
+                className="w-[clamp(150px,18vw,250px)] aspect-[240/200] select-none pointer-events-none"
+                aria-label="TAMIM"
+              >
+                <span className="sr-only">TAMIM GLOBAL</span>
               </div>
             </div>
 
             {/* Col 4: Right Inner Skills */}
-            <div className="col-span-6 sm:col-span-3 lg:col-span-2 lg:text-right flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] text-white/90 leading-tight font-sans tracking-wide">
+            <div
+              className="col-span-6 sm:col-span-3 lg:col-span-2 lg:text-right flex flex-col gap-1 text-[11px] sm:text-xs lg:text-[13px] leading-tight font-sans tracking-wide"
+              style={{ color: fgPrimary }}
+            >
               <div>video editor</div>
               <div>color grade</div>
               <div>cinema 4k</div>
             </div>
 
             {/* Col 5: Far Right Skills + Outline Button */}
-            <div className="col-span-6 sm:col-span-3 lg:col-span-2 flex flex-col items-start lg:items-end gap-3.5 text-[11px] sm:text-xs lg:text-[13px] text-white/90 leading-tight font-sans tracking-wide">
+            <div
+              className="col-span-6 sm:col-span-3 lg:col-span-2 flex flex-col items-start lg:items-end gap-3.5 text-[11px] sm:text-xs lg:text-[13px] leading-tight font-sans tracking-wide"
+              style={{ color: fgPrimary }}
+            >
               <div className="flex flex-col gap-1 lg:text-right">
                 <div>music score</div>
                 <div>sound design</div>
                 <div>audio master</div>
               </div>
 
-              {/* Mowa Studio Style Outline Project Capsule CTA */}
               <a
                 href="#products"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white text-white text-[12px] sm:text-[13px] font-normal backdrop-blur-xl hover:bg-white hover:text-black transition-all duration-300 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-[12px] sm:text-[13px] font-normal backdrop-blur-xl transition-all duration-300 shadow-sm"
+                style={{ borderColor: outlineBorder, color: fgPrimary }}
               >
                 <span>view projects</span>
                 <svg
@@ -394,7 +480,7 @@ export default function NeoHeroSection() {
                   height="8"
                   viewBox="0 0 203 203"
                   fill="none"
-                  style={{ width: 8, height: 8, flexShrink: 0 }}
+                  style={{ width: 8, height: 8, flexShrink: 0, display: "block" }}
                 >
                   <path
                     d="M184.391 0H6.133C2.743 0 0 2.743 0 6.133V12.495C0 15.885 2.743 18.628 6.133 18.628H157.174C162.621 18.628 165.364 25.218 161.497 29.084L5.333 185.229C2.933 187.629 2.933 191.496 5.333 193.896L9.847 198.41C12.247 200.81 16.114 200.81 18.513 198.41L173.935 42.969C177.801 39.103 184.391 41.846 184.391 47.293V196.886C184.391 200.276 187.134 203.019 190.524 203.019H196.886C200.276 203.019 203.019 200.276 203.019 196.886V6.133C203.019 2.743 200.276 0 196.886 0H184.391Z"
@@ -406,56 +492,46 @@ export default function NeoHeroSection() {
           </div>
         </div>
 
-        {/* 4. Bottom Area (1:1 Mowa Studio Glass Metrics + Manifesto + Action Dock) */}
+        {/* 4. Bottom Area (1:1 Mowa Studio KPI Bento Cards + Manifesto + Action Dock) */}
         <div className="relative z-10 w-full px-5 md:px-10 lg:px-12 pb-8 pt-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            {/* Left Column: 4 Frosted Cards + Manifesto + Dock Pills */}
+            {/* Left Column: 4 Frosted KPI Cards + Manifesto + Dock Pills */}
             <div className="lg:col-span-8 flex flex-col gap-4">
-              {/* Row of 4 Square Frosted Glass Metric Cards */}
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                {/* Metric 1 */}
-                <div className="aspect-square w-[72px] sm:w-[84px] md:w-[92px] rounded-[18px] bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1 cursor-default shadow-lg">
-                  <span className="text-[20px] sm:text-[24px] md:text-[26px] font-normal text-white leading-none">
-                    100+
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] text-white/50 mt-1 tracking-wider whitespace-nowrap">
-                    Identities
-                  </span>
-                </div>
-
-                {/* Metric 2 */}
-                <div className="aspect-square w-[72px] sm:w-[84px] md:w-[92px] rounded-[18px] bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1 cursor-default shadow-lg">
-                  <span className="text-[20px] sm:text-[24px] md:text-[26px] font-normal text-white leading-none">
-                    50+
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] text-white/50 mt-1 tracking-wider whitespace-nowrap">
-                    Websites
-                  </span>
-                </div>
-
-                {/* Metric 3 */}
-                <div className="aspect-square w-[72px] sm:w-[84px] md:w-[92px] rounded-[18px] bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1 cursor-default shadow-lg">
-                  <span className="text-[20px] sm:text-[24px] md:text-[26px] font-normal text-white leading-none">
-                    4M+
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] text-white/50 mt-1 tracking-wider whitespace-nowrap">
-                    Video Views
-                  </span>
-                </div>
-
-                {/* Metric 4 */}
-                <div className="aspect-square w-[72px] sm:w-[84px] md:w-[92px] rounded-[18px] bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1 cursor-default shadow-lg">
-                  <span className="text-[20px] sm:text-[24px] md:text-[26px] font-normal text-white leading-none">
-                    8Y
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] text-white/50 mt-1 tracking-wider whitespace-nowrap">
-                    Experience
-                  </span>
-                </div>
+                {METRICS.map((m) => (
+                  <div
+                    key={m.label}
+                    className="aspect-square w-[72px] sm:w-[84px] md:w-[92px] rounded-[18px] border backdrop-blur-xl flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-1 cursor-default shadow-lg"
+                    style={{
+                      backgroundColor: isDark
+                        ? "rgba(255,255,255,0.075)"
+                        : "rgba(255,255,255,0.85)",
+                      borderColor: isDark
+                        ? "rgba(255,255,255,0.11)"
+                        : "rgba(0,0,0,0.09)",
+                    }}
+                  >
+                    <span
+                      className="text-[20px] sm:text-[24px] md:text-[26px] font-normal leading-none"
+                      style={{ color: fgPrimary }}
+                    >
+                      {m.value}
+                    </span>
+                    <span
+                      className="text-[10px] sm:text-[11px] mt-1 tracking-wider whitespace-nowrap"
+                      style={{ color: fgMuted }}
+                    >
+                      {m.label}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               {/* Manifesto Heading Text */}
-              <h1 className="text-[13px] sm:text-[15px] md:text-[17px] font-normal text-white/90 leading-relaxed max-w-[620px] mt-1">
+              <h1
+                className="text-[13px] sm:text-[15px] md:text-[17px] font-normal leading-relaxed max-w-[620px] mt-1"
+                style={{ color: isDark ? "rgba(255,255,255,0.92)" : "#0a0a0a" }}
+              >
                 &nbsp;&nbsp;&nbsp;I engineer bespoke digital flagships, cinematic
                 video narratives, and original soundscapes for ambitious brands
                 worldwide: code with mathematical precision, motion with rhythm,
@@ -465,8 +541,9 @@ export default function NeoHeroSection() {
               {/* "more about me" link */}
               <div>
                 <a
-                  href="#expertise"
-                  className="text-sm text-white/70 hover:text-white underline underline-offset-4 transition-colors"
+                  href="#what-i-build"
+                  className="text-sm underline underline-offset-4 transition-opacity hover:opacity-75"
+                  style={{ color: fgMuted }}
                 >
                   more about me
                 </a>
@@ -477,28 +554,34 @@ export default function NeoHeroSection() {
                 {/* Pill 1: [NEW] Full-Stack Edge */}
                 <a
                   href="#expertise"
-                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full border border-white/40 hover:border-white bg-transparent hover:bg-white/10 text-white text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full border text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  style={{ borderColor: outlineBorder, color: fgPrimary }}
                 >
-                  <span className="px-1.5 py-0.5 rounded-full bg-[#000dff] text-white text-[9px] font-bold tracking-wider">
+                  <span
+                    className="px-1.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider"
+                    style={{ backgroundColor: "#002BFF", color: "#ffffff" }}
+                  >
                     NEW
                   </span>
                   <span>Full-Stack Edge</span>
-                  <span className="text-white/60">↗</span>
+                  <span style={{ color: fgMuted }}>↗</span>
                 </a>
 
                 {/* Pill 2: FAQ */}
                 <a
                   href="#technology"
-                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full border border-white/40 hover:border-white bg-transparent hover:bg-white/10 text-white text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full border text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  style={{ borderColor: outlineBorder, color: fgPrimary }}
                 >
                   <span>FAQ</span>
-                  <span className="text-white/60">↗</span>
+                  <span style={{ color: fgMuted }}>↗</span>
                 </a>
 
                 {/* Pill 3: Reviews */}
                 <a
                   href="#team"
-                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full border border-white/40 hover:border-white bg-transparent hover:bg-white/10 text-white text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full border text-[12px] sm:text-[13px] backdrop-blur-xl transition-all duration-300"
+                  style={{ borderColor: outlineBorder, color: fgPrimary }}
                 >
                   <span>reviews</span>
                   <svg
@@ -506,8 +589,13 @@ export default function NeoHeroSection() {
                     width="12"
                     height="12"
                     viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="text-amber-400"
+                    fill="#f59e0b"
+                    style={{
+                      width: 12,
+                      height: 12,
+                      flexShrink: 0,
+                      display: "block",
+                    }}
                   >
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                   </svg>
@@ -517,8 +605,8 @@ export default function NeoHeroSection() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  style={{ backgroundColor: "#000dff", color: "#ffffff" }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000dff] hover:bg-[#1a2aff] text-white text-[12px] sm:text-[13px] font-medium shadow-[0_4px_20px_rgba(0,13,255,0.4)] hover:shadow-[0_4px_28px_rgba(0,13,255,0.6)] transition-all duration-300"
+                  style={{ backgroundColor: "#002BFF", color: "#ffffff" }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[12px] sm:text-[13px] font-medium shadow-[0_4px_20px_rgba(0,43,255,0.4)] hover:shadow-[0_4px_28px_rgba(0,43,255,0.65)] transition-all duration-300 cursor-pointer"
                 >
                   <span>get in touch</span>
                   <svg
@@ -526,7 +614,12 @@ export default function NeoHeroSection() {
                     height="8"
                     viewBox="0 0 203 203"
                     fill="none"
-                    style={{ width: 8, height: 8, flexShrink: 0 }}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      flexShrink: 0,
+                      display: "block",
+                    }}
                   >
                     <path
                       d="M184.391 0H6.133C2.743 0 0 2.743 0 6.133V12.495C0 15.885 2.743 18.628 6.133 18.628H157.174C162.621 18.628 165.364 25.218 161.497 29.084L5.333 185.229C2.933 187.629 2.933 191.496 5.333 193.896L9.847 198.41C12.247 200.81 16.114 200.81 18.513 198.41L173.935 42.969C177.801 39.103 184.391 41.846 184.391 47.293V196.886C184.391 200.276 187.134 203.019 190.524 203.019H196.886C200.276 203.019 203.019 200.276 203.019 196.886V6.133C203.019 2.743 200.276 0 196.886 0H184.391Z"
@@ -537,16 +630,30 @@ export default function NeoHeroSection() {
               </div>
             </div>
 
-            {/* Right Column: Status & Ambient Equalizer Pill */}
+            {/* Right Column: Status & Location Tag */}
             <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end gap-2">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.07] border border-white/10 backdrop-blur-xl text-white/80 text-[11px] sm:text-xs">
+              <div
+                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border backdrop-blur-xl text-[11px] sm:text-xs"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(255,255,255,0.07)"
+                    : "rgba(255,255,255,0.85)",
+                  borderColor: isDark
+                    ? "rgba(255,255,255,0.11)"
+                    : "rgba(0,0,0,0.09)",
+                  color: fgPrimary,
+                }}
+              >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="tracking-wide">
                   AVAILABLE FOR GLOBAL COMMISSIONS
                 </span>
               </div>
-              <div className="text-[11px] text-white/40 tracking-wider">
-                DHAKA &amp; WORLDWIDE · UTC+6
+              <div
+                className="text-[11px] tracking-wider"
+                style={{ color: fgMuted }}
+              >
+                DHAKA &amp; WORLDWIDE &middot; UTC+6
               </div>
             </div>
           </div>
