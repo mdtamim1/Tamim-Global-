@@ -26,6 +26,7 @@ import NeoExpertiseSection from "@/components/sections/NeoExpertiseSection";
 import NeoFeaturesSection from "@/components/sections/NeoFeaturesSection";
 import NeoTeamSection from "@/components/sections/NeoTeamSection";
 import NeoFooter from "@/components/layout/NeoFooter";
+import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
 import type { SiteContent } from "@/types";
 
 interface HomeClientProps {
@@ -53,7 +54,10 @@ export default function HomeClient({ content }: HomeClientProps) {
         {/* Section 2: Kinetic Tag Cloud Marquee */}
         <NeoKineticTicker />
 
-        {/* Section 3: Technology Architecture */}
+        {/* Section 3: What I Build & Create – Oxnod-style Service List */}
+        <WhatIBuildSection />
+
+        {/* Section 4: Technology Architecture */}
         <NeoTechnologySection />
 
         {/* Section 4: Products Bento with Embedded Video */}
