@@ -70,19 +70,19 @@ export default function WhyChooseMeSection() {
           leftDoor,
           { xPercent: 0 },
           { xPercent: -100, ease: "none", duration: 1 },
-          0
+          0,
         )
           .fromTo(
             rightDoor,
             { xPercent: 0 },
             { xPercent: 100, ease: "none", duration: 1 },
-            0
+            0,
           )
           .fromTo(
             content,
             { opacity: 0 },
             { opacity: 1, ease: "none", duration: 0.7 },
-            0.12
+            0.12,
           );
       });
 
@@ -109,15 +109,20 @@ export default function WhyChooseMeSection() {
     >
       {/* Sticky Curtain Overlay Stage */}
       <div className="md:sticky md:top-0 md:min-h-[100vh] w-full flex flex-col justify-center">
-        {/* Dual Split Image Curtains */}
+        {/* Dual Split Image Curtains — 2-layer crossfade + slow zoom matching Oxnod IX3 */}
         <div className="oxnod-why-curtains">
           <div ref={leftDoorRef} className="oxnod-curtain-left bg-[#1a0d00]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/why/curtain-left.jpg"
               alt="Creative Direction Silhouette"
-              className="w-full h-full object-cover object-center"
-              loading="lazy"
+              className="oxnod-curtain-img-a"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/services/service-1.jpg"
+              alt="Full-Stack Engineering Studio"
+              className="oxnod-curtain-img-b"
             />
           </div>
 
@@ -126,8 +131,13 @@ export default function WhyChooseMeSection() {
             <img
               src="/images/why/curtain-right.png"
               alt="Translucent Vermilion Sculpture"
-              className="w-full h-full object-cover object-center"
-              loading="lazy"
+              className="oxnod-curtain-img-a"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/services/service-4.png"
+              alt="Sonic & Visual Systems"
+              className="oxnod-curtain-img-b"
             />
           </div>
         </div>
@@ -190,7 +200,7 @@ export default function WhyChooseMeSection() {
 
               <div className="text-center max-w-[540px] mx-auto">
                 <h2
-                  className="oxnod-why-headline"
+                  className="font-medium text-[30px] leading-[1.15] md:text-[40px] md:leading-[46px] lg:text-[48px] lg:leading-[54px] tracking-[-0.96px]"
                   style={{
                     fontFamily: "'Urbanist', var(--font-onest), sans-serif",
                   }}
@@ -281,69 +291,130 @@ export default function WhyChooseMeSection() {
                 </div>
               </div>
 
-              {/* Card 2: Distinctive Thinking + Sculpted Contour Sculpture */}
+              {/* Card 2: Distinctive Thinking + Inset Frame & 3D Contour Sculpture */}
               <div
                 className={`relative rounded-[12px] border overflow-hidden p-5 h-[330px] lg:h-[345px] flex flex-col justify-between ${cardBg}`}
               >
                 <div className="relative z-10 p-1">
-                  <h3 className="oxnod-why-card-heading mb-1.5">
+                  <h3 className="text-[20px] leading-[28px] font-medium mb-1.5">
                     Distinctive Thinking
                   </h3>
                   <p
-                    className="text-[14px] leading-[20px] max-w-[280px]"
+                    className="text-[14px] leading-[20px] max-w-[290px]"
                     style={{ color: isDark ? "#8e8e93" : "#717171" }}
                   >
-                    Breaking conventions to engineer web flagships, cinema
-                    films &amp; scores that stay unforgettable.
+                    Breaking conventions to engineer web flagships, cinema films
+                    &amp; scores that stay unforgettable.
                   </p>
                 </div>
 
-                <div className="relative w-full h-[180px] flex items-end justify-center overflow-hidden">
+                {/* Inset Glowing Sculpture Frame matching Oxnod video 00:24 */}
+                <div
+                  className="relative z-10 mt-2 flex-1 rounded-[10px] border overflow-hidden flex items-end justify-center"
+                  style={{
+                    borderColor: isDark
+                      ? "rgba(255,255,255,0.08)"
+                      : "rgba(0,0,0,0.09)",
+                    background: isDark
+                      ? "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(248,64,34,0.09) 100%)"
+                      : "linear-gradient(180deg, rgba(0,0,0,0.015) 0%, rgba(248,64,34,0.08) 100%)",
+                    boxShadow: isDark
+                      ? "inset 0 -18px 28px -14px rgba(248,64,34,0.65), 0 0 0 1px rgba(248,64,34,0.18)"
+                      : "inset 0 -16px 24px -14px rgba(248,64,34,0.52), 0 0 0 1px rgba(248,64,34,0.14)",
+                  }}
+                >
                   <svg
                     width="320"
-                    height="180"
-                    viewBox="0 0 320 180"
+                    height="170"
+                    viewBox="0 0 320 170"
                     fill="none"
-                    style={{ width: "100%", height: 180, display: "block" }}
+                    style={{ width: "100%", height: 170, flexShrink: 0, display: "block" }}
                     aria-hidden="true"
                   >
-                    {Array.from({ length: 22 }).map((_, i) => {
-                      const y = 22 + i * 7;
-                      const curve = Math.sin(i * 0.27) * 28;
+                    <defs>
+                      <linearGradient id="oxnodSculptGlow" x1="160" y1="20" x2="160" y2="170" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor={isDark ? "#ffffff" : "#111111"} stopOpacity="0.22" />
+                        <stop offset="72%" stopColor={isDark ? "#f84022" : "#f84022"} stopOpacity="0.45" />
+                        <stop offset="100%" stopColor="#f84022" stopOpacity="0.88" />
+                      </linearGradient>
+                    </defs>
+                    {Array.from({ length: 24 }).map((_, i) => {
+                      const t = i / 23;
+                      const y = 26 + i * 6;
+                      // Sculpted head + shoulder silhouette modulation
+                      const inHead = i >= 2 && i <= 14;
+                      const headPhase = inHead ? Math.sin(((i - 2) / 12) * Math.PI) : 0;
+                      const neckDip = i > 14 && i <= 17 ? 0.38 : 0;
+                      const shoulders = i > 17 ? ((i - 17) / 6) * 0.95 : 0;
+                      const bulge = (headPhase * 34 + shoulders * 48) * (1 - neckDip);
+                      const halfSpan = 42 + headPhase * 36 + shoulders * 68;
+                      const cx = 160 + (inHead ? Math.sin(t * 7) * 5 : 0);
+                      const xL = Math.max(16, cx - halfSpan);
+                      const xR = Math.min(304, cx + halfSpan);
                       return (
                         <path
                           key={i}
-                          d={`M ${30 - curve * 0.3} ${y} C 110 ${
-                            y - 22
-                          }, 190 ${y + 22}, ${290 + curve * 0.45} ${y - 6}`}
-                          stroke={
-                            isDark
-                              ? "rgba(255,255,255,0.22)"
-                              : "rgba(0,0,0,0.22)"
-                          }
-                          strokeWidth="1.2"
+                          d={`M 16 ${y} C ${xL - 12} ${y}, ${cx - bulge * 0.7} ${
+                            y - bulge * 0.36
+                          }, ${cx} ${y - bulge * 0.42} C ${cx + bulge * 0.7} ${
+                            y - bulge * 0.36
+                          }, ${xR + 12} ${y}, 304 ${y}`}
+                          stroke="url(#oxnodSculptGlow)"
+                          strokeWidth={i > 18 ? "1.35" : "1.1"}
+                          strokeOpacity={0.35 + (i / 24) * 0.55}
                         />
                       );
                     })}
                   </svg>
                 </div>
 
+                {/* Bottom vermilion ambient perimeter glow */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px]"
                   style={{
                     background:
-                      "linear-gradient(to top, rgba(248,64,34,0.48), rgba(248,64,34,0.08) 55%, transparent)",
+                      "linear-gradient(90deg, transparent 5%, #f84022 50%, transparent 95%)",
+                    boxShadow: "0 -4px 18px rgba(248,64,34,0.65)",
                   }}
                 />
               </div>
 
               {/* Card 3: Split Column (Ideas Built Around You + Always-On Partnership) */}
               <div className="oxnod-why-col-span-split flex flex-col gap-2 lg:h-[345px]">
-                {/* Card 3A */}
+                {/* Card 3A: Ideas Built Around You + Curved Backdrop & Right-Aligned Marquee Box */}
                 <div
-                  className={`relative rounded-[12px] border overflow-hidden pt-4 pb-3 ${cardBg}`}
+                  className={`relative rounded-[12px] border overflow-hidden pt-4 pb-0 flex flex-col justify-between min-h-[158px] ${cardBg}`}
                 >
-                  <div className="flex items-center justify-between px-5 mb-3">
+                  {/* Faint architectural curve backdrop SVG matching Oxnod video 00:24 */}
+                  <svg
+                    width="360"
+                    height="120"
+                    viewBox="0 0 360 120"
+                    fill="none"
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      bottom: 0,
+                      width: "100%",
+                      height: 120,
+                      pointerEvents: "none",
+                      display: "block",
+                    }}
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M -10 112 C 60 44, 150 28, 260 66 C 310 82, 345 78, 372 48"
+                      stroke={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"}
+                      strokeWidth="1.2"
+                    />
+                    <path
+                      d="M 10 120 C 90 76, 175 72, 275 104"
+                      stroke={isDark ? "rgba(248,64,34,0.16)" : "rgba(248,64,34,0.18)"}
+                      strokeWidth="1"
+                    />
+                  </svg>
+
+                  <div className="relative z-10 flex items-center justify-between px-5 mb-4">
                     <span className="font-medium text-[15px]">
                       Ideas Built Around You..
                     </span>
@@ -363,9 +434,20 @@ export default function WhyChooseMeSection() {
                     </div>
                   </div>
 
-                  <div className="relative overflow-hidden pt-2 border-t border-white/[0.06]">
+                  {/* Inset right-aligned bordered marquee container matching Oxnod video 00:24 */}
+                  <div
+                    className="relative z-10 w-[230px] max-w-[82%] ml-auto rounded-tl-[10px] border-t border-l overflow-hidden py-2.5"
+                    style={{
+                      borderColor: isDark
+                        ? "rgba(255,255,255,0.12)"
+                        : "rgba(0,0,0,0.12)",
+                      backgroundColor: isDark
+                        ? "rgba(255,255,255,0.025)"
+                        : "rgba(0,0,0,0.02)",
+                    }}
+                  >
                     <div
-                      className="pointer-events-none absolute left-0 top-0 bottom-0 w-14 z-10"
+                      className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 z-10"
                       style={{
                         background: isDark
                           ? "linear-gradient(90deg,#121212,transparent)"
@@ -373,7 +455,7 @@ export default function WhyChooseMeSection() {
                       }}
                     />
                     <div
-                      className="pointer-events-none absolute right-0 top-0 bottom-0 w-14 z-10"
+                      className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 z-10"
                       style={{
                         background: isDark
                           ? "linear-gradient(270deg,#121212,transparent)"
@@ -388,7 +470,7 @@ export default function WhyChooseMeSection() {
                       ].map((item, idx) => (
                         <div
                           key={idx}
-                          className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-[11px] font-mono shrink-0 mx-1"
+                          className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[10px] font-mono shrink-0 mx-1"
                           style={{ background: item.bg, color: "#ffffff" }}
                         >
                           {item.label}
@@ -459,7 +541,7 @@ export default function WhyChooseMeSection() {
                   </div>
 
                   <div className="mt-4">
-                    <h3 className="oxnod-why-card-heading mb-1">
+                    <h3 className="text-[20px] leading-[28px] font-medium mb-1">
                       Always-On Partnership
                     </h3>
                     <p
@@ -478,7 +560,7 @@ export default function WhyChooseMeSection() {
             <div className="oxnod-why-grid-bottom">
               {/* Card 4: Built to perform */}
               <div className={`rounded-[12px] border p-5 md:p-6 ${cardBg}`}>
-                <h3 className="oxnod-why-card-heading mb-1.5">
+                <h3 className="text-[20px] leading-[28px] font-medium mb-1.5">
                   Built to perform
                 </h3>
                 <p
@@ -509,7 +591,7 @@ export default function WhyChooseMeSection() {
                         >
                           ★
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                   <div>
@@ -564,12 +646,14 @@ export default function WhyChooseMeSection() {
                           className="text-[13px] font-semibold tracking-[0.14em] uppercase whitespace-nowrap"
                           style={{
                             fontFamily: "'Geist Mono', monospace",
-                            color: isDark ? "rgba(255,255,255,0.45)" : "#626260",
+                            color: isDark
+                              ? "rgba(255,255,255,0.45)"
+                              : "#626260",
                           }}
                         >
                           {brand}
                         </span>
-                      )
+                      ),
                     )}
                   </div>
                 </div>

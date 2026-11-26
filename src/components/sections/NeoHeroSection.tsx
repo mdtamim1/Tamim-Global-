@@ -15,7 +15,7 @@
 //   FAQ ↗, reviews ★, and royal blue "get in touch ↗"
 // ============================================================
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Mowa3DBlobCanvas from "@/components/ui/Mowa3DBlobCanvas";
@@ -26,8 +26,16 @@ export default function NeoHeroSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [soundPlaying, setSoundPlaying] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { isDark, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 48);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const toggleSound = () => {
     if (!audioRef.current) return;
@@ -50,7 +58,11 @@ export default function NeoHeroSection() {
       {/* Fixed Header / Top Navigation (1:1 Mowa Studio Header) */}
       <nav
         aria-label="Hauptnavigation"
-        className="fixed top-0 left-0 right-0 z-[9999] flex items-center justify-between px-5 md:px-10 py-5 md:py-6 transition-all duration-700 bg-transparent font-sans pointer-events-auto"
+        className={`fixed top-0 left-0 right-0 z-[9999] flex items-center justify-between px-5 md:px-10 py-5 md:py-6 transition-all duration-500 font-sans pointer-events-auto ${
+          scrolled && isDark
+            ? "bg-black/75 backdrop-blur-xl border-b border-white/[0.06]"
+            : "bg-transparent"
+        }`}
       >
         {/* Left: TG Monogram / Brand Identity */}
         <Link

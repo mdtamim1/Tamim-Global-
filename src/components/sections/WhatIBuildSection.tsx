@@ -37,12 +37,12 @@ const SERVICES: ServiceItem[] = [
     number: "01.",
     title: "Full-Stack Engineering",
     description:
-      "Architecting resilient full-stack applications and scalable APIs engineered for speed and longevity.",
+      "Architecting resilient full-stack applications and APIs engineered for scale.",
     capabilities: [
-      "Next.js 16 & React 19",
-      "TypeScript & Node.js",
-      "PostgreSQL & Prisma",
-      "100/100 Lighthouse",
+      "NEXT.JS & REACT 19",
+      "TYPESCRIPT & NODE",
+      "POSTGRES & PRISMA",
+      "100/100 LIGHTHOUSE",
     ],
     image: "/images/services/service-1.jpg",
     imageAlt: "Full-Stack Web Engineering & Systems Architecture",
@@ -52,12 +52,12 @@ const SERVICES: ServiceItem[] = [
     number: "02.",
     title: "UI/UX & Interactive 3D",
     description:
-      "Designing distinctive digital flagships with liquid WebGL shaders and purposeful GSAP choreography.",
+      "Designing distinctive digital flagships with WebGL shaders and GSAP motion.",
     capabilities: [
-      "Bespoke Design Systems",
-      "Three.js & GLSL Shaders",
-      "GSAP Motion Systems",
-      "Figma to Production",
+      "DESIGN SYSTEMS",
+      "THREE.JS & SHADERS",
+      "GSAP CHOREOGRAPHY",
+      "FIGMA TO CODE",
     ],
     image: "/images/services/service-2.png",
     imageAlt: "Web Design & Interactive 3D Motion",
@@ -67,12 +67,12 @@ const SERVICES: ServiceItem[] = [
     number: "03.",
     title: "Cinematic Video Editing",
     description:
-      "Cutting high-retention brand films, commercial edits, and stories with cinema-grade color grading.",
+      "Cutting high-retention brand films and ads with cinema-grade color science.",
     capabilities: [
-      "DaVinci Resolve Color",
-      "Premiere Pro & After FX",
-      "Rhythm-Matched Pacing",
-      "4K DCI Rec.709 Master",
+      "DAVINCI RESOLVE",
+      "PREMIERE & AFTER FX",
+      "RHYTHM PACING",
+      "4K REC.709 MASTER",
     ],
     image: "/images/services/service-3.png",
     imageAlt: "Cinematic Video Production & Color Grading",
@@ -82,12 +82,12 @@ const SERVICES: ServiceItem[] = [
     number: "04.",
     title: "Music & Sound Design",
     description:
-      "Composing original film scores, atmospheric textures, and studio-mastered sonic brand identities.",
+      "Composing original film scores, sonic identities, and studio-grade audio.",
     capabilities: [
-      "Original Film Scores",
-      "Orchestral & Synth Mix",
-      "Foley & Spatial Audio",
-      "Broadcast Mastering",
+      "ORIGINAL SCORES",
+      "ORCHESTRAL & SYNTH",
+      "SPATIAL SOUND FX",
+      "STUDIO MASTERING",
     ],
     image: "/images/services/service-4.png",
     imageAlt: "Original Music Composition & Audio Production",
@@ -97,7 +97,7 @@ const SERVICES: ServiceItem[] = [
 
 const HEADLINE_WORDS =
   "Tamim is a creative studio engineer who builds distinctive software, web flagships, cinema films, and original scores.".split(
-    " "
+    " ",
   );
 
 function ArrowToBarIcon({
@@ -162,7 +162,7 @@ export default function WhatIBuildSection() {
               end: "bottom 35%",
               scrub: 0.8,
             },
-          }
+          },
         );
       }
 
@@ -171,7 +171,7 @@ export default function WhatIBuildSection() {
 
       mm.add("(min-width: 992px)", () => {
         const cards = cardWrapRefs.current.filter(
-          (el): el is HTMLDivElement => el !== null
+          (el): el is HTMLDivElement => el !== null,
         );
         if (cards.length === 0) return;
 
@@ -182,8 +182,8 @@ export default function WhatIBuildSection() {
           scrollTrigger: {
             trigger: cardsWrapper,
             start: "top bottom",
-            end: "bottom 78%",
-            scrub: 1.2,
+            end: "bottom 72%",
+            scrub: 1.5,
           },
         });
 
@@ -198,14 +198,14 @@ export default function WhatIBuildSection() {
               duration: 0.35,
               ease: "none",
             },
-            positions[idx] ?? idx * 0.2
+            positions[idx] ?? idx * 0.2,
           );
         });
       });
 
       mm.add("(max-width: 991px)", () => {
         const cards = cardWrapRefs.current.filter(
-          (el): el is HTMLDivElement => el !== null
+          (el): el is HTMLDivElement => el !== null,
         );
         cards.forEach((cardEl, idx) => {
           const fromPx = idx % 2 === 0 ? -48 : 48;
@@ -222,7 +222,7 @@ export default function WhatIBuildSection() {
                 start: "top 86%",
                 once: true,
               },
-            }
+            },
           );
         });
       });
@@ -238,7 +238,7 @@ export default function WhatIBuildSection() {
       window.dispatchEvent(
         new CustomEvent("tg:select-expertise", {
           detail: { index: svc.expertiseTabIdx },
-        })
+        }),
       );
     } else {
       setModalOpen(true);
@@ -273,7 +273,12 @@ export default function WhatIBuildSection() {
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  style={{ width: 18, height: 18, flexShrink: 0, display: "block" }}
+                  style={{
+                    width: 18,
+                    height: 18,
+                    flexShrink: 0,
+                    display: "block",
+                  }}
                   aria-hidden="true"
                 >
                   <path
@@ -325,7 +330,7 @@ export default function WhatIBuildSection() {
               <div className="w-full max-w-[850px]">
                 <h2
                   ref={titleRef}
-                  className="oxnod-service-headline"
+                  className="font-medium text-[30px] leading-[1.2] sm:text-[36px] sm:leading-[44px] lg:text-[44px] lg:leading-[52px] tracking-[-0.88px]"
                   style={{
                     fontFamily: "'Urbanist', var(--font-onest), sans-serif",
                   }}
@@ -353,7 +358,7 @@ export default function WhatIBuildSection() {
               {/* Oxnod .primary-button: Explicit #ffffff styling so lightmode css override can't turn it dark-on-dark */}
               <div className="shrink-0">
                 <a
-                  href="#expertise"
+                  href="/services"
                   className="group/pbtn inline-flex items-center select-none uppercase cursor-pointer"
                   style={{
                     fontFamily: "'Geist Mono', monospace",
@@ -367,7 +372,9 @@ export default function WhatIBuildSection() {
                       height: 44,
                       backgroundColor: isDark ? "#1a1a1d" : "#121212",
                       color: "#ffffff",
-                      border: isDark ? "1px solid rgba(255,255,255,0.16)" : "none",
+                      border: isDark
+                        ? "1px solid rgba(255,255,255,0.16)"
+                        : "none",
                       clipPath: "polygon(0 0, 100% 0, 86% 100%, 0 100%)",
                       paddingRight: 6,
                     }}
@@ -378,15 +385,27 @@ export default function WhatIBuildSection() {
                     >
                       <span
                         className="rounded-full"
-                        style={{ width: 2, height: 2, backgroundColor: "#f84022" }}
+                        style={{
+                          width: 2,
+                          height: 2,
+                          backgroundColor: "#f84022",
+                        }}
                       />
                       <span
                         className="rounded-full"
-                        style={{ width: 2, height: 2, backgroundColor: "#ffffff" }}
+                        style={{
+                          width: 2,
+                          height: 2,
+                          backgroundColor: "#ffffff",
+                        }}
                       />
                       <span
                         className="rounded-full"
-                        style={{ width: 2, height: 2, backgroundColor: "#ffffff" }}
+                        style={{
+                          width: 2,
+                          height: 2,
+                          backgroundColor: "#ffffff",
+                        }}
                       />
                     </div>
 
@@ -410,7 +429,9 @@ export default function WhatIBuildSection() {
                       paddingRight: 24,
                       backgroundColor: isDark ? "#1a1a1d" : "#121212",
                       color: "#ffffff",
-                      border: isDark ? "1px solid rgba(255,255,255,0.16)" : "none",
+                      border: isDark
+                        ? "1px solid rgba(255,255,255,0.16)"
+                        : "none",
                       clipPath: "polygon(6px 0, 100% 0, 100% 100%, 0 100%)",
                     }}
                   >
@@ -470,9 +491,7 @@ export default function WhatIBuildSection() {
                       }`}
                     >
                       {/* Thumbnail */}
-                      <div
-                        className="w-full md:w-[244px] md:min-w-[244px] md:max-w-[244px] shrink-0"
-                      >
+                      <div className="w-full md:w-[244px] md:min-w-[244px] md:max-w-[244px] shrink-0">
                         <div className="w-full h-[250px] sm:h-[290px] md:h-full md:min-h-[238px] rounded-[8px] overflow-hidden bg-[#1a1a1d]">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
@@ -503,7 +522,7 @@ export default function WhatIBuildSection() {
                               {svc.number}
                             </div>
                             <h3
-                              className={`oxnod-service-card-heading mb-2 ${
+                              className={`text-[22px] lg:text-[24px] leading-[32px] font-medium mb-2 tracking-[-0.48px] ${
                                 isDark ? "text-white" : "text-[#000000]"
                               }`}
                               style={{
@@ -540,7 +559,7 @@ export default function WhatIBuildSection() {
                                   }}
                                 />
                                 <span
-                                  className="text-[13px] lg:text-[14px] leading-[18px] uppercase font-normal tracking-[-0.14px]"
+                                  className="text-[13px] lg:text-[14px] leading-[18px] uppercase font-normal tracking-[-0.14px] whitespace-nowrap"
                                   style={{
                                     fontFamily: "'Geist Mono', monospace",
                                     color: isDark
