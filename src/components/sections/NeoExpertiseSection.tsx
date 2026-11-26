@@ -78,6 +78,17 @@ export default function NeoExpertiseSection() {
   const handRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const onSelectTab = (e: Event) => {
+      const idx = (e as CustomEvent<{ index?: number }>).detail?.index;
+      if (typeof idx === "number" && idx >= 0 && idx < tabsData.length) {
+        setActiveTab(idx);
+      }
+    };
+    window.addEventListener("tg:select-expertise", onSelectTab);
+    return () => window.removeEventListener("tg:select-expertise", onSelectTab);
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 

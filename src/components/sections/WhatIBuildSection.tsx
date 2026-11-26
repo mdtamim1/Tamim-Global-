@@ -1,481 +1,622 @@
 "use client";
 
 // ============================================================
-// Tamim Global – "What I Build & Create" Section
-// 1:1 Oxnod.webflow.io "Our Services" reverse-engineering:
+// Tamim Global — "What I Build & Create" Section
+// 1:1 Faithful Replication of Oxnod Studio "Our Services"
+// (https://oxnod.webflow.io/)
 //
-//  • Full-width numbered service rows with thin HR dividers
-//  • Left: index (01–05) + service title + tags + arrow icon
-//  • Right: sticky image preview panel — crossfades on row hover
-//  • Hover effect: row bg highlights, left accent line slides in,
-//    number dims, title brightens, arrow rotates 45°
-//  • Scroll: items stagger-in from Y+40, opacity 0→1 (Intersection
-//    Observer, no GSAP dep)
-//  • Mobile: stacked layout, no sticky image, card grid instead
+// Fixes from visual audit:
+//  • Explicit SVG inline widths/heights (immune to globals img,svg{100%})
+//  • Scoped .oxnod-service-* CSS classes (immune to legacy line-21)
+//  • Explicit #ffffff text/icon styles on dark-filled buttons in Lightmode
+//  • Snappy ScrollTrigger scrub timing matching Oxnod's exact cadence
 // ============================================================
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
+import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 
-interface Service {
-  index: string;
-  title: string;
-  tags: string[];
-  description: string;
-  accent: string;        // gradient color for the left accent line
-  imageGradient: string; // CSS gradient used as image bg fallback
-  imageSrc?: string;     // optional real image
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-const SERVICES: Service[] = [
+interface ServiceItem {
+  number: string;
+  title: string;
+  description: string;
+  capabilities: string[];
+  image: string;
+  imageAlt: string;
+  expertiseTabIdx: number;
+}
+
+const SERVICES: ServiceItem[] = [
   {
-    index: "01",
-    title: "Full-Stack Web Development",
-    tags: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    number: "01.",
+    title: "Full-Stack Engineering",
     description:
-      "End-to-end production apps — from REST & WebSocket APIs to pixel-perfect UIs. 100/100 Lighthouse, CI/CD, Vercel & Railway deploys.",
-    accent: "#6366f1",
-    imageGradient:
-      "linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 40%, #0d0d20 100%)",
-    imageSrc: "/neoleaf-media/1.fd43cba1.webp",
+      "Architecting resilient full-stack applications and scalable APIs engineered for speed and longevity.",
+    capabilities: [
+      "Next.js 16 & React 19",
+      "TypeScript & Node.js",
+      "PostgreSQL & Prisma",
+      "100/100 Lighthouse",
+    ],
+    image: "/images/services/service-1.jpg",
+    imageAlt: "Full-Stack Web Engineering & Systems Architecture",
+    expertiseTabIdx: 1,
   },
   {
-    index: "02",
-    title: "UI / UX Design",
-    tags: ["Figma", "Framer", "Design Systems", "Motion"],
+    number: "02.",
+    title: "UI/UX & Interactive 3D",
     description:
-      "Bespoke design systems, interactive prototypes, and conversion-engineered interfaces that feel alive — not just aesthetic.",
-    accent: "#8b5cf6",
-    imageGradient:
-      "linear-gradient(135deg, #1a0f2e 0%, #2d1b5a 40%, #0f0a1e 100%)",
-    imageSrc: "/neoleaf-media/2.3924e0ff.webp",
+      "Designing distinctive digital flagships with liquid WebGL shaders and purposeful GSAP choreography.",
+    capabilities: [
+      "Bespoke Design Systems",
+      "Three.js & GLSL Shaders",
+      "GSAP Motion Systems",
+      "Figma to Production",
+    ],
+    image: "/images/services/service-2.png",
+    imageAlt: "Web Design & Interactive 3D Motion",
+    expertiseTabIdx: 0,
   },
   {
-    index: "03",
+    number: "03.",
     title: "Cinematic Video Editing",
-    tags: ["DaVinci Resolve", "Premiere Pro", "4K DCI", "Color Grade"],
     description:
-      "Hollywood-calibre colour grading, rhythm-matched cuts, and layered sound design. High-retention ads, brand films & documentary cuts.",
-    accent: "#f59e0b",
-    imageGradient:
-      "linear-gradient(135deg, #1a1200 0%, #3d2a00 40%, #120e00 100%)",
-    imageSrc: "/neoleaf-media/3.eb2479f9.webp",
+      "Cutting high-retention brand films, commercial edits, and stories with cinema-grade color grading.",
+    capabilities: [
+      "DaVinci Resolve Color",
+      "Premiere Pro & After FX",
+      "Rhythm-Matched Pacing",
+      "4K DCI Rec.709 Master",
+    ],
+    image: "/images/services/service-3.png",
+    imageAlt: "Cinematic Video Production & Color Grading",
+    expertiseTabIdx: 2,
   },
   {
-    index: "04",
-    title: "Music Composition",
-    tags: ["FL Studio", "Ableton", "Orchestral", "Audio Master"],
+    number: "04.",
+    title: "Music & Sound Design",
     description:
-      "Original scores, commercial soundscapes, and audio-visual synchronisation engineered to emotionally envelope the audience.",
-    accent: "#10b981",
-    imageGradient:
-      "linear-gradient(135deg, #001a0f 0%, #003d25 40%, #000f07 100%)",
-    imageSrc: "/neoleaf-media/bg.7173f725.webp",
-  },
-  {
-    index: "05",
-    title: "Motion & 3D",
-    tags: ["Three.js", "WebGL", "GSAP", "After Effects"],
-    description:
-      "Real-time 3D WebGL experiences, GLSL shaders, physics-based animations and GPU-rendered motion graphics that run at 60fps.",
-    accent: "#ef4444",
-    imageGradient:
-      "linear-gradient(135deg, #1a0000 0%, #3d0000 40%, #0f0000 100%)",
-    imageSrc: "/neoleaf-media/bg-d.b83e23e0.webp",
+      "Composing original film scores, atmospheric textures, and studio-mastered sonic brand identities.",
+    capabilities: [
+      "Original Film Scores",
+      "Orchestral & Synth Mix",
+      "Foley & Spatial Audio",
+      "Broadcast Mastering",
+    ],
+    image: "/images/services/service-4.png",
+    imageAlt: "Original Music Composition & Audio Production",
+    expertiseTabIdx: 3,
   },
 ];
 
-// ── Stagger-in hook (IntersectionObserver) ─────────────────
-function useStaggerReveal(count: number) {
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
-  const [visible, setVisible] = useState<boolean[]>(
-    new Array(count).fill(false)
+const HEADLINE_WORDS =
+  "Tamim is a creative studio engineer who builds distinctive software, web flagships, cinema films, and original scores.".split(
+    " "
   );
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    refs.current.forEach((el, i) => {
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              setVisible((prev) => {
-                const next = [...prev];
-                next[i] = true;
-                return next;
-              });
-            }, i * 90); // 90ms stagger per item
-            obs.disconnect();
-          }
-        },
-        { threshold: 0.15 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
-  return { refs, visible };
+function ArrowToBarIcon({
+  color = "currentColor",
+  size = 16,
+}: {
+  color?: string;
+  size?: number;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ width: size, height: size, flexShrink: 0, display: "block" }}
+      aria-hidden="true"
+    >
+      <path d="M4 12h11" />
+      <path d="M11 7l5 5-5 5" />
+      <path d="M19 6v12" />
+    </svg>
+  );
 }
 
 export default function WhatIBuildSection() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [prevIdx, setPrevIdx] = useState<number | null>(null);
-  const [transitioning, setTransitioning] = useState(false);
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { refs: rowRefs, visible } = useStaggerReveal(SERVICES.length);
+  const { isDark } = useTheme();
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // Smooth crossfade on hover
-  const handleHover = useCallback(
-    (idx: number) => {
-      if (idx === activeIdx || transitioning) return;
-      setTransitioning(true);
-      setPrevIdx(activeIdx);
-      setActiveIdx(idx);
-      setTimeout(() => {
-        setPrevIdx(null);
-        setTransitioning(false);
-      }, 500);
-    },
-    [activeIdx, transitioning]
-  );
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const cardsWrapperRef = useRef<HTMLDivElement | null>(null);
+  const cardWrapRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const active = SERVICES[activeIdx];
+  useEffect(() => {
+    const section = sectionRef.current;
+    const titleEl = titleRef.current;
+    const cardsWrapper = cardsWrapperRef.current;
+    if (!section || !titleEl || !cardsWrapper) return;
+
+    const mutedColor = isDark ? "#717171" : "#979797";
+    const activeColor = isDark ? "#ffffff" : "#000000";
+
+    const ctx = gsap.context(() => {
+      // 1. Oxnod i-7637e4ad -> t-7d637a4e: SplitText per-character color scrub
+      const chars = titleEl.querySelectorAll<HTMLElement>(".oxnod-title-char");
+      if (chars.length > 0) {
+        gsap.fromTo(
+          chars,
+          { color: mutedColor },
+          {
+            color: activeColor,
+            stagger: { each: 0.5 },
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: titleEl,
+              start: "top 95%",
+              end: "bottom 35%",
+              scrub: 0.8,
+            },
+          }
+        );
+      }
+
+      // 2. Oxnod i-33d83019 -> t-b3fcd77c: Desktop staggered ScrollTrigger scrub
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 992px)", () => {
+        const cards = cardWrapRefs.current.filter(
+          (el): el is HTMLDivElement => el !== null
+        );
+        if (cards.length === 0) return;
+
+        // Card 1..4 slide smoothly from ±50% to 0% as you scroll down through cards
+        const positions = [0, 0.2, 0.42, 0.63];
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: cardsWrapper,
+            start: "top bottom",
+            end: "bottom 78%",
+            scrub: 1.2,
+          },
+        });
+
+        cards.forEach((cardEl, idx) => {
+          const fromX = idx % 2 === 0 ? 50 : -50;
+          tl.fromTo(
+            cardEl,
+            { xPercent: fromX, opacity: 0 },
+            {
+              xPercent: 0,
+              opacity: 1,
+              duration: 0.35,
+              ease: "none",
+            },
+            positions[idx] ?? idx * 0.2
+          );
+        });
+      });
+
+      mm.add("(max-width: 991px)", () => {
+        const cards = cardWrapRefs.current.filter(
+          (el): el is HTMLDivElement => el !== null
+        );
+        cards.forEach((cardEl, idx) => {
+          const fromPx = idx % 2 === 0 ? -48 : 48;
+          gsap.fromTo(
+            cardEl,
+            { x: fromPx, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: cardEl,
+                start: "top 86%",
+                once: true,
+              },
+            }
+          );
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [isDark]);
+
+  const handleCardClick = (svc: ServiceItem) => {
+    const target = document.getElementById("expertise");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      window.dispatchEvent(
+        new CustomEvent("tg:select-expertise", {
+          detail: { index: svc.expertiseTabIdx },
+        })
+      );
+    } else {
+      setModalOpen(true);
+    }
+  };
 
   return (
-    <section
-      id="what-i-build"
-      className="w-full px-5 md:px-10 lg:px-[60px] py-20 lg:py-[120px] bg-[#000000] border-t border-white/[0.04] overflow-hidden"
-    >
-      {/* ── Section Header ──────────────────────────────── */}
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16 lg:mb-20">
-        <div>
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/40 mb-4 block">
-            WHAT I BUILD &amp; CREATE
-          </span>
-          <h2
-            className="text-[38px] lg:text-[64px] font-bold leading-[100%] tracking-tight text-white"
-            style={{ fontFamily: "var(--font-onest)" }}
-          >
-            Five disciplines.
-            <br />
-            <span className="text-white/30">One obsessive</span>
-            <br />
-            standard of craft.
-          </h2>
-        </div>
-        <p className="text-white/50 text-[14px] lg:text-[16px] leading-relaxed max-w-[320px] lg:text-right">
-          Every project I ship is fast, accessible,
-          <br className="hidden lg:block" /> and engineered for scale —{" "}
-          <br className="hidden lg:block" />
-          not just for looks.
-        </p>
-      </div>
-
-      {/* ── Main Content: Service List + Sticky Image ───── */}
-      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
-        {/* Left: Service List */}
-        <div className="w-full lg:w-[55%] flex flex-col">
-          {/* Top HR */}
-          <div className="w-full h-px bg-white/[0.08]" />
-
-          {SERVICES.map((svc, i) => (
+    <>
+      <section
+        ref={sectionRef}
+        id="what-i-build"
+        className={`relative w-full py-[60px] md:py-[68px] lg:py-[120px] transition-colors duration-500 ${
+          isDark
+            ? "bg-[#000000] text-white border-t border-white/[0.06]"
+            : "bg-[#f2f2f2] text-[#000000] border-t border-[#ececec]"
+        }`}
+        style={{ overflowX: "clip" }}
+      >
+        <div className="w-full max-w-[1440px] mx-auto px-4 md:px-10">
+          {/* ── Top Header Block (.services-top-wrapper) ──────────────── */}
+          <div className="mb-8 md:mb-12 lg:mb-[72px]">
+            {/* .section-top bar */}
             <div
-              key={svc.index}
-              ref={(el) => { rowRefs.current[i] = el; }}
-              onMouseEnter={() => handleHover(i)}
-              className="group relative cursor-pointer"
-              style={{
-                opacity: visible[i] ? 1 : 0,
-                transform: visible[i] ? "translateY(0)" : "translateY(40px)",
-                transition: `opacity 0.6s ease ${i * 0.08}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s`,
-              }}
+              className={`flex items-center justify-between border-t pt-3 mb-6 lg:mb-10 ${
+                isDark ? "border-white/[0.14]" : "border-[#dcdcdc]"
+              }`}
             >
-              {/* Left accent line — slides in on hover */}
-              <div
-                className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full transition-all duration-500"
-                style={{
-                  background: svc.accent,
-                  opacity: activeIdx === i ? 1 : 0,
-                  transform: activeIdx === i ? "scaleY(1)" : "scaleY(0)",
-                  transformOrigin: "top",
-                }}
-              />
-
-              {/* Row content */}
-              <div
-                className="flex items-center gap-6 lg:gap-10 py-7 lg:py-9 pl-6 lg:pl-8 pr-4 lg:pr-6 transition-all duration-300"
-                style={{
-                  backgroundColor:
-                    activeIdx === i
-                      ? "rgba(255,255,255,0.03)"
-                      : "transparent",
-                }}
-              >
-                {/* Index */}
-                <span
-                  className="font-mono text-[12px] lg:text-[13px] tracking-widest shrink-0 transition-colors duration-300"
-                  style={{
-                    color:
-                      activeIdx === i ? svc.accent : "rgba(255,255,255,0.25)",
-                  }}
+              <div className="flex items-center gap-2.5">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ width: 18, height: 18, flexShrink: 0, display: "block" }}
+                  aria-hidden="true"
                 >
-                  {svc.index}
-                </span>
-
-                {/* Title + Tags */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline gap-4 flex-wrap">
-                    <h3
-                      className="text-[22px] lg:text-[32px] font-semibold tracking-tight leading-tight transition-colors duration-300"
-                      style={{
-                        color:
-                          activeIdx === i
-                            ? "#ffffff"
-                            : "rgba(255,255,255,0.65)",
-                      }}
-                    >
-                      {svc.title}
-                    </h3>
-                  </div>
-
-                  {/* Tags – visible on active */}
-                  <div
-                    className="flex flex-wrap gap-2 overflow-hidden transition-all duration-500"
-                    style={{
-                      maxHeight: activeIdx === i ? "60px" : "0px",
-                      opacity: activeIdx === i ? 1 : 0,
-                      marginTop: activeIdx === i ? "10px" : "0px",
-                    }}
-                  >
-                    {svc.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] px-3 py-1 rounded-full border font-medium tracking-wide"
-                        style={{
-                          borderColor: `${svc.accent}40`,
-                          color: svc.accent,
-                          backgroundColor: `${svc.accent}12`,
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Description – visible on active */}
-                  <div
-                    className="overflow-hidden transition-all duration-500"
-                    style={{
-                      maxHeight: activeIdx === i ? "80px" : "0px",
-                      opacity: activeIdx === i ? 1 : 0,
-                      marginTop: activeIdx === i ? "10px" : "0px",
-                    }}
-                  >
-                    <p className="text-[13px] lg:text-[14px] text-white/50 leading-relaxed max-w-[500px]">
-                      {svc.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Arrow icon — rotates on hover */}
-                <div
-                  className="shrink-0 w-9 h-9 lg:w-10 lg:h-10 rounded-full border flex items-center justify-center transition-all duration-400"
-                  style={{
-                    borderColor:
-                      activeIdx === i
-                        ? `${svc.accent}60`
-                        : "rgba(255,255,255,0.12)",
-                    backgroundColor:
-                      activeIdx === i ? `${svc.accent}15` : "transparent",
-                    transform: activeIdx === i ? "rotate(45deg)" : "rotate(0deg)",
-                  }}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
+                  <path
+                    d="M12 2L2 7L12 12L22 7L12 2Z"
+                    stroke="#f84022"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    style={{
-                      color:
-                        activeIdx === i
-                          ? svc.accent
-                          : "rgba(255,255,255,0.3)",
-                      transition: "color 0.3s",
-                    }}
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Bottom HR */}
-              <div className="w-full h-px bg-white/[0.06]" />
-            </div>
-          ))}
-        </div>
-
-        {/* Right: Sticky Image Preview (desktop only) */}
-        <div className="hidden lg:block w-[45%] sticky top-28 self-start">
-          <div
-            className="relative w-full overflow-hidden rounded-2xl lg:rounded-[28px]"
-            style={{ aspectRatio: "4/5" }}
-          >
-            {/* Images stack — crossfade */}
-            {SERVICES.map((svc, i) => (
-              <div
-                key={svc.index}
-                className="absolute inset-0 transition-all duration-500"
-                style={{
-                  opacity: i === activeIdx ? 1 : 0,
-                  transform:
-                    i === activeIdx ? "scale(1)" : "scale(1.04)",
-                  zIndex: i === activeIdx ? 2 : i === prevIdx ? 1 : 0,
-                }}
-              >
-                {/* Gradient bg (always shown) */}
-                <div
-                  className="absolute inset-0"
-                  style={{ background: svc.imageGradient }}
-                />
-
-                {/* Actual webp image overlay */}
-                {svc.imageSrc && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={svc.imageSrc}
-                    alt={svc.title}
-                    className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-30"
-                    loading="lazy"
                   />
-                )}
-
-                {/* Large accent number watermark */}
-                <div
-                  className="absolute bottom-6 left-7 font-mono font-black leading-none select-none pointer-events-none"
+                  <path
+                    d="M2 12L12 17L22 12"
+                    stroke="#f84022"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 17L12 22L22 17"
+                    stroke="#f84022"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span
+                  className="text-[13px] md:text-[14px] leading-[18px] tracking-[-0.14px] uppercase font-normal whitespace-nowrap"
                   style={{
-                    fontSize: "clamp(80px, 14vw, 180px)",
-                    color: `${svc.accent}18`,
-                    letterSpacing: "-0.05em",
+                    fontFamily: "'Geist Mono', monospace",
+                    color: isDark ? "rgba(255,255,255,0.9)" : "#252424",
                   }}
                 >
-                  {svc.index}
-                </div>
-
-                {/* Info overlay at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-7 lg:p-9 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                  <div
-                    className="text-[11px] font-semibold tracking-[0.18em] uppercase mb-3"
-                    style={{ color: svc.accent }}
-                  >
-                    {svc.index} / {String(SERVICES.length).padStart(2, "0")}
-                  </div>
-                  <h4 className="text-white font-semibold text-[20px] lg:text-[24px] leading-tight mb-2">
-                    {svc.title}
-                  </h4>
-                  <p className="text-white/55 text-[13px] leading-relaxed line-clamp-2">
-                    {svc.description}
-                  </p>
-                </div>
-
-                {/* Top-right accent dot */}
-                <div
-                  className="absolute top-5 right-5 w-2 h-2 rounded-full"
-                  style={{ backgroundColor: svc.accent }}
-                />
+                  WHAT I BUILD &amp; CREATE
+                </span>
               </div>
-            ))}
 
-            {/* Animated progress dots */}
-            <div className="absolute top-5 left-5 flex flex-col gap-1.5 z-10">
-              {SERVICES.map((svc, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => handleHover(i)}
-                  className="transition-all duration-300 rounded-full cursor-pointer"
-                  style={{
-                    width: i === activeIdx ? "24px" : "6px",
-                    height: "6px",
-                    backgroundColor:
-                      i === activeIdx
-                        ? svc.accent
-                        : "rgba(255,255,255,0.25)",
-                  }}
-                  aria-label={`View ${svc.title}`}
-                />
-              ))}
+              <span
+                className="text-[13px] md:text-[14px] leading-[18px] tracking-[-0.14px] uppercase whitespace-nowrap"
+                style={{
+                  fontFamily: "'Geist Mono', monospace",
+                  color: isDark ? "rgba(255,255,255,0.8)" : "#252424",
+                }}
+              >
+                @TAMIMGLOBAL
+              </span>
             </div>
-          </div>
 
-          {/* Below image: CTA */}
-          <div className="mt-8 flex items-center justify-between">
-            <span className="text-white/35 text-[13px] tracking-wide">
-              Hover a discipline to explore
-            </span>
-            <a
-              href="#expertise"
-              className="inline-flex items-center gap-2 text-[13px] text-white/60 hover:text-white transition-colors duration-200 group"
-            >
-              See full expertise
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        {/* Mobile: Card grid (no sticky image needed) */}
-        <div className="lg:hidden w-full grid grid-cols-1 gap-4 mt-6">
-          {SERVICES.map((svc) => (
-            <div
-              key={svc.index}
-              className="rounded-2xl border border-white/[0.07] p-5 overflow-hidden relative"
-              style={{ background: svc.imageGradient }}
-            >
-              <div
-                className="text-[11px] font-mono tracking-widest mb-3"
-                style={{ color: svc.accent }}
-              >
-                {svc.index}
+            {/* .service-header */}
+            <div className="flex flex-wrap lg:flex-nowrap justify-between items-end gap-6">
+              <div className="w-full max-w-[850px]">
+                <h2
+                  ref={titleRef}
+                  className="oxnod-service-headline"
+                  style={{
+                    fontFamily: "'Urbanist', var(--font-onest), sans-serif",
+                  }}
+                >
+                  {HEADLINE_WORDS.map((word, wIdx) => (
+                    <span key={wIdx} className="inline-block whitespace-nowrap">
+                      {word.split("").map((char, cIdx) => (
+                        <span
+                          key={cIdx}
+                          className="oxnod-title-char inline-block"
+                          style={{
+                            color: isDark ? "#717171" : "#979797",
+                            transition: "none",
+                          }}
+                        >
+                          {char}
+                        </span>
+                      ))}
+                      {wIdx < HEADLINE_WORDS.length - 1 ? "\u00A0" : ""}
+                    </span>
+                  ))}
+                </h2>
               </div>
-              <h3 className="text-white font-semibold text-[18px] leading-tight mb-3">
-                {svc.title}
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {svc.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] px-2.5 py-1 rounded-full border"
+
+              {/* Oxnod .primary-button: Explicit #ffffff styling so lightmode css override can't turn it dark-on-dark */}
+              <div className="shrink-0">
+                <a
+                  href="#expertise"
+                  className="group/pbtn inline-flex items-center select-none uppercase cursor-pointer"
+                  style={{
+                    fontFamily: "'Geist Mono', monospace",
+                    color: "#ffffff",
+                  }}
+                >
+                  <div
+                    className="relative flex items-center justify-center rounded-l-[8px]"
                     style={{
-                      borderColor: `${svc.accent}40`,
-                      color: svc.accent,
-                      backgroundColor: `${svc.accent}10`,
+                      width: 48,
+                      height: 44,
+                      backgroundColor: isDark ? "#1a1a1d" : "#121212",
+                      color: "#ffffff",
+                      border: isDark ? "1px solid rgba(255,255,255,0.16)" : "none",
+                      clipPath: "polygon(0 0, 100% 0, 86% 100%, 0 100%)",
+                      paddingRight: 6,
                     }}
                   >
-                    {tag}
-                  </span>
-                ))}
+                    <div
+                      className="flex flex-col gap-[2px] opacity-65"
+                      style={{ position: "absolute", top: 6, right: 9 }}
+                    >
+                      <span
+                        className="rounded-full"
+                        style={{ width: 2, height: 2, backgroundColor: "#f84022" }}
+                      />
+                      <span
+                        className="rounded-full"
+                        style={{ width: 2, height: 2, backgroundColor: "#ffffff" }}
+                      />
+                      <span
+                        className="rounded-full"
+                        style={{ width: 2, height: 2, backgroundColor: "#ffffff" }}
+                      />
+                    </div>
+
+                    <div
+                      className="overflow-hidden flex items-center justify-end relative"
+                      style={{ width: 18, height: 18 }}
+                    >
+                      <div className="flex items-center transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/pbtn:translate-x-[18px]">
+                        <ArrowToBarIcon color="#ffffff" size={18} />
+                        <ArrowToBarIcon color="#f84022" size={18} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className="relative flex items-center justify-center rounded-r-[8px]"
+                    style={{
+                      height: 44,
+                      marginLeft: -4,
+                      paddingLeft: 28,
+                      paddingRight: 24,
+                      backgroundColor: isDark ? "#1a1a1d" : "#121212",
+                      color: "#ffffff",
+                      border: isDark ? "1px solid rgba(255,255,255,0.16)" : "none",
+                      clipPath: "polygon(6px 0, 100% 0, 100% 100%, 0 100%)",
+                    }}
+                  >
+                    <div style={{ height: 20, overflow: "hidden" }}>
+                      <div className="flex flex-col text-[13px] md:text-[14px] leading-[20px] font-medium tracking-[0.02em] transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/pbtn:-translate-y-1/2">
+                        <span
+                          className="flex items-center whitespace-nowrap"
+                          style={{ height: 20, color: "#ffffff" }}
+                        >
+                          VIEW ALL SERVICES
+                        </span>
+                        <span
+                          className="flex items-center whitespace-nowrap"
+                          style={{ height: 20, color: "#f84022" }}
+                        >
+                          VIEW ALL SERVICES
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* ── Alternating Staggered Cards (.services-cards-wrapper) ── */}
+          <div
+            ref={cardsWrapperRef}
+            className="flex flex-col gap-5 md:gap-8 lg:gap-[40px]"
+          >
+            {SERVICES.map((svc, idx) => {
+              const isRightAligned = idx % 2 === 0;
+
+              return (
+                <div
+                  key={svc.number}
+                  className={
+                    isRightAligned
+                      ? "oxnod-service-slot-right"
+                      : "oxnod-service-slot-left"
+                  }
+                >
+                  <div
+                    ref={(el) => {
+                      cardWrapRefs.current[idx] = el;
+                    }}
+                    className="will-change-transform"
+                  >
+                    {/* .services-card */}
+                    <div
+                      className={`group/card oxnod-service-card-inner ${
+                        !isRightAligned ? "is-even" : ""
+                      } rounded-[12px] p-[8px] border transition-colors duration-300 ${
+                        isDark
+                          ? "bg-[#121212] border-white/[0.12] hover:border-white/[0.26]"
+                          : "bg-white border-[#ececec] hover:border-black/20"
+                      }`}
+                    >
+                      {/* Thumbnail */}
+                      <div
+                        className="w-full md:w-[244px] md:min-w-[244px] md:max-w-[244px] shrink-0"
+                      >
+                        <div className="w-full h-[250px] sm:h-[290px] md:h-full md:min-h-[238px] rounded-[8px] overflow-hidden bg-[#1a1a1d]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={svc.image}
+                            alt={svc.imageAlt}
+                            loading="lazy"
+                            className="w-full h-full object-cover rounded-[8px] transition-transform duration-700 ease-out group-hover/card:scale-105"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Content Column */}
+                      <div
+                        className={`oxnod-service-content flex-1 flex flex-col justify-between py-3 px-2 md:py-3 ${
+                          isRightAligned ? "md:pr-4 md:pl-0" : ""
+                        }`}
+                      >
+                        <div
+                          className={`oxnod-service-top-grid pb-5 border-b ${
+                            isDark ? "border-white/[0.10]" : "border-[#ececec]"
+                          }`}
+                        >
+                          <div>
+                            <div
+                              className="text-[15px] font-medium mb-2"
+                              style={{ color: "#f84022" }}
+                            >
+                              {svc.number}
+                            </div>
+                            <h3
+                              className={`oxnod-service-card-heading mb-2 ${
+                                isDark ? "text-white" : "text-[#000000]"
+                              }`}
+                              style={{
+                                fontFamily:
+                                  "'Urbanist', var(--font-onest), sans-serif",
+                              }}
+                            >
+                              {svc.title}
+                            </h3>
+                            <p
+                              className="text-[15px] lg:text-[16px] leading-[24px] font-medium"
+                              style={{
+                                color: isDark ? "#8e8e93" : "#717171",
+                              }}
+                            >
+                              {svc.description}
+                            </p>
+                          </div>
+
+                          <div className="flex flex-col gap-3 justify-start items-start pt-0.5">
+                            {svc.capabilities.map((cap) => (
+                              <div
+                                key={cap}
+                                className="flex items-center gap-2.5"
+                              >
+                                <span
+                                  className="rounded-full shrink-0"
+                                  style={{
+                                    width: 6,
+                                    height: 6,
+                                    backgroundColor: isDark
+                                      ? "rgba(255,255,255,0.75)"
+                                      : "#252424",
+                                  }}
+                                />
+                                <span
+                                  className="text-[13px] lg:text-[14px] leading-[18px] uppercase font-normal tracking-[-0.14px]"
+                                  style={{
+                                    fontFamily: "'Geist Mono', monospace",
+                                    color: isDark
+                                      ? "rgba(255,255,255,0.85)"
+                                      : "#252424",
+                                  }}
+                                >
+                                  {cap}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="mt-5 flex items-center justify-between">
+                          <button
+                            type="button"
+                            onClick={() => handleCardClick(svc)}
+                            className="group/vbtn relative inline-flex items-center gap-2 pb-1.5 uppercase cursor-pointer"
+                            style={{
+                              fontFamily: "'Geist Mono', monospace",
+                              color: isDark ? "#ffffff" : "#000000",
+                            }}
+                          >
+                            <div
+                              className="overflow-hidden flex items-center justify-end"
+                              style={{ width: 20, height: 20 }}
+                            >
+                              <div className="flex items-center transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vbtn:translate-x-[20px]">
+                                <ArrowToBarIcon color="#16a34a" size={18} />
+                                <ArrowToBarIcon color="#f84022" size={18} />
+                              </div>
+                            </div>
+
+                            <div style={{ height: 22, overflow: "hidden" }}>
+                              <div className="flex flex-col text-[14px] leading-[22px] font-medium tracking-[-0.14px] transition-transform duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vbtn:-translate-y-1/2">
+                                <span
+                                  className="flex items-center whitespace-nowrap"
+                                  style={{
+                                    height: 22,
+                                    color: isDark ? "#ffffff" : "#000000",
+                                  }}
+                                >
+                                  VIEW DETAILS
+                                </span>
+                                <span
+                                  className="flex items-center whitespace-nowrap"
+                                  style={{ height: 22, color: "#f84022" }}
+                                >
+                                  VIEW DETAILS
+                                </span>
+                              </div>
+                            </div>
+
+                            <span
+                              className="absolute bottom-0 left-0 right-0 h-px transition-colors duration-300"
+                              style={{
+                                backgroundColor: isDark ? "#ffffff" : "#000000",
+                              }}
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <QuickEnquiryModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
+    </>
   );
 }

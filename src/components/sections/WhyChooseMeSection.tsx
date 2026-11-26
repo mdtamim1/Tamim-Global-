@@ -1,352 +1,581 @@
 "use client";
 
 // ============================================================
-// Tamim Global – "Why Choose Me" Section
-// 1:1 Oxnod.webflow.io "Why Choose Us" reverse-engineering
+// Tamim Global — "Why Choose Me" Section
+// 1:1 Faithful Replication of Oxnod Studio "Why Choose Us"
+// (https://oxnod.webflow.io/)
 //
-// Key animations (exactly matching Oxnod):
-//  1. ENTRANCE: Two large images slide in from left & right edges
-//     simultaneously when section enters viewport. They travel
-//     from ±120vw to their resting position with a smooth
-//     cubic-bezier ease. Triggered by IntersectionObserver.
-//  2. CONTENT: Heading + reason cards fade + slide up (stagger)
-//     after images land (350ms delay).
-//  3. HOVER: Each reason card lifts with a soft white glow.
-//  4. Layout: Left image | Center content | Right image
-//     (on mobile: stacked, images become top/bottom banners)
+// Fixes from visual audit:
+//  • Scoped .oxnod-why-* / .oxnod-curtain-* classes (immune to legacy line-21)
+//  • Explicit SVG inline width/height on infinity, award, stars, contour
+//  • Compact Bento dashboard proportions fitting cleanly within 100vh
+//  • True 50/50 side curtains opening cleanly Left (-100%) & Right (+100%)
 // ============================================================
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
 
-interface Reason {
-  index: string;
-  title: string;
-  body: string;
-  icon: React.ReactNode;
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-const REASONS: Reason[] = [
-  {
-    index: "01",
-    title: "Full-Stack + Creative",
-    body: "I write production-grade TypeScript by day and compose cinematic scores by night. No other freelancer ships code AND creates the soundtrack.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-      </svg>
-    ),
-  },
-  {
-    index: "02",
-    title: "100 / 100 Lighthouse",
-    body: "Every app I ship scores perfect on Performance, Accessibility, Best Practices and SEO. Fast by default — not an afterthought.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-      </svg>
-    ),
-  },
-  {
-    index: "03",
-    title: "0ms Handoff Friction",
-    body: "Figma → code → deploy in a single pipeline. I design, build, and ship — no back-and-forth with separate designers or developers.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-      </svg>
-    ),
-  },
-  {
-    index: "04",
-    title: "Cinematic Standard",
-    body: "4K DCI, Hollywood LUTs, Rec.709 mastering. Video deliverables that feel like a studio production — engineered for retention and emotion.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-      </svg>
-    ),
-  },
-  {
-    index: "05",
-    title: "Global, Async-First",
-    body: "UTC+6, available for worldwide commissions. Detailed async updates, loom recordings, and documentation — your timezone is never a blocker.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
-  },
-  {
-    index: "06",
-    title: "Obsessive Craft",
-    body: "I re-render shaders until the light is right. I re-cut until the edit breathes. I re-write until the API is clean. Excellence is the minimum.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ),
-  },
+const COLLAB_INITIALS = [
+  { label: "NK", bg: "linear-gradient(135deg,#27272a,#18181b)" },
+  { label: "SR", bg: "linear-gradient(135deg,#3f3f46,#18181b)" },
+  { label: "AL", bg: "linear-gradient(135deg,#52525b,#27272a)" },
+  { label: "MJ", bg: "linear-gradient(135deg,#3f3f46,#09090b)" },
+  { label: "ZR", bg: "linear-gradient(135deg,#27272a,#09090b)" },
 ];
 
-// Image panel component (left or right)
-function SideImage({
-  side,
-  triggered,
-  delay = 0,
-  imgSrc,
-  gradient,
-  label,
-}: {
-  side: "left" | "right";
-  triggered: boolean;
-  delay?: number;
-  imgSrc: string;
-  gradient: string;
-  label: string;
-}) {
-  const fromX = side === "left" ? "-110%" : "110%";
-  const toX = "0%";
-
-  return (
-    <div
-      className="relative overflow-hidden rounded-2xl lg:rounded-[28px] w-full h-full"
-      style={{
-        transform: triggered ? `translateX(${toX})` : `translateX(${fromX})`,
-        opacity: triggered ? 1 : 0,
-        transition: triggered
-          ? `transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms, opacity 0.6s ease ${delay}ms`
-          : "none",
-        willChange: "transform",
-      }}
-    >
-      {/* Gradient bg */}
-      <div className="absolute inset-0" style={{ background: gradient }} />
-
-      {/* Webp overlay */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={imgSrc}
-        alt={label}
-        className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity"
-        style={{ opacity: 0.25 }}
-        loading="lazy"
-      />
-
-      {/* Grain texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      {/* Gradient vignette toward center */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            side === "left"
-              ? "linear-gradient(to right, transparent 60%, #000000 100%)"
-              : "linear-gradient(to left, transparent 60%, #000000 100%)",
-        }}
-      />
-
-      {/* Label */}
-      <div className="absolute bottom-6 left-6 right-6">
-        <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/40">
-          {label}
-        </span>
-      </div>
-    </div>
-  );
-}
+const STACK_LOGOS = [
+  "NEXT.JS 16",
+  "THREE.JS",
+  "DAVINCI 4K",
+  "ABLETON",
+  "TYPESCRIPT",
+  "GSAP 3.15",
+];
 
 export default function WhyChooseMeSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [triggered, setTriggered] = useState(false);
-  const [contentVisible, setContentVisible] = useState(false);
+  const { isDark } = useTheme();
+  const wrapRef = useRef<HTMLElement | null>(null);
+  const leftDoorRef = useRef<HTMLDivElement | null>(null);
+  const rightDoorRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
+    const wrap = wrapRef.current;
+    const leftDoor = leftDoorRef.current;
+    const rightDoor = rightDoorRef.current;
+    const content = contentRef.current;
+    if (!wrap || !leftDoor || !rightDoor || !content) return;
 
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTriggered(true);
-          // Content appears 350ms after images start sliding in
-          setTimeout(() => setContentVisible(true), 350);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // Desktop & Tablet (>= 768px): Exact Oxnod 50/50 split door curtain scrub (t-b4e6f9b7)
+      mm.add("(min-width: 768px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrap,
+            start: "10% top",
+            end: "bottom 110%",
+            scrub: 1,
+          },
+        });
+
+        tl.fromTo(
+          leftDoor,
+          { xPercent: 0 },
+          { xPercent: -100, ease: "none", duration: 1 },
+          0
+        )
+          .fromTo(
+            rightDoor,
+            { xPercent: 0 },
+            { xPercent: 100, ease: "none", duration: 1 },
+            0
+          )
+          .fromTo(
+            content,
+            { opacity: 0 },
+            { opacity: 1, ease: "none", duration: 0.7 },
+            0.12
+          );
+      });
+
+      mm.add("(max-width: 767px)", () => {
+        gsap.set(content, { opacity: 1 });
+      });
+    }, wrapRef);
+
+    return () => ctx.revert();
   }, []);
+
+  const cardBg = isDark
+    ? "bg-[#121212] border-white/[0.12] text-white"
+    : "bg-white border-[#ececec] text-[#000000]";
 
   return (
     <section
-      ref={sectionRef}
+      ref={wrapRef}
       id="why-choose-me"
-      className="relative w-full overflow-hidden bg-[#000000] border-t border-white/[0.04]"
+      className={`oxnod-why-wrap transition-colors duration-500 ${
+        isDark ? "bg-[#000000] text-white" : "bg-[#f2f2f2] text-[#000000]"
+      }`}
+      style={{ overflowX: "clip" }}
     >
-      {/* ── Top image strip: two images fly in from sides ───── */}
-      <div className="relative w-full overflow-hidden" style={{ height: "clamp(220px, 32vw, 440px)" }}>
-        {/* Left image */}
-        <div className="absolute left-0 top-0 bottom-0" style={{ width: "42%" }}>
-          <SideImage
-            side="left"
-            triggered={triggered}
-            delay={0}
-            imgSrc="/neoleaf-media/1.fd43cba1.webp"
-            gradient="linear-gradient(135deg, #0f0c1a 0%, #1e1440 50%, #0a0810 100%)"
-            label="Full-Stack Engineering"
-          />
+      {/* Sticky Curtain Overlay Stage */}
+      <div className="md:sticky md:top-0 md:min-h-[100vh] w-full flex flex-col justify-center">
+        {/* Dual Split Image Curtains */}
+        <div className="oxnod-why-curtains">
+          <div ref={leftDoorRef} className="oxnod-curtain-left bg-[#1a0d00]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/why/curtain-left.jpg"
+              alt="Creative Direction Silhouette"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+
+          <div ref={rightDoorRef} className="oxnod-curtain-right bg-[#f4f1ee]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/why/curtain-right.png"
+              alt="Translucent Vermilion Sculpture"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
         </div>
 
-        {/* Center gap with section label */}
+        {/* Sticky Bento Content Revealed Behind Doors */}
         <div
-          className="absolute left-[42%] right-[42%] top-0 bottom-0 flex flex-col items-center justify-center z-10"
-          style={{
-            opacity: triggered ? 1 : 0,
-            transition: "opacity 0.6s ease 500ms",
-          }}
+          ref={contentRef}
+          className="relative w-full py-12 md:py-10 lg:py-12"
         >
-          <span className="text-[10px] lg:text-[11px] font-semibold tracking-[0.22em] uppercase text-white/35 text-center whitespace-nowrap">
-            WHY CHOOSE ME
-          </span>
-        </div>
-
-        {/* Right image */}
-        <div className="absolute right-0 top-0 bottom-0" style={{ width: "42%" }}>
-          <SideImage
-            side="right"
-            triggered={triggered}
-            delay={60}
-            imgSrc="/neoleaf-media/3.eb2479f9.webp"
-            gradient="linear-gradient(135deg, #1a0f00 0%, #3d2500 50%, #120800 100%)"
-            label="Cinematic Craft"
-          />
-        </div>
-
-        {/* Bottom gradient fade to section bg */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #000000)" }}
-        />
-      </div>
-
-      {/* ── Main content ─────────────────────────────────────── */}
-      <div className="px-5 md:px-10 lg:px-[60px] pb-20 lg:pb-[120px] pt-16 lg:pt-20">
-        {/* Heading */}
-        <div
-          className="mb-14 lg:mb-16"
-          style={{
-            opacity: contentVisible ? 1 : 0,
-            transform: contentVisible ? "translateY(0)" : "translateY(32px)",
-            transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          <h2
-            className="text-[38px] md:text-[52px] lg:text-[72px] font-bold leading-[100%] tracking-tight text-white mb-5"
-            style={{ fontFamily: "var(--font-onest)" }}
-          >
-            Why work with
-            <br />
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage: "linear-gradient(90deg, #6366f1 0%, #8b5cf6 40%, #a78bfa 100%)",
-              }}
-            >
-              Tamim?
-            </span>
-          </h2>
-          <p className="text-white/45 text-[15px] lg:text-[17px] leading-relaxed max-w-[520px]">
-            Because most creatives are good at one thing. I am obsessively good at five — and they compound into something clients can&apos;t find anywhere else.
-          </p>
-        </div>
-
-        {/* Reason grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-          {REASONS.map((r, i) => (
-            <div
-              key={r.index}
-              className="group relative p-6 lg:p-7 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.045] hover:border-white/[0.14] transition-all duration-400 cursor-default"
-              style={{
-                opacity: contentVisible ? 1 : 0,
-                transform: contentVisible
-                  ? "translateY(0) scale(1)"
-                  : "translateY(28px) scale(0.98)",
-                transition: `opacity 0.65s ease ${i * 70 + 400}ms, transform 0.65s cubic-bezier(0.16,1,0.3,1) ${i * 70 + 400}ms, background-color 0.3s, border-color 0.3s`,
-              }}
-            >
-              {/* Hover glow */}
+          <div className="w-full max-w-[1440px] mx-auto px-4 md:px-10">
+            {/* Top Header */}
+            <div className="mb-6 md:mb-8 lg:mb-10">
               <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at top left, rgba(99,102,241,0.08) 0%, transparent 70%)",
-                }}
-              />
+                className={`flex items-center justify-between border-t pt-3 mb-5 lg:mb-6 ${
+                  isDark ? "border-white/[0.14]" : "border-[#dcdcdc]"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#f84022"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      flexShrink: 0,
+                      display: "block",
+                    }}
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="8" r="6" />
+                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                  </svg>
+                  <span
+                    className="text-[13px] md:text-[14px] uppercase tracking-[-0.14px]"
+                    style={{
+                      fontFamily: "'Geist Mono', monospace",
+                      color: isDark ? "rgba(255,255,255,0.9)" : "#252424",
+                    }}
+                  >
+                    WHY CHOOSE ME
+                  </span>
+                </div>
 
-              {/* Index + Icon row */}
-              <div className="flex items-center justify-between mb-5">
-                <span className="font-mono text-[11px] tracking-[0.18em] text-white/25">
-                  {r.index}
-                </span>
-                <div
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 group-hover:text-white/80 group-hover:border-white/20 transition-all duration-300"
-                  style={{ color: "rgba(255,255,255,0.4)" }}
+                <span
+                  className="text-[13px] md:text-[14px] uppercase tracking-[-0.14px]"
+                  style={{
+                    fontFamily: "'Geist Mono', monospace",
+                    color: isDark ? "rgba(255,255,255,0.8)" : "#252424",
+                  }}
                 >
-                  {r.icon}
+                  @TAMIMGLOBAL
+                </span>
+              </div>
+
+              <div className="text-center max-w-[540px] mx-auto">
+                <h2
+                  className="oxnod-why-headline"
+                  style={{
+                    fontFamily: "'Urbanist', var(--font-onest), sans-serif",
+                  }}
+                >
+                  The difference is how we work together
+                </h2>
+              </div>
+            </div>
+
+            {/* ── Top 3-Column Bento Grid ───────────────────────────── */}
+            <div className="oxnod-why-grid-top">
+              {/* Card 1: Live Collaboration + iPhone DM Mockup */}
+              <div
+                className={`relative rounded-[12px] border overflow-hidden p-5 flex flex-col justify-between h-[330px] lg:h-[345px] ${cardBg}`}
+              >
+                <div className="flex items-center justify-center gap-2 z-10">
+                  <span className="font-medium text-[15px]">
+                    Live collaboration
+                  </span>
+                  <span
+                    className="rounded-full"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      backgroundColor: "#46ca83",
+                      boxShadow: "0 0 8px #46ca83",
+                    }}
+                  />
+                </div>
+
+                <div
+                  className="absolute inset-x-0 top-12 text-center font-bold leading-none select-none pointer-events-none"
+                  style={{
+                    fontSize: 105,
+                    color: isDark
+                      ? "rgba(255,255,255,0.03)"
+                      : "rgba(0,0,0,0.035)",
+                  }}
+                >
+                  24/7
+                </div>
+
+                <div
+                  className={`relative mx-auto mt-3 w-[86%] max-w-[260px] rounded-t-[26px] border-[5px] border-b-0 pt-2.5 px-3 pb-4 -mb-5 shadow-xl ${
+                    isDark
+                      ? "bg-[#1a1a1d] border-[#2e2e34]"
+                      : "bg-[#fafafa] border-[#18181b]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-[10px] font-semibold mb-2.5 opacity-80 px-1">
+                    <span>9:41</span>
+                    <div
+                      className="rounded-full bg-black/80"
+                      style={{ width: 44, height: 11 }}
+                    />
+                    <span>5G</span>
+                  </div>
+                  <div className="text-center text-[10px] opacity-40 mb-2.5">
+                    Yesterday
+                  </div>
+                  <div className="flex flex-col gap-2 text-[11px] leading-[1.35]">
+                    <div
+                      className="self-end max-w-[84%] rounded-xl rounded-tr-sm px-3 py-2 shadow-sm"
+                      style={{ backgroundColor: "#f84022", color: "#ffffff" }}
+                    >
+                      Hey! Love the design! Can we refine the hero motion?
+                      <div
+                        className="text-[9px] text-right mt-1"
+                        style={{ color: "rgba(255,255,255,0.75)" }}
+                      >
+                        ✓✓ 03:15 PM
+                      </div>
+                    </div>
+                    <div
+                      className={`self-start max-w-[84%] rounded-xl rounded-tl-sm px-3 py-2 border ${
+                        isDark
+                          ? "bg-[#242429] border-white/10"
+                          : "bg-white border-[#ececec]"
+                      }`}
+                      style={{ color: isDark ? "#f4f4f5" : "#18181b" }}
+                    >
+                      On it right now. Pushing updated 3D build in 20 min!
+                      <div className="text-[9px] opacity-50 mt-1">
+                        ✓✓ 03:16 PM
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Thin divider */}
-              <div className="w-8 h-px bg-white/10 mb-5 group-hover:w-16 group-hover:bg-indigo-500/50 transition-all duration-500" />
-
-              {/* Title */}
-              <h3 className="text-white font-semibold text-[17px] lg:text-[18px] leading-tight mb-3">
-                {r.title}
-              </h3>
-
-              {/* Body */}
-              <p className="text-white/45 text-[13px] lg:text-[14px] leading-relaxed">
-                {r.body}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom stats strip */}
-        <div
-          className="mt-16 lg:mt-20 pt-10 border-t border-white/[0.06] grid grid-cols-2 lg:grid-cols-4 gap-8"
-          style={{
-            opacity: contentVisible ? 1 : 0,
-            transition: "opacity 0.8s ease 900ms",
-          }}
-        >
-          {[
-            { value: "100+", label: "Brand Identities", accent: "#6366f1" },
-            { value: "50+", label: "Websites Shipped", accent: "#8b5cf6" },
-            { value: "4M+", label: "Video Views", accent: "#f59e0b" },
-            { value: "8Y", label: "Years of Craft", accent: "#10b981" },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-2">
-              <span
-                className="text-[42px] lg:text-[52px] font-black leading-none tracking-tight"
-                style={{ color: stat.accent }}
+              {/* Card 2: Distinctive Thinking + Sculpted Contour Sculpture */}
+              <div
+                className={`relative rounded-[12px] border overflow-hidden p-5 h-[330px] lg:h-[345px] flex flex-col justify-between ${cardBg}`}
               >
-                {stat.value}
-              </span>
-              <span className="text-white/35 text-[13px] tracking-wide">
-                {stat.label}
-              </span>
+                <div className="relative z-10 p-1">
+                  <h3 className="oxnod-why-card-heading mb-1.5">
+                    Distinctive Thinking
+                  </h3>
+                  <p
+                    className="text-[14px] leading-[20px] max-w-[280px]"
+                    style={{ color: isDark ? "#8e8e93" : "#717171" }}
+                  >
+                    Breaking conventions to engineer web flagships, cinema
+                    films &amp; scores that stay unforgettable.
+                  </p>
+                </div>
+
+                <div className="relative w-full h-[180px] flex items-end justify-center overflow-hidden">
+                  <svg
+                    width="320"
+                    height="180"
+                    viewBox="0 0 320 180"
+                    fill="none"
+                    style={{ width: "100%", height: 180, display: "block" }}
+                    aria-hidden="true"
+                  >
+                    {Array.from({ length: 22 }).map((_, i) => {
+                      const y = 22 + i * 7;
+                      const curve = Math.sin(i * 0.27) * 28;
+                      return (
+                        <path
+                          key={i}
+                          d={`M ${30 - curve * 0.3} ${y} C 110 ${
+                            y - 22
+                          }, 190 ${y + 22}, ${290 + curve * 0.45} ${y - 6}`}
+                          stroke={
+                            isDark
+                              ? "rgba(255,255,255,0.22)"
+                              : "rgba(0,0,0,0.22)"
+                          }
+                          strokeWidth="1.2"
+                        />
+                      );
+                    })}
+                  </svg>
+                </div>
+
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(248,64,34,0.48), rgba(248,64,34,0.08) 55%, transparent)",
+                  }}
+                />
+              </div>
+
+              {/* Card 3: Split Column (Ideas Built Around You + Always-On Partnership) */}
+              <div className="oxnod-why-col-span-split flex flex-col gap-2 lg:h-[345px]">
+                {/* Card 3A */}
+                <div
+                  className={`relative rounded-[12px] border overflow-hidden pt-4 pb-3 ${cardBg}`}
+                >
+                  <div className="flex items-center justify-between px-5 mb-3">
+                    <span className="font-medium text-[15px]">
+                      Ideas Built Around You..
+                    </span>
+                    <div className="flex items-center gap-[3px]">
+                      {Array.from({ length: 10 }).map((_, d) => (
+                        <span
+                          key={d}
+                          className="rounded-full"
+                          style={{
+                            width: 5,
+                            height: 5,
+                            backgroundColor: "#f84022",
+                            opacity: d < 5 ? 0.3 : 1,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="relative overflow-hidden pt-2 border-t border-white/[0.06]">
+                    <div
+                      className="pointer-events-none absolute left-0 top-0 bottom-0 w-14 z-10"
+                      style={{
+                        background: isDark
+                          ? "linear-gradient(90deg,#121212,transparent)"
+                          : "linear-gradient(90deg,#ffffff,transparent)",
+                      }}
+                    />
+                    <div
+                      className="pointer-events-none absolute right-0 top-0 bottom-0 w-14 z-10"
+                      style={{
+                        background: isDark
+                          ? "linear-gradient(270deg,#121212,transparent)"
+                          : "linear-gradient(270deg,#ffffff,transparent)",
+                      }}
+                    />
+                    <div className="oxnod-marquee-track gap-2 px-2">
+                      {[
+                        ...COLLAB_INITIALS,
+                        ...COLLAB_INITIALS,
+                        ...COLLAB_INITIALS,
+                      ].map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-[11px] font-mono shrink-0 mx-1"
+                          style={{ background: item.bg, color: "#ffffff" }}
+                        >
+                          {item.label}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card 3B */}
+                <div
+                  className={`flex-1 rounded-[12px] border p-5 flex flex-col justify-between ${cardBg}`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center -space-x-2">
+                      <div
+                        className="w-9 h-9 rounded-full font-semibold text-xs flex items-center justify-center border-2 border-black"
+                        style={{ backgroundColor: "#f84022", color: "#ffffff" }}
+                      >
+                        TG
+                      </div>
+                      <div
+                        className="w-9 h-9 rounded-full font-semibold text-xs flex items-center justify-center border-2 border-black"
+                        style={{
+                          backgroundColor: isDark ? "#27272a" : "#ececec",
+                          color: isDark ? "#ffffff" : "#121212",
+                        }}
+                      >
+                        YOU
+                      </div>
+                    </div>
+
+                    {/* Explicitly sized Vermilion Infinity Mark */}
+                    <svg
+                      width="104"
+                      height="48"
+                      viewBox="0 0 120 56"
+                      fill="none"
+                      style={{
+                        width: 104,
+                        height: 48,
+                        flexShrink: 0,
+                        display: "block",
+                        filter: "drop-shadow(0 6px 14px rgba(248,64,34,0.3))",
+                      }}
+                      aria-hidden="true"
+                    >
+                      <defs>
+                        <linearGradient
+                          id="oxnodInfClean"
+                          x1="0"
+                          y1="0"
+                          x2="120"
+                          y2="56"
+                        >
+                          <stop offset="0%" stopColor="#f84022" />
+                          <stop offset="50%" stopColor="#ff9b88" />
+                          <stop offset="100%" stopColor="#f84022" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M34 12C20 12 10 21 10 28C10 35 20 44 34 44C50 44 68 12 86 12C100 12 110 21 110 28C110 35 100 44 86 44C68 44 50 12 34 12Z"
+                        stroke="url(#oxnodInfClean)"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="mt-4">
+                    <h3 className="oxnod-why-card-heading mb-1">
+                      Always-On Partnership
+                    </h3>
+                    <p
+                      className="text-[14px] leading-[20px]"
+                      style={{ color: isDark ? "#8e8e93" : "#717171" }}
+                    >
+                      Direct collaboration from architecture &amp; storyboards
+                      right through deployment.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
+
+            {/* ── Bottom 2-Column Bento Grid (0.5fr 1fr) ────────────── */}
+            <div className="oxnod-why-grid-bottom">
+              {/* Card 4: Built to perform */}
+              <div className={`rounded-[12px] border p-5 md:p-6 ${cardBg}`}>
+                <h3 className="oxnod-why-card-heading mb-1.5">
+                  Built to perform
+                </h3>
+                <p
+                  className="text-[14px] leading-[20px]"
+                  style={{ color: isDark ? "#8e8e93" : "#717171" }}
+                >
+                  Every website, cut film, and audio master is engineered to
+                  drive engagement, conversion, and measurable growth.
+                </p>
+              </div>
+
+              {/* Card 5: Social Proof + 5 Stars + Marquee */}
+              <div
+                className={`rounded-[12px] border px-5 md:px-8 py-5 oxnod-card5-grid overflow-hidden ${cardBg}`}
+              >
+                <div
+                  className={`flex flex-wrap items-center gap-4 md:pr-5 md:border-r ${
+                    isDark ? "border-white/[0.10]" : "border-[#ececec]"
+                  }`}
+                >
+                  <div className="flex items-center -space-x-2">
+                    {["#f84022", "#3b82f6", "#8b5cf6", "#10b981"].map(
+                      (c, idx) => (
+                        <div
+                          key={idx}
+                          className="w-8 h-8 rounded-full border-2 border-black/80 flex items-center justify-center text-[10px] font-bold"
+                          style={{ backgroundColor: c, color: "#ffffff" }}
+                        >
+                          ★
+                        </div>
+                      )
+                    )}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1 mb-1">
+                      {Array.from({ length: 5 }).map((_, s) => (
+                        <svg
+                          key={s}
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="#f84022"
+                          style={{
+                            width: 14,
+                            height: 14,
+                            flexShrink: 0,
+                            display: "block",
+                          }}
+                          aria-hidden="true"
+                        >
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                      ))}
+                    </div>
+                    <div className="text-[15px] md:text-[16px] font-medium">
+                      50+ Clients trust Tamim Global
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative overflow-hidden md:pl-4">
+                  <div
+                    className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(90deg,#121212,transparent)"
+                        : "linear-gradient(90deg,#ffffff,transparent)",
+                    }}
+                  />
+                  <div
+                    className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 z-10"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(270deg,#121212,transparent)"
+                        : "linear-gradient(270deg,#ffffff,transparent)",
+                    }}
+                  />
+                  <div className="oxnod-marquee-track-slow gap-10">
+                    {[...STACK_LOGOS, ...STACK_LOGOS, ...STACK_LOGOS].map(
+                      (brand, bIdx) => (
+                        <span
+                          key={bIdx}
+                          className="text-[13px] font-semibold tracking-[0.14em] uppercase whitespace-nowrap"
+                          style={{
+                            fontFamily: "'Geist Mono', monospace",
+                            color: isDark ? "rgba(255,255,255,0.45)" : "#626260",
+                          }}
+                        >
+                          {brand}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
