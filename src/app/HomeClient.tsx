@@ -17,6 +17,7 @@
 import { useState } from "react";
 import Preloader from "@/components/ui/Preloader";
 import WaterCursorEffect from "@/components/ui/WaterCursorEffect";
+import { ThemeProvider } from "@/context/ThemeContext";
 import NeoHeroSection from "@/components/sections/NeoHeroSection";
 import NeoKineticTicker from "@/components/sections/NeoKineticTicker";
 import NeoTechnologySection from "@/components/sections/NeoTechnologySection";
@@ -35,7 +36,7 @@ export default function HomeClient({ content }: HomeClientProps) {
   const [preloaderDone, setPreloaderDone] = useState(false);
 
   return (
-    <>
+    <ThemeProvider>
       {/* 3D Water Drop Cursor + Click Ripple – desktop only */}
       <WaterCursorEffect />
 
@@ -44,8 +45,8 @@ export default function HomeClient({ content }: HomeClientProps) {
         <Preloader onComplete={() => setPreloaderDone(true)} />
       )}
 
-      {/* Main NeoLeaf Container */}
-      <main className="relative flex-1">
+      {/* Main NeoLeaf Container – theme-reactive via data-theme on <html> */}
+      <main className="relative flex-1 transition-colors duration-500">
         {/* Section 1: Header & Hero with Embedded Video */}
         <NeoHeroSection />
 
@@ -70,6 +71,6 @@ export default function HomeClient({ content }: HomeClientProps) {
 
       {/* Luxury Footer with Giant Typography */}
       <NeoFooter />
-    </>
+    </ThemeProvider>
   );
 }

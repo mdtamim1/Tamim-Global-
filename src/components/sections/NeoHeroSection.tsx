@@ -20,12 +20,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Mowa3DBlobCanvas from "@/components/ui/Mowa3DBlobCanvas";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function NeoHeroSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [soundPlaying, setSoundPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { isDark, toggleTheme } = useTheme();
 
   const toggleSound = () => {
     if (!audioRef.current) return;
@@ -72,22 +74,40 @@ export default function NeoHeroSection() {
         </Link>
 
         {/* Center: Segmented Darkmode / Lightmode Pill Toggle */}
-        <div
+        <button
+          type="button"
           role="switch"
-          aria-checked="true"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex rounded-full p-1 bg-white/[0.07] backdrop-blur-2xl border border-white/10 shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)] select-none"
+          aria-checked={isDark}
+          onClick={toggleTheme}
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex rounded-full p-1 backdrop-blur-2xl border select-none cursor-pointer transition-all duration-500 ${
+            isDark
+              ? "bg-white/[0.07] border-white/10 shadow-[inset_0_1px_4px_rgba(0,0,0,0.5)]"
+              : "bg-black/[0.07] border-black/10 shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]"
+          }`}
         >
           <div className="relative flex items-center">
-            {/* Active white pill highlight under darkmode */}
-            <div className="absolute top-0 bottom-0 left-0 w-1/2 rounded-full bg-white shadow-sm transition-all duration-300" />
-            <span className="relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs font-semibold text-black tracking-wide">
+            {/* Sliding active pill */}
+            <div
+              className={`absolute top-0 bottom-0 w-1/2 rounded-full shadow-sm transition-all duration-300 ${
+                isDark ? "left-0 bg-white" : "left-1/2 bg-black"
+              }`}
+            />
+            <span
+              className={`relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs font-semibold tracking-wide transition-colors duration-300 ${
+                isDark ? "text-black" : "text-white/50"
+              }`}
+            >
               darkmode
             </span>
-            <span className="relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs font-normal text-white/50 tracking-wide cursor-not-allowed">
+            <span
+              className={`relative z-10 px-4 md:px-5 py-1.5 text-[11px] md:text-xs tracking-wide transition-colors duration-300 ${
+                !isDark ? "text-white font-semibold" : "text-white/50 font-normal"
+              }`}
+            >
               lightmode
             </span>
           </div>
-        </div>
+        </button>
 
         {/* Right Actions: Sound / Contact / Menu */}
         <div className="flex items-center gap-2.5 relative">
@@ -251,7 +271,9 @@ export default function NeoHeroSection() {
       {/* Main Hero Container */}
       <section
         id="hero"
-        className="relative w-full min-h-[100dvh] bg-[#000000] text-white font-sans overflow-hidden flex flex-col justify-between"
+        className={`relative w-full min-h-[100dvh] font-sans overflow-hidden flex flex-col justify-between transition-colors duration-500 ${
+          isDark ? "bg-[#000000] text-white" : "bg-[#f4f4f0] text-[#0a0a0a]"
+        }`}
       >
         {/* 1. Procedural 3D Three.js Simplex Morphing Blob Canvas */}
         <Mowa3DBlobCanvas />

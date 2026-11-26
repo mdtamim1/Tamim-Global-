@@ -2,21 +2,14 @@
 
 // ============================================================
 // Tamim Global – Mowa Studio 1:1 Cursor-Reactive 3D Blob Canvas
-// Full reverse-engineered physics + cursor interaction from mowa.studio
-//
-// Key behaviors matching mowa.studio:
-//  1. Each blob independently floats toward cursor with different lag
-//  2. Proximity to cursor increases blob spikiness (vertex distortion)
-//  3. Light source follows cursor in real-time
-//  4. Camera orbits with gentle parallax on mouse move
-//  5. Blobs have idle orbital float animations
+// Theme-aware: Dark mode = near-black obsidian blobs
+//              Light mode = pearl-white/silver blobs
 // ============================================================
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useTheme } from "@/context/ThemeContext";
 
-// ── VERTEX SHADER ─────────────────────────────────────────────────────────
-// Simplex noise + cursor proximity distortion
 const vertexShader = `
 vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
 vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
@@ -64,15 +57,14 @@ float snoise(vec3 v){
 
 uniform float uTime;
 uniform float uSpiky;
-uniform vec2  uMouseNDC;   // cursor in NDC [-1,1]
-uniform float uProximity;  // 0=far, 1=cursor is touching blob center
+uniform vec2  uMouseNDC;
+uniform float uProximity;
 
-varying vec3 vNormal;
-varying vec3 vWorldPos;
+varying vec3  vNormal;
+varying vec3  vWorldPos;
 varying float vDisplacement;
 
 void main(){
-  // Layered simplex noise for organic morphing
   float freq1 = 0.7  + uSpiky * 1.5;
   float freq2 = 1.4  + uSpiky * 3.0;
   float freq3 = 2.8  + uSpiky * 5.0;
@@ -83,12 +75,10 @@ void main(){
   float n3 = snoise(position * freq3 + uTime * 0.10) * 0.10;
   float disp = (n1 + n2 + n3) * amp;
 
-  // Cursor attraction pull on vertex normals (makes blob "lean" toward cursor)
   vec3 cursorDir = normalize(vec3(uMouseNDC, 0.5));
   float pull = uProximity * 0.18;
   vec3 newPos = position + normal * disp + cursorDir * pull * (0.5 - abs(dot(normalize(position), cursorDir)));
 
-  // Gentle vertical breathe
   newPos.y += sin(uTime * 0.4) * 0.055;
 
   vDisplacement = disp;
@@ -98,7 +88,6 @@ void main(){
 }
 `;
 
-// ── FRAGMENT SHADER ────────────────────────────────────────────────────────
 const fragmentShader = `
 uniform vec3  uLightDir;
 uniform vec3  uRimColor;
@@ -123,10 +112,9 @@ void main(){
   float spec2  = pow(max(dot(N, H), 0.0),  40.0) * 0.20;
   float rim    = pow(1.0 - NdotV, 3.5) * (0.6 + uProximity * 0.4);
 
-  // Proximity tint: slight blue-violet shimmer when cursor is near
   vec3 proximityTint = vec3(0.05, 0.08, 0.18) * uProximity * 0.6;
-
   vec3 iridescent = vec3(0.5 + 0.5 * sin(NdotV * 6.28 + vDisplacement * 8.0)) * 0.1;
+
   vec3 col = uBaseColor * diff * uBrightness
            + uRimColor  * rim
            + uFresnelColor * fresnel
@@ -139,14 +127,28 @@ void main(){
 }
 `;
 
-// ── Blob descriptor ────────────────────────────────────────────────────────
+// ── Colour palettes ────────────────────────────────────────────────────────
+const DARK_PALETTE = {
+  baseColor:    new THREE.Vector3(0.05, 0.05, 0.06),
+  rimColor:     new THREE.Vector3(0.25, 0.25, 0.28),
+  fresnelColor: new THREE.Vector3(0.35, 0.35, 0.40),
+  brightness:   1.15,
+};
+
+const LIGHT_PALETTE = {
+  baseColor:    new THREE.Vector3(0.72, 0.72, 0.74),  // silver-white
+  rimColor:     new THREE.Vector3(0.95, 0.95, 0.98),  // bright white rim
+  fresnelColor: new THREE.Vector3(0.80, 0.82, 0.90),  // cool steel fresnel
+  brightness:   1.35,
+};
+
 interface BlobDesc {
   mesh: THREE.Mesh;
-  basePos: THREE.Vector3;      // resting orbital center
-  currentPos: THREE.Vector3;   // live position (lerped)
-  targetPos: THREE.Vector3;    // target = base + mouse attraction
-  attractFactor: number;       // how much it chases cursor (0–1)
-  lagFactor: number;           // lerp speed (0.02–0.08)
+  basePos: THREE.Vector3;
+  currentPos: THREE.Vector3;
+  targetPos: THREE.Vector3;
+  attractFactor: number;
+  lagFactor: number;
   orbitRadius: number;
   orbitSpeed: number;
   orbitPhase: number;
@@ -157,6 +159,21 @@ interface BlobDesc {
 
 export default function Mowa3DBlobCanvas() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { isDark } = useTheme();
+
+  // Store all blob refs so we can update uniforms when theme changes
+  const blobsRef = useRef<BlobDesc[]>([]);
+
+  // Update palette on theme change (without recreating scene)
+  useEffect(() => {
+    const palette = isDark ? DARK_PALETTE : LIGHT_PALETTE;
+    blobsRef.current.forEach((b) => {
+      (b.uniforms.uBaseColor.value as THREE.Vector3).copy(palette.baseColor);
+      (b.uniforms.uRimColor.value as THREE.Vector3).copy(palette.rimColor);
+      (b.uniforms.uFresnelColor.value as THREE.Vector3).copy(palette.fresnelColor);
+      b.uniforms.uBrightness.value = palette.brightness;
+    });
+  }, [isDark]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -166,7 +183,6 @@ export default function Mowa3DBlobCanvas() {
     let height = container.clientHeight || window.innerHeight;
     const isMobile = width < 768;
 
-    // ── Scene / Camera / Renderer ──────────────────────────
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
     camera.position.set(0, 0, isMobile ? 7 : 5.2);
@@ -183,90 +199,65 @@ export default function Mowa3DBlobCanvas() {
     renderer.outputColorSpace  = THREE.SRGBColorSpace;
     container.appendChild(renderer.domElement);
 
-    // ── Helper: make per-blob uniforms ─────────────────────
+    // Initial palette (isDark might not be stable in this effect — read from DOM)
+    const initDark = document.documentElement.getAttribute("data-theme") !== "light";
+    const initPalette = initDark ? DARK_PALETTE : LIGHT_PALETTE;
+
     const makeUniforms = () => ({
       uTime:        { value: 0 },
       uLightDir:    { value: new THREE.Vector3(2, 3, 4).normalize() },
-      uRimColor:    { value: new THREE.Vector3(0.25, 0.25, 0.28) },
-      uFresnelColor:{ value: new THREE.Vector3(0.35, 0.35, 0.40) },
-      uBaseColor:   { value: new THREE.Vector3(0.05, 0.05, 0.06) },
-      uBrightness:  { value: 1.15 },
+      uRimColor:    { value: initPalette.rimColor.clone() },
+      uFresnelColor:{ value: initPalette.fresnelColor.clone() },
+      uBaseColor:   { value: initPalette.baseColor.clone() },
+      uBrightness:  { value: initPalette.brightness },
       uSpiky:       { value: 0 },
       uMouseNDC:    { value: new THREE.Vector2(0, 0) },
       uProximity:   { value: 0 },
     });
 
-    // ── Build 3 blobs ──────────────────────────────────────
     const blobs: BlobDesc[] = [];
 
     function addBlob(
-      radius: number,
-      segments: number,
-      scale: number,
-      baseX: number,
-      baseY: number,
-      baseZ: number,
-      attractFactor: number,
-      lagFactor: number,
-      orbitRadius: number,
-      orbitSpeed: number,
-      orbitPhase: number,
-      rotSpeedY: number,
-      rotSpeedX: number
+      radius: number, segments: number, scale: number,
+      baseX: number, baseY: number, baseZ: number,
+      attractFactor: number, lagFactor: number,
+      orbitRadius: number, orbitSpeed: number, orbitPhase: number,
+      rotSpeedY: number, rotSpeedX: number
     ): BlobDesc {
       const geo  = new THREE.SphereGeometry(radius, segments, segments);
       const uni  = makeUniforms();
       const mat  = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms: uni });
       const mesh = new THREE.Mesh(geo, mat);
       mesh.scale.setScalar(scale);
-      const bp   = new THREE.Vector3(baseX, baseY, baseZ);
+      const bp = new THREE.Vector3(baseX, baseY, baseZ);
       mesh.position.copy(bp);
       scene.add(mesh);
-
       const desc: BlobDesc = {
-        mesh,
-        basePos: bp.clone(),
-        currentPos: bp.clone(),
-        targetPos: bp.clone(),
-        attractFactor,
-        lagFactor,
-        orbitRadius,
-        orbitSpeed,
-        orbitPhase,
-        rotSpeedY,
-        rotSpeedX,
+        mesh, basePos: bp.clone(), currentPos: bp.clone(), targetPos: bp.clone(),
+        attractFactor, lagFactor, orbitRadius, orbitSpeed, orbitPhase,
+        rotSpeedY, rotSpeedX,
         uniforms: uni as Record<string, { value: unknown }>,
       };
       blobs.push(desc);
       return desc;
     }
 
-    // 1. Central large hero blob
-    addBlob(0.85, 128, 1.42,  0.0,  0.05,  0,  0.55, 0.030, 0.06, 0.18, 0.0,  0.08,  0.12);
-    // 2. Top-left secondary blob
-    addBlob(0.50,  64, 0.65, -2.8,  1.60, -1,  0.28, 0.018, 0.14, 0.26, 2.1, -0.12,  0.00);
-    // 3. Top-right secondary blob
+    addBlob(0.85, 128, 1.42,  0.0,  0.05,  0.0, 0.55, 0.030, 0.06, 0.18, 0.0,  0.08,  0.12);
+    addBlob(0.50,  64, 0.65, -2.8,  1.60, -1.0, 0.28, 0.018, 0.14, 0.26, 2.1, -0.12,  0.00);
     addBlob(0.70,  64, 1.10,  2.6,  1.20, -0.6, 0.35, 0.022, 0.10, 0.22, 4.4,  0.06, -0.10);
 
-    // ── Lights ─────────────────────────────────────────────
+    // Expose blobs to the theme-update effect
+    blobsRef.current = blobs;
+
     const mainLight = new THREE.DirectionalLight(0xffffff, 2.4);
     mainLight.position.set(3, 4, 5);
     scene.add(mainLight);
-
     const fillLight = new THREE.DirectionalLight(0x8888aa, 0.7);
     fillLight.position.set(-3, 2, -2);
     scene.add(fillLight);
-
     scene.add(new THREE.AmbientLight(0x111116, 0.6));
 
-    // ── Mouse State ────────────────────────────────────────
-    // NDC = Normalized Device Coordinates [-1, 1]
-    const mouse = {
-      ndcX: 0, ndcY: 0,       // smoothed
-      rawX: 0, rawY: 0,        // raw from event
-      screenX: 0, screenY: 0, // raw pixel
-    };
-
+    const mouse = { ndcX: 0, ndcY: 0, rawX: 0, rawY: 0, screenX: 0, screenY: 0 };
     const onMouseMove = (e: MouseEvent) => {
       mouse.rawX   = (e.clientX / window.innerWidth)  * 2 - 1;
       mouse.rawY   = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -275,105 +266,63 @@ export default function Mowa3DBlobCanvas() {
     };
     window.addEventListener("mousemove", onMouseMove, { passive: true });
 
-    // ── Camera parallax state ──────────────────────────────
     const cam = { x: 0, y: 0 };
-
-    // ── RAF Loop ───────────────────────────────────────────
+    const _v  = new THREE.Vector3();
     let animId: number;
     const startTime = performance.now();
-
-    // Convert blob world position to screen NDC for proximity calc
-    const _v = new THREE.Vector3();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const t = (performance.now() - startTime) * 0.001;
 
-      // Smooth mouse NDC
       mouse.ndcX += (mouse.rawX - mouse.ndcX) * 0.04;
       mouse.ndcY += (mouse.rawY - mouse.ndcY) * 0.04;
 
-      // Camera gentle parallax (subtle, matches mowa.studio)
       cam.x += (mouse.ndcX * 0.45 - cam.x) * 0.035;
       cam.y += (-mouse.ndcY * 0.30 - cam.y) * 0.035;
       camera.position.x = cam.x;
       camera.position.y = cam.y;
       camera.lookAt(0, 0, 0);
 
-      // Dynamic light following cursor
       mainLight.position.set(3 + mouse.ndcX * 2.5, 4 + mouse.ndcY, 5);
 
-      // Per-blob update
       blobs.forEach((b, idx) => {
-        // Idle orbital float
         const ox = Math.cos(t * b.orbitSpeed + b.orbitPhase) * b.orbitRadius;
         const oy = Math.sin(t * b.orbitSpeed * 1.3 + b.orbitPhase) * b.orbitRadius * 0.6;
-
-        // Cursor attraction: convert cursor NDC to scene-space offset
-        // Large blob attracts more, small ones less
         const attractX = mouse.ndcX * 1.6 * b.attractFactor;
         const attractY = mouse.ndcY * 1.1 * b.attractFactor;
 
-        b.targetPos.set(
-          b.basePos.x + ox + attractX,
-          b.basePos.y + oy + attractY,
-          b.basePos.z
-        );
-
-        // Lerp current position toward target
+        b.targetPos.set(b.basePos.x + ox + attractX, b.basePos.y + oy + attractY, b.basePos.z);
         b.currentPos.lerp(b.targetPos, b.lagFactor);
         b.mesh.position.copy(b.currentPos);
 
-        // ── Proximity detection ──────────────────────────
-        // Project blob center to screen space
-        _v.copy(b.mesh.position);
-        _v.project(camera);
-        const blobSX = (_v.x + 1) * 0.5;  // 0–1
-        const blobSY = (1 - _v.y) * 0.5;  // 0–1
-        const cursorSX = (mouse.screenX / window.innerWidth);
-        const cursorSY = (mouse.screenY / window.innerHeight);
-        const dist = Math.hypot(blobSX - cursorSX, blobSY - cursorSY);
-
-        // Proximity 0=far, 1=overlapping blob center
-        // Large blob has bigger hitzone (~0.22 of screen), small ~0.12
-        const hitZone = idx === 0 ? 0.26 : 0.16;
+        _v.copy(b.mesh.position).project(camera);
+        const blobSX   = (_v.x + 1) * 0.5;
+        const blobSY   = (1 - _v.y) * 0.5;
+        const cursorSX = mouse.screenX / window.innerWidth;
+        const cursorSY = mouse.screenY / window.innerHeight;
+        const dist     = Math.hypot(blobSX - cursorSX, blobSY - cursorSY);
+        const hitZone  = idx === 0 ? 0.26 : 0.16;
         const proximity = Math.max(0, 1 - dist / hitZone);
 
-        // ── Shader uniforms ──────────────────────────────
         const uni = b.uniforms;
-        (uni.uTime.value as number);
-        uni.uTime.value     = t;
-        uni.uMouseNDC.value = new THREE.Vector2(mouse.ndcX, mouse.ndcY);
+        uni.uTime.value      = t;
+        (uni.uMouseNDC.value as THREE.Vector2).set(mouse.ndcX, mouse.ndcY);
         uni.uProximity.value = proximity;
+        const curSpiky = uni.uSpiky.value as number;
+        uni.uSpiky.value = curSpiky + (proximity * 0.65 - curSpiky) * 0.08;
+        (uni.uLightDir.value as THREE.Vector3).set(2 + mouse.ndcX * 1.5, 3 - mouse.ndcY, 4).normalize();
 
-        // Spiky: cursor proximity spikes up, then decays
-        const currentSpiky = uni.uSpiky.value as number;
-        const targetSpiky = proximity * 0.65;
-        uni.uSpiky.value = currentSpiky + (targetSpiky - currentSpiky) * 0.08;
-
-        // Light dir per blob
-        uni.uLightDir.value = new THREE.Vector3(
-          2 + mouse.ndcX * 1.5,
-          3 - mouse.ndcY,
-          4
-        ).normalize();
-
-        // Rotation
         b.mesh.rotation.y = t * b.rotSpeedY + mouse.ndcX * 0.25;
-        if (idx === 0) {
-          b.mesh.rotation.x = Math.sin(t * 0.12) * 0.15 + mouse.ndcY * 0.20;
-        } else if (idx === 1) {
-          b.mesh.rotation.z = Math.cos(t * 0.15) * 0.20;
-        } else {
-          b.mesh.rotation.x = -Math.sin(t * 0.10) * 0.15 + b.rotSpeedX * t;
-        }
+        if (idx === 0)      { b.mesh.rotation.x = Math.sin(t * 0.12) * 0.15 + mouse.ndcY * 0.20; }
+        else if (idx === 1) { b.mesh.rotation.z = Math.cos(t * 0.15) * 0.20; }
+        else                { b.mesh.rotation.x = -Math.sin(t * 0.10) * 0.15 + b.rotSpeedX * t; }
       });
 
       renderer.render(scene, camera);
     };
     animate();
 
-    // ── Resize ─────────────────────────────────────────────
     const onResize = () => {
       if (!container) return;
       width  = container.clientWidth  || window.innerWidth;
@@ -389,14 +338,13 @@ export default function Mowa3DBlobCanvas() {
       cancelAnimationFrame(animId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
+      blobsRef.current = [];
       blobs.forEach(b => {
         b.mesh.geometry.dispose();
         (b.mesh.material as THREE.ShaderMaterial).dispose();
       });
       renderer.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
+      if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
     };
   }, []);
 
