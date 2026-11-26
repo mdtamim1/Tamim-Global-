@@ -16,6 +16,7 @@
 
 import { useState } from "react";
 import Preloader from "@/components/ui/Preloader";
+import WaterCursorEffect from "@/components/ui/WaterCursorEffect";
 import NeoHeroSection from "@/components/sections/NeoHeroSection";
 import NeoKineticTicker from "@/components/sections/NeoKineticTicker";
 import NeoTechnologySection from "@/components/sections/NeoTechnologySection";
@@ -35,6 +36,9 @@ export default function HomeClient({ content }: HomeClientProps) {
 
   return (
     <>
+      {/* 3D Water Drop Cursor + Click Ripple – desktop only */}
+      <WaterCursorEffect />
+
       {/* 1:1 NeoLeaf Style Curtain Preloader */}
       {!preloaderDone && (
         <Preloader onComplete={() => setPreloaderDone(true)} />
