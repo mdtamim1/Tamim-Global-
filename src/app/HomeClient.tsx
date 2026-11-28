@@ -21,7 +21,6 @@ import NeoHeroSection from "@/components/sections/NeoHeroSection";
 import NeoKineticTicker from "@/components/sections/NeoKineticTicker";
 import NeoTechnologySection from "@/components/sections/NeoTechnologySection";
 import NeoExpertiseSection from "@/components/sections/NeoExpertiseSection";
-import NeoFeaturesSection from "@/components/sections/NeoFeaturesSection";
 import NeoTeamSection from "@/components/sections/NeoTeamSection";
 import NeoFooter from "@/components/layout/NeoFooter";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";

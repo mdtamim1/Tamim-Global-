@@ -75,14 +75,14 @@ export default function NeoFooter() {
             </a>
           </li>
           <li className="flex items-center max-md:even:justify-end max-md:even:text-right max-lg:min-h-6">
-            <a
+            <Link
               className="inline-flex lg:transition-colors lg:hover:text-accent-1"
-              href="#features"
+              href="/services"
             >
               <span className="inline-flex items-center justify-center overflow-hidden">
-                Key Features
+                Services &amp; Pricing
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -167,13 +167,6 @@ export default function NeoFooter() {
             © 2026 Tamim Global Ltd. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-between gap-4 max-lg:text-body-small md:justify-end md:text-right lg:gap-5">
-            <Link
-              className="inline-flex lg:transition-colors lg:hover:text-accent-1 text-text-gray"
-              href="/admin"
-            >
-              Admin Panel
-            </Link>
-            <span className="text-text-gray/50">•</span>
             <span className="text-text-gray">
               Engineered by{" "}
               <span className="text-white font-medium">Md Tamim</span>

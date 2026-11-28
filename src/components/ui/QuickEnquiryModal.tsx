@@ -16,11 +16,10 @@ interface QuickEnquiryModalProps {
 
 const PROJECT_TYPES = [
   "Full-Stack Web Application (Next.js / Node.js)",
-  "Custom Web Design & UI/UX System",
+  "E-Commerce Web Design (Shopify / Custom Storefront)",
+  "Custom Web Design & UI/UX 3D System",
   "Cinematic Video Editing & Post-Production",
   "Original Music Composition & Sound Design",
-  "Interactive Motion & 3D WebGL Experience",
-  "Brand Identity & Visual Direction",
 ];
 
 const BUDGET_RANGES = [

@@ -34,19 +34,3 @@ export async function getProjectBySlug(slug: string): Promise<Project | undefine
   return projects.find((p) => p.id === slug);
 }
 
-/** Client-side: apply localStorage admin overrides on top of base content */
-export function getClientContent(): SiteContent | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const stored = localStorage.getItem("tg_admin_content");
-    return stored ? (JSON.parse(stored) as SiteContent) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function saveClientContent(content: SiteContent): void {
-  if (typeof window === "undefined") return;
-  localStorage.setItem("tg_admin_content", JSON.stringify(content));
-}
-

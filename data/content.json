@@ -118,7 +118,7 @@
       "title": "Tatka Bazar",
       "category": "E-commerce Platform",
       "tags": ["Next.js", "Node.js", "MongoDB", "SSLCommerz", "bKash"],
-      "cover": "/images/projects/tatka-bazar.jpg",
+      "cover": "/images/services/service-5.png",
       "summary": "A real-time multi-vendor e-commerce platform for the Bangladeshi market, integrated with local payment gateways and a live order tracking system.",
       "caseStudy": {
         "problem": "Local vendors needed a reliable digital storefront with payment methods Bangladeshi customers actually use — bKash, Nagad, and SSLCommerz — but existing platforms were either too expensive or poorly built.",
@@ -136,7 +136,7 @@
       "title": "CloudMetrics SaaS",
       "category": "SaaS Platform",
       "tags": ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Stripe"],
-      "cover": "/images/projects/saas-dashboard.jpg",
+      "cover": "/images/services/service-1.jpg",
       "summary": "A multi-tenant SaaS analytics dashboard with real-time data visualisation, team management, and usage-based billing via Stripe.",
       "caseStudy": {
         "problem": "The client needed a scalable SaaS platform that could handle multiple organisations with isolated data, role-based access, and billing that grew with usage.",
@@ -154,7 +154,7 @@
       "title": "Apex Creative Agency",
       "category": "Marketing Site",
       "tags": ["Next.js", "Framer Motion", "Three.js", "GSAP"],
-      "cover": "/images/projects/agency-site.jpg",
+      "cover": "/images/services/service-2.jpg",
       "summary": "An award-worthy marketing site for a creative agency, built with cinematic scroll animations, a 3D hero scene, and sub-second load times.",
       "caseStudy": {
         "problem": "The agency's old site looked like a template and failed to communicate the premium quality of their work. Bounce rate was above 70%.",

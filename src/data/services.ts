@@ -192,7 +192,7 @@ export const SERVICES: ServiceData[] = [
       "GSAP CHOREOGRAPHY",
       "FIGMA TO CODE",
     ],
-    image: "/images/services/service-2.png",
+    image: "/images/services/service-2.jpg",
     imageAlt: "Web Design & Interactive 3D Motion",
     basePrice: 139,
     baseIncludes: [
@@ -301,7 +301,7 @@ export const SERVICES: ServiceData[] = [
       "RHYTHM PACING",
       "4K REC.709 MASTER",
     ],
-    image: "/images/services/service-3.png",
+    image: "/images/services/service-3.jpg",
     imageAlt: "Cinematic Video Production & Color Grading",
     basePrice: 104,
     baseIncludes: [
@@ -505,7 +505,7 @@ export const SERVICES: ServiceData[] = [
       "PAYMENT GATEWAY",
       "MOBILE-FIRST PWA",
     ],
-    image: "/images/services/service-1.jpg",
+    image: "/images/services/service-5.png",
     imageAlt: "E-Commerce Web Design & High-Converting Storefronts",
     basePrice: 70,
     baseIncludes: [
@@ -787,7 +787,6 @@ export const SERVICES: ServiceData[] = [
       telemetryLabel: "CHECKOUT // FUNNEL",
       telemetryStatus: "97% AUTH · <400MS",
       telemetryBars: [48, 62, 74, 80, 88, 91, 95, 97, 96, 100],
-      showcaseImage: "/images/why/curtain-left.jpg",
     },
   },
 ];

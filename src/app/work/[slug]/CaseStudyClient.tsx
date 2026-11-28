@@ -41,11 +41,11 @@ export default function CaseStudyClient({ project, nextProject, prevProject }: C
             transition={{ duration: 0.5 }}
           >
             <Link
-              href="/#work"
+              href="/#expertise"
               className="inline-flex items-center gap-2 font-mono text-xs text-ink-400 hover:text-white transition-colors duration-200 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/5"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>RETURN TO SYSTEMS ARCHIVE</span>
+              <span>RETURN TO PORTFOLIO</span>
             </Link>
           </motion.div>
 

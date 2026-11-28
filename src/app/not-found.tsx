@@ -51,16 +51,16 @@ export default function NotFound() {
             Go Home
           </Link>
           <Link
-            href="/#work"
+            href="/#expertise"
             className="px-6 py-3 rounded-xl glass border border-glass-border text-ink-50 font-semibold text-body-md hover:border-violet-500/40 transition-all duration-300"
           >
-            View Work
+            Expertise &amp; Proof
           </Link>
           <Link
-            href="/#contact"
+            href="/services"
             className="px-6 py-3 rounded-xl glass border border-glass-border text-ink-50 font-semibold text-body-md hover:border-violet-500/40 transition-all duration-300"
           >
-            Contact
+            Services
           </Link>
         </div>
       </div>
