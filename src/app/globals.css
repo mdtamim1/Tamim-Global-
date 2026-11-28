@@ -3625,3 +3625,69 @@ html.tg-vt-active * {
     padding: 20px 16px !important;
   }
 }
+
+
+/* ============================================================ */
+/* Tamim Global — Ultra-Premium Editorial Service Rows v3       */
+/* ============================================================ */
+
+/* Responsive editorial row: stack on mobile */
+@media (max-width: 860px) {
+  .tg-service-editorial-row {
+    grid-template-columns: 1fr !important;
+  }
+  .tg-service-editorial-row > div:first-child,
+  .tg-service-editorial-row > div:last-child {
+    order: unset !important;
+  }
+}
+
+/* Image hover scale */
+.tg-img-hover:hover {
+  transform: scale(1.04);
+}
+
+/* CTA button label slide on hover */
+.group\/cta:hover .tg-slide-label {
+  transform: translateY(-50%);
+}
+/* Fallback for group-hover utility */
+.tg-service-cta:hover .group-hover\/cta\:tg-slide-label {
+  transform: translateY(-50%);
+}
+
+/* Pricing panel responsive */
+.tg-pricing-grid {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 700px) {
+  .tg-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.tg-order-form-grid {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 540px) {
+  .tg-order-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Close button hover */
+.tg-pricing-panel button[aria-label="Close"]:hover {
+  background: rgba(248, 64, 34, 0.14) !important;
+}
+
+/* Input focus ring */
+.tg-pricing-panel input:focus,
+.tg-pricing-panel textarea:focus {
+  border-color: rgba(248, 64, 34, 0.45) !important;
+  box-shadow: 0 0 0 3px rgba(248, 64, 34, 0.08);
+}
+
+/* Order button hover lift */
+.tg-pricing-panel button[type="submit"]:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
