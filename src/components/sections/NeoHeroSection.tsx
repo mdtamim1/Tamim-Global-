@@ -14,7 +14,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import Mowa3DBlobCanvas from "@/components/ui/Mowa3DBlobCanvas";
+import WaterCanvas from "@/components/ui/WaterCanvas";
 import QuickEnquiryModal from "@/components/ui/QuickEnquiryModal";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -363,8 +363,8 @@ export default function NeoHeroSection() {
           color: fgPrimary,
         }}
       >
-        {/* 1. Procedural 3D Sculpted Cross/Rosette + Unified GPU Fluid Refraction Canvas */}
-        <Mowa3DBlobCanvas />
+        {/* 1. Real 3D Ocean Water Surface — Gerstner waves + caustics + cursor ripples */}
+        <WaterCanvas />
 
         {/* 2. Vertical Architectural Column Guide Lines (6 Columns on Desktop) */}
         <div
@@ -437,14 +437,24 @@ export default function NeoHeroSection() {
               <div>next.js 16</div>
             </div>
 
-            {/* Col 3: Measured Center Slot — WebGL Canvas composites & refracts TA/MiM inside this rect */}
+            {/* Col 3: Center — ghost TG monogram */}
             <div className="col-span-12 lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
               <div
-                data-mowa-logo-slot
-                className="w-[clamp(150px,18vw,250px)] aspect-[240/200] select-none pointer-events-none"
-                aria-label="TAMIM"
+                style={{
+                  fontFamily: "'Urbanist', var(--font-onest), sans-serif",
+                  fontSize: "clamp(60px, 10vw, 120px)",
+                  fontWeight: 900,
+                  letterSpacing: "-4px",
+                  color: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  userSelect: "none",
+                  pointerEvents: "none",
+                  lineHeight: 1,
+                }}
+                aria-hidden="true"
               >
-                <span className="sr-only">TAMIM GLOBAL</span>
+                TG
               </div>
             </div>
 
@@ -527,7 +537,7 @@ export default function NeoHeroSection() {
                 ))}
               </div>
 
-              {/* Manifesto Heading Text */}
+              {/* Manifesto Heading Text — name on ONE LINE */}
               <h1
                 className="text-[13px] sm:text-[15px] md:text-[17px] font-normal leading-relaxed max-w-[620px] mt-1"
                 style={{ color: isDark ? "rgba(255,255,255,0.92)" : "#0a0a0a" }}
@@ -537,6 +547,24 @@ export default function NeoHeroSection() {
                 worldwide: code with mathematical precision, motion with rhythm,
                 and experiences engineered to lead.
               </h1>
+
+              {/* NAME — one line, prominent */}
+              <div className="mt-4">
+                <div
+                  style={{
+                    fontFamily: "'Urbanist', var(--font-onest), sans-serif",
+                    fontSize: "clamp(28px, 4.5vw, 56px)",
+                    fontWeight: 900,
+                    letterSpacing: "-2px",
+                    lineHeight: 1,
+                    color: isDark ? "#ffffff" : "#0a0a0a",
+                    whiteSpace: "nowrap",
+                    display: "inline-block",
+                  }}
+                >
+                  Md Tamim Islam
+                </div>
+              </div>
 
               {/* "more about me" link */}
               <div>
