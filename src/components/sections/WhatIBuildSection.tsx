@@ -176,7 +176,7 @@ const SERVICES: ServiceData[] = [
     imageAlt: "E-Commerce Web Design & Development",
     basePrice: 100,
     baseIncludes: [
-      "Up to 20 product listings",
+      "Up to 50 product listings",
       "Shopping cart & checkout flow",
       "1 payment gateway (Stripe/PayPal)",
       "Mobile-responsive design",
@@ -193,6 +193,16 @@ const SERVICES: ServiceData[] = [
       { id: "email", label: "Email Marketing Integration", description: "Klaviyo, Mailchimp, abandoned cart flows", price: 55 },
       { id: "loyalty", label: "Loyalty & Rewards System", description: "Points, referrals, discount tiers", price: 70 },
       { id: "multivendor", label: "Multi-Vendor Marketplace", description: "Vendor onboarding, commissions, payouts", price: 120 },
+      { id: "unlimited", label: "Unlimited Product Listings", description: "No cap — add as many products as needed", price: 60 },
+      { id: "wishlist", label: "Wishlist & Save for Later", description: "User wishlists, saved carts, back-in-stock alerts", price: 30 },
+      { id: "reviews", label: "Product Reviews & Ratings", description: "Verified purchase reviews, star ratings, photo uploads", price: 35 },
+      { id: "subscription", label: "Subscription / Recurring Orders", description: "Weekly/monthly auto-billing & delivery scheduling", price: 90 },
+      { id: "livechat", label: "Live Chat Integration", description: "Intercom, Tidio or Crisp chat widget setup", price: 40 },
+      { id: "speed", label: "Performance & Speed Optimization", description: "Core Web Vitals 90+, image CDN, lazy loading", price: 55 },
+      { id: "abandoned", label: "Abandoned Cart Recovery", description: "Automated email + SMS cart abandonment flows", price: 50 },
+      { id: "pos", label: "POS / In-Store Integration", description: "Sync online store with physical point-of-sale", price: 100 },
+      { id: "ar", label: "AR Product Preview", description: "WebAR try-before-you-buy for select product types", price: 150 },
+      { id: "b2b", label: "B2B Wholesale Portal", description: "Tiered pricing, bulk orders, net-30 invoicing", price: 130 },
     ],
     deliveryDays: 14,
     accentColor: "#f84022",
@@ -524,7 +534,7 @@ function PricingPanel({ service, isDark, onClose }: PricingPanelProps) {
           >
             Add-On Features — click to select
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 480, overflowY: "auto", paddingRight: 4, scrollbarWidth: "thin", scrollbarColor: `${service.accentColor}40 transparent` }}>
             {service.addOns.map((addon) => {
               const isSelected = selectedAddOns.has(addon.id);
               return (
