@@ -3558,3 +3558,70 @@ html.tg-vt-active * {
     display: block;
   }
 }
+
+
+/* ============================================================ */
+/* Tamim Global — Ultra-Premium Service Pricing Panel           */
+/* tg-* namespace                                               */
+/* ============================================================ */
+
+/* Pricing panel responsive grid */
+.tg-pricing-grid {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 767px) {
+  .tg-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Order form grid */
+.tg-order-form-grid {
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 600px) {
+  .tg-order-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Add-on button hover states */
+.tg-pricing-panel button[type="button"]:not(.tg-order-btn):not([aria-label]):focus-visible {
+  outline: 2px solid #f84022;
+  outline-offset: 2px;
+}
+
+/* Order button hover */
+.tg-order-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.tg-order-btn:active {
+  transform: translateY(0);
+}
+
+/* Price counter smooth transition */
+.tg-price-counter {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+}
+
+/* Close button hover */
+.tg-pricing-panel button[aria-label="Close pricing panel"]:hover {
+  background: rgba(248, 64, 34, 0.15) !important;
+  color: #f84022 !important;
+}
+
+/* Input focus states */
+.tg-pricing-panel input:focus,
+.tg-pricing-panel textarea:focus {
+  border-color: rgba(248, 64, 34, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(248, 64, 34, 0.1);
+}
+
+/* Responsive: pricing panel inner padding */
+@media (max-width: 600px) {
+  .tg-pricing-panel > div {
+    padding: 20px 16px !important;
+  }
+}
