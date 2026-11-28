@@ -3628,66 +3628,172 @@ html.tg-vt-active * {
 
 
 /* ============================================================ */
-/* Tamim Global — Ultra-Premium Editorial Service Rows v3       */
+/* Tamim Global — Rebuilt "Expertise & Craft" Section           */
+/* tg-exp-* namespace (immune to legacy line-1616 resets)       */
 /* ============================================================ */
 
-/* Responsive editorial row: stack on mobile */
-@media (max-width: 860px) {
-  .tg-service-editorial-row {
-    grid-template-columns: 1fr !important;
-  }
-  .tg-service-editorial-row > div:first-child,
-  .tg-service-editorial-row > div:last-child {
-    order: unset !important;
-  }
+.tg-exp-hero-row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-
-/* Image hover scale */
-.tg-img-hover:hover {
-  transform: scale(1.04);
-}
-
-/* CTA button label slide on hover */
-.group\/cta:hover .tg-slide-label {
-  transform: translateY(-50%);
-}
-/* Fallback for group-hover utility */
-.tg-service-cta:hover .group-hover\/cta\:tg-slide-label {
-  transform: translateY(-50%);
-}
-
-/* Pricing panel responsive */
-.tg-pricing-grid {
-  grid-template-columns: 1fr 1fr;
-}
-@media (max-width: 700px) {
-  .tg-pricing-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.tg-order-form-grid {
-  grid-template-columns: 1fr 1fr;
-}
-@media (max-width: 540px) {
-  .tg-order-form-grid {
-    grid-template-columns: 1fr;
+@media (min-width: 1024px) {
+  .tg-exp-hero-row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 }
 
-/* Close button hover */
-.tg-pricing-panel button[aria-label="Close"]:hover {
-  background: rgba(248, 64, 34, 0.14) !important;
+.tg-exp-cred-cluster {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .tg-exp-cred-cluster {
+    grid-template-columns: repeat(4, minmax(0, auto));
+  }
 }
 
-/* Input focus ring */
-.tg-pricing-panel input:focus,
-.tg-pricing-panel textarea:focus {
-  border-color: rgba(248, 64, 34, 0.45) !important;
-  box-shadow: 0 0 0 3px rgba(248, 64, 34, 0.08);
+.tg-exp-tablist {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tg-exp-tablist::-webkit-scrollbar {
+  display: none;
 }
 
-/* Order button hover lift */
-.tg-pricing-panel button[type="submit"]:hover {
-  filter: brightness(1.1);
+.tg-exp-tab-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-family: "Geist Mono", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tg-exp-stage-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+@media (min-width: 1024px) {
+  .tg-exp-stage-grid {
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.92fr);
+    gap: 24px;
+  }
+}
+
+.tg-exp-left-panel {
+  padding: 24px;
+}
+@media (min-width: 768px) {
+  .tg-exp-left-panel {
+    padding: 32px;
+  }
+}
+@media (min-width: 1280px) {
+  .tg-exp-left-panel {
+    padding: 38px 40px;
+  }
+}
+
+.tg-exp-deliverables-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .tg-exp-deliverables-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tg-exp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 479px) {
+  .tg-exp-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tg-exp-showcase {
+  position: relative;
+  overflow: hidden;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1024px) {
+  .tg-exp-showcase {
+    min-height: 580px;
+  }
+}
+
+.tg-exp-primary-btn:hover {
+  filter: brightness(1.09);
   transform: translateY(-1px);
+}
+.tg-exp-primary-btn:active {
+  transform: translateY(0);
+}
+
+.tg-exp-bottom-rail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .tg-exp-bottom-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .tg-exp-bottom-rail {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+
+.tg-exp-container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 768px) {
+  .tg-exp-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.tg-exp-matrix-badge {
+  display: none;
+}
+@media (min-width: 640px) {
+  .tg-exp-matrix-badge {
+    display: inline-block;
+  }
 }

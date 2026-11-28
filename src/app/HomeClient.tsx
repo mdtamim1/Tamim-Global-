@@ -57,7 +57,7 @@ export default function HomeClient({ content }: HomeClientProps) {
         <NeoTechnologySection />
 
         {/* Section 5: Deep Expertise Interactive Tabs */}
-        <NeoExpertiseSection />
+        <NeoExpertiseSection projects={content.projects} />
 
         {/* Section 6: Why Choose Me – Oxnod-style split image reveal */}
         <WhyChooseMeSection />
